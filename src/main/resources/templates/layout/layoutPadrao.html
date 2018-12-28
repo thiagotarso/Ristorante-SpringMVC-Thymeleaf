@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+   
+   <title>TJ System</title>
+	
+    <!-- CSS-->
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!--     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/font-awesome4.7.0.min.css}"/> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/main.css}"/>
+
+    <!-- tela de comandas.. multiselecao-->
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/bootstrap-multiselect.css}"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/ristorante.css}"/>
+    
+    <link rel="shortcut icon" th:href="@{/layout/images/favicon.png}">
+  
+  </head>
+  <body class="sidebar-mini fixed sidebar-collapse">
+      <input type="hidden" name="_crsf" th:value="${_csrf.token}"/>
+      <input type="hidden" name="_crsf_header" th:value="${_csrf.headerName}"/>
+  
+    <div class="wrapper">
+       <div th:replace="/layout/menu-superior/menu-superior"></div>
+	  
+<!--        <div th:replace="/layout/menu-lateral/menuLateral"></div> -->
+      
+      <div layout:fragment="conteudo"></div>
+      
+  </div>
+    
+    <!-- Javascripts-->
+    
+    <script th:src="@{/layout/javascripts/jquery-2.1.4.min.js}"></script>
+	<script th:src="@{/layout/javascripts/bootstrap.min.js}"></script>
+	
+<!-- 	<script src="js/plugins/pace.min.js"></script> -->
+   <script th:src="@{/javascripts/vendors/jquery.masknumber.min.js}"></script> <!--  Normandes Jr -->
+   <script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+	
+	<script th:src="@{/javascripts/vendors/numeral.min.js}"></script>
+    <script th:src="@{/javascripts/vendors/pt-br.min.js}"></script>
+	
+	<script th:src="@{/layout/javascripts/main.js}"></script>
+	<script th:src="@{/layout/javascripts/screenfull.js}"></script>
+		
+	<script th:src="@{/javascripts/Ristorante.js}"></script>
+    
+ 
+  <th:block layout:fragment="javascript-extra"></th:block>
+	
+	<script>
+		$(function () {
+			$('#toggle').click(function () {
+				screenfull.toggle($('#container')[0]);
+			});	
+		});
+		</script>
+  </body>
+</html>

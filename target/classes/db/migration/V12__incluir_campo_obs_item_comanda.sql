@@ -1,0 +1,1 @@
+ALTER TABLE item_comanda ADD COLUMN observacoes CHARACTER VARYING(100);

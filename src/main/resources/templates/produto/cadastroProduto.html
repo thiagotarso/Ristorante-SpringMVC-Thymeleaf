@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao">
+
+<head>
+<title>Cadastro de Produtos</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+		<div class="content-wrapper">
+			<div class="page-title">
+				<div>
+					<h1>
+						<i class="fa fa-dashboard"></i> Mesas
+					</h1>
+				</div>
+				<div>
+					<ul class="breadcrumb">
+						<li><i class="fa fa-home fa-lg"></i></li>
+						<li><a href="#">cadastro Cliente</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+
+						<form method="POST" th:object="${produto}" th:action="@{/produto/novo}">
+							<fieldset>
+								<legend>Basico</legend>
+								<div class="row">
+									<div class="col-sm-2">
+
+										<label class="control-label">Cod.</label> <input
+											class="form-control" type="text" th:field="*{id}"
+											disabled="disabled">
+
+									</div>
+
+									<div class="col-sm-6" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+										<label class="control-label" for="inputProduto">Descrição:</label>
+										<input class="form-control" type="text" th:field="*{descricao}">
+									</div>
+									
+									<div class="col-sm-2" th:classappend="${#fields.hasErrors('categoria')} ? has-error">
+													<label class="control-label" for="selectCategoria">Mesa:</label>
+
+										<select class="form-control" id="selectCategoria" th:field="*{categoria}">
+											<option value="">Selecione uma mesa</option>
+											<option th:each="categoria : ${categorias}" th:value="${categoria.id}" 
+											   th:text="${categoria.descricao}">mesa 1</option>
+											   
+										</select>
+									</div>
+
+									<div class="col-sm-2" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+										<label class="control-label " for="inputValor">Valor:</label> 
+										<input 	class="form-control js-decimal" type="text" th:field="*{valor}">
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-2 form-group">
+										<button class="btn btn-primary" type="submit">Submit</button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao">
+
+<head>
+<title>Cadastro de Produtos</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+		<div class="content-wrapper">
+			<div class="page-title">
+				<div>
+					<h1>
+						<i class="fa fa-dashboard"></i> Mesa
+					</h1>
+				</div>
+				<div>
+					<ul class="breadcrumb">
+						<li><i class="fa fa-home fa-lg"></i></li>
+						<li><a href="#">cadastro Mesa</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+
+						<form method="POST" th:object="${mesa}" th:action="@{/mesa/nova}">
+							<fieldset>
+								<legend>Basico</legend>
+								<div class="row">
+									<div class="col-sm-2">
+
+										<label class="control-label">Cod.</label> <input
+											class="form-control" type="text" th:field="*{id}"
+											disabled="disabled">
+
+									</div>
+
+									<div class="col-sm-5"
+										th:classappend="${#fields.hasErrors('numeroMesa')} ? has-error">
+										<label class="control-label" for="inputProduto">Numero
+											Mesa:</label> <input class="form-control" type="text"
+											th:field="*{numeroMesa}">
+									</div>
+
+									<div class="col-lg-4">
+										<label class="control-label" for="select">Status:</label>
+
+										<select class="form-control" id="select" th:field="*{situacaoMesa}">
+											<option th:each="situacao: ${SituacaoMesa}" th:value="${situacao}" th:text="${situacao.descricao}">Livre</option>
+										</select>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-2 form-group">
+										<button class="btn btn-primary" type="submit">Submit</button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
