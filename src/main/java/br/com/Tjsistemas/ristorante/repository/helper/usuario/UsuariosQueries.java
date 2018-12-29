@@ -14,5 +14,5 @@ public interface UsuariosQueries {
 
 	public List<EmpresaUsuario> BuscarEmpresaUsuario(Usuario usuario);
 
-	public Long codigoUsuario(Usuario usuarioAutenticado);
+	public Long codigoUsuario(Long codigoEmpresa);
 }

@@ -15,6 +15,8 @@ public class ClienteService {
 	
 	@Transactional
 	public Cliente salvar(Cliente cliente){
+		
+		cliente.setCodigo(clientes.codigoCliente(cliente.getEmpresa()));
 		return clientes.save(cliente);
 	}
 }

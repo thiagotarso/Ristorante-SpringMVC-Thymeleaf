@@ -30,7 +30,8 @@
 
          <th:block th:include="fragments/MensagemSucesso"></th:block>
 		<form  method="POST" th:object="${cliente}" th:action="@{/cliente/novo}">
-		   <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
+		    <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
+			
 			<div class="row">
 				<div class="col-md-12">
 

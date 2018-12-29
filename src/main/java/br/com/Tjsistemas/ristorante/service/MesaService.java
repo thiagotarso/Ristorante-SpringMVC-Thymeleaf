@@ -15,6 +15,8 @@ public class MesaService {
 	
 	@Transactional
 	public Mesa salve(Mesa mesa){
+		
+		mesa.setCodigo(mesas.codigoMesa(mesa.getEmpresa()));
 		return mesas.saveAndFlush(mesa);
 	}
 }

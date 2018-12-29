@@ -18,6 +18,16 @@ public class MesasImpl implements MesasQueries {
 	@PersistenceContext
 	private EntityManager manager;
 	
+	
+	public Long codigoMesa(Long codigoMesa) {
+		Long valor = manager.createQuery("select max(m.codigo) from Mesa m where m.empresa = :emp", Long.class)
+				.setParameter("emp", codigoMesa)
+				.getSingleResult();
+	  				
+		return valor + 1L;
+	}
+	
+	
 	@SuppressWarnings({ "static-access", "unchecked" })
 	@Transactional(readOnly = true)
 	public List<Mesa> mesasLivres() {

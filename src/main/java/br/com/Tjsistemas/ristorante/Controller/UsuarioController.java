@@ -53,7 +53,6 @@ public class UsuarioController {
 			       @AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes) {
 	
 		if (bindingResult.hasErrors()) {
-			System.out.println("deu erro!");
 			return novo(usuario);
 		}
 		try {

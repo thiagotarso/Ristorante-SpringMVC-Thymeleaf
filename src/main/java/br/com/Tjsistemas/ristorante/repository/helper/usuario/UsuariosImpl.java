@@ -21,9 +21,9 @@ public class UsuariosImpl implements UsuariosQueries {
 	private EntityManager manager;
 	
 	@Override
-	public Long codigoUsuario(Usuario usuarioAutenticado) {
+	public Long codigoUsuario(Long codigoEmpresa) {
 		Long valor = manager.createQuery("select max(u.codigo) from Usuario u where u.empresa = :emp", Long.class)
-				.setParameter("emp", usuarioAutenticado.getEmpresa())
+				.setParameter("emp", codigoEmpresa)
 				.getSingleResult();
 		
 		return  valor + 1L;

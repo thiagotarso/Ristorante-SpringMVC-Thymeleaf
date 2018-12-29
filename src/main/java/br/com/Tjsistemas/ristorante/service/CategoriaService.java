@@ -16,7 +16,6 @@ public class CategoriaService {
 	
 	@Transactional
 	public void salvar(Categoria categoria) {
-		
 		categorias.save(categoria);
 	}
 }

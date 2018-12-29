@@ -15,6 +15,7 @@ public class CamareiroService {
 	
 	@Transactional
 	public void salvar(Camareiro camareiro){
-	    camareiros.save(camareiro);	
+	    camareiro.setCodigo(camareiros.codigoCamareiros(camareiro.getEmpresa()));
+		camareiros.save(camareiro);	
 	}
 }

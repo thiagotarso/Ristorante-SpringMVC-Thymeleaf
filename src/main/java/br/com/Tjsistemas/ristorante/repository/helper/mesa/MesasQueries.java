@@ -7,4 +7,5 @@ import br.com.Tjsistemas.ristorante.model.Mesa;
 public interface MesasQueries {
 
 	public List<Mesa> mesasLivres();
+	public Long codigoMesa(Long codigoMesa);
 }
