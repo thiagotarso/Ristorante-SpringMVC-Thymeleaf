@@ -16,6 +16,8 @@ public class CategoriaService {
 	
 	@Transactional
 	public void salvar(Categoria categoria) {
+		
+		categoria.setCodigo(categorias.codigoCategorias(categoria.getEmpresa()));
 		categorias.save(categoria);
 	}
 }

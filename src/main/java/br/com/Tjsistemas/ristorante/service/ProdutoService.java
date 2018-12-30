@@ -15,6 +15,7 @@ public class ProdutoService {
   
   @Transactional
   public Produto salvar(Produto produto){
+	  produto.setCodigo(produtos.codigoProduto(produto.getEmpresa()));
 	  return produtos.saveAndFlush(produto);
   }
 }

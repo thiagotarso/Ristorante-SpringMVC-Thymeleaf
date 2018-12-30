@@ -14,6 +14,16 @@ public class ProdutosImpl implements ProdutosQueries {
 	private EntityManager manager;
 
 	@Override
+	public Long codigoProduto(Long codigoProduto) {
+       Long valor = manager.createQuery("select max(p.codigo) from Produto p where p.empresa = :emp", Long.class)
+    		   .setParameter("emp", codigoProduto)
+    		   .getSingleResult();
+		
+		return valor +1;
+	}
+	
+	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Produto> porDescricao(String descricao) {
 		String jpql = "Select * From Produto "

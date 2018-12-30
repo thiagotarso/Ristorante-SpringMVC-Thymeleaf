@@ -36,13 +36,15 @@
 					<div class="card">
 
 						<form method="POST" th:object="${categoria}" th:action="@{/categoria/nova}">
+						<input type="hidden" th:field="*{id}">
+
 							<fieldset>
 								<legend>Basico</legend>
 								<div class="row">
 									<div class="col-sm-2">
 
 										<label class="control-label">Cod.</label> <input
-											class="form-control" type="text" th:field="*{id}"
+											class="form-control" type="text" th:field="*{codigo}"
 											disabled="disabled">
 
 									</div>
