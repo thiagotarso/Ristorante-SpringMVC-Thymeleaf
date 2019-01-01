@@ -1,3 +1,13 @@
+######################################
+# CUSTOMIZACAO DE COMPONENTES
+######################################
+*/
+
+.checkbox input[type="checkbox"]:checked + input + label::after {
+    font-family: 'FontAwesome';
+    content: "\f00c"; 
+}
+
 /*####################
   ####   PRODUTOS ####                 
 ######################  **/	

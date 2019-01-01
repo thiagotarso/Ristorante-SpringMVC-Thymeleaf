@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao">
+
+<head>
+<title>Cadastro de Clientes</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+ <!-- 		<form  method="POST" th:object="${cliente}" th:action="@{/cliente/novo}"> -->
+<!-- 		  </form> -->
+
+     <div class="content-wrapper">
+        <div class="page-title">
+          <div>
+            <h1><i class="fa fa-th-list"></i> Tabela Cliente</h1>
+             <!-- <p>Basic bootstrap tables</p> -->
+          </div>
+          <div>
+            <ul class="breadcrumb">
+              <li><i class="fa fa-home fa-lg"></i></li>
+              <li>Tables</li>
+              <li class="active"><a href="#">Simple Tables</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          
+          <div class="col-md-12">
+            <div class="card">
+             <!-- <h3 class="card-title">Tabela Cliente</h3> -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Cod.</th>
+                    <th>Razon Social</th>
+                    <th>doc.</th>
+                    <th>E-mail</th>
+                    <th class="text-center">telefone</th>
+                    <th class="text-right">acoes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="cliente : ${listaClientes}">
+                    <td th:text="${cliente.codigo}">1</td>
+                    <td th:text="${cliente.nome}">Mark</td>
+                    <td th:text="${cliente.numeroDocumento}">Otto</td>
+                    <td th:text="${cliente.email}">Mark</td>
+                    <td class="text-center" th:text="${cliente.telefone}">@mdo</td>
+                    
+                    	<td class="text-right" >
+							<a class="btn  btn-link  btn-xs" title="Editar" > 
+								<i class="fa fa-pencil"></i>
+							</a>
+						</td>
+                  </tr>
+                  
+<!--                   <tr th:if="${pagina.vazia}"> -->
+<!-- 					  <td colspan="7">Nenhum Produto Cadastrado!</td> -->
+<!-- 					</tr> -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+       </div>
+
+	</div>
+</body>
+</html>

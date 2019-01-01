@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.Tjsistemas.ristorante.model.Categoria;
 import br.com.Tjsistemas.ristorante.model.Usuario;
+import br.com.Tjsistemas.ristorante.repository.Categorias;
 import br.com.Tjsistemas.ristorante.service.CategoriaService;
 
 @Controller
@@ -24,6 +26,9 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 
+	@Autowired
+	private Categorias categorias;
+	
 	@GetMapping("/nova")
 	public ModelAndView novo(Categoria categoria){
 		ModelAndView mv = new ModelAndView("categoria/cadastroCategoria");
@@ -44,5 +49,13 @@ public class CategoriaController {
 	    attributes.addFlashAttribute("mensagem", "categoria salvo com Sucesso!");   
 		
 		return  new ModelAndView("categoria/cadastroCategoria"); 
+	}
+	@GetMapping("/{id}")
+	public ModelAndView editar(@PathVariable Long id) {
+		Categoria categoria = categorias.findOne(id);
+		
+		ModelAndView mv = novo(categoria);
+		mv.addObject(categoria);
+		return mv;
 	}
 }

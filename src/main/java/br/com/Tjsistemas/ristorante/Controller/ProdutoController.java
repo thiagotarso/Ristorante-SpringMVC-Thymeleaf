@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,6 +64,16 @@ public class ProdutoController {
 		attributes.addFlashAttribute("mensagem", "Produto salvo com Sucesso!"); 
 		return new ModelAndView("redirect:/produto/novo");
 	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView editar(@PathVariable Long id) {
+	 Produto produto = produtos.findOne(id);
+		
+	 ModelAndView mv = novo(produto);
+	 mv.addObject(produto);	
+	 return mv;
+	}
+	
 	
 	@RequestMapping(consumes= {MediaType.APPLICATION_JSON_VALUE})
 	private @ResponseBody List<Produto> listaProdutos(String categoria){

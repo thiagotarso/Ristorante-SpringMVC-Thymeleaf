@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,6 +60,24 @@ public class ClienteController {
 	attributes.addFlashAttribute("mensagem", "Cliente Cadastrado Com Sucesso!");   
 	return new ModelAndView("redirect:/cliente/novo");
     }
+   
+   @GetMapping("/{id}")
+   private ModelAndView editar(@PathVariable Long id) {
+      Cliente cliente = clientes.findOne(id);
+      
+      ModelAndView mv = novo(cliente);
+      mv.addObject(cliente);
+      return mv;
+   }
+   
+	@GetMapping
+	 public ModelAndView pesquisar() {
+		  ModelAndView mv = new ModelAndView("/cliente/pesquisaClientes");
+		  mv.addObject("listaClientes", clientes.findAll());
+		  
+		  return mv;
+	}
+    
 	
 	@RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Cliente> ListaClientes(String nome){

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.Tjsistemas.ristorante.model.Camareiro;
 import br.com.Tjsistemas.ristorante.model.Usuario;
+import br.com.Tjsistemas.ristorante.repository.Camareiros;
 import br.com.Tjsistemas.ristorante.service.CamareiroService;
 
 @Controller
@@ -23,6 +25,9 @@ public class CamareiroController {
 	
 	@Autowired
 	private CamareiroService camareiroService;
+	
+	@Autowired
+	private Camareiros camareiros;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Camareiro camareiro) {
@@ -49,4 +54,13 @@ public class CamareiroController {
 	  attributes.addFlashAttribute("mensagem", "Camareiro salvo com Sucesso!");  
 	  return new ModelAndView("redirect:/camareiro/novo"); 
    }
+   
+   @GetMapping("/{id}")
+   public ModelAndView editar(@PathVariable Long id) {
+	 Camareiro camareiro = camareiros.findOne(id);
+	   
+	 ModelAndView mv = novo(camareiro);
+     mv.addObject(camareiro);	   
+	 return mv;
+  }
 }
