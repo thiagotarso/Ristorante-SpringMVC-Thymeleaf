@@ -42,6 +42,7 @@ import br.com.Tjsistemas.ristorante.Controller.converter.GrupoConverter;
 import br.com.Tjsistemas.ristorante.Controller.converter.MesaConverter;
 import br.com.Tjsistemas.ristorante.Controller.converter.ProdutoConverter;
 import br.com.Tjsistemas.ristorante.session.TabelaItensSession;
+import br.com.Tjsistemas.ristorante.thymeleaf.RistoranteDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
@@ -73,7 +74,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 			engine.setTemplateResolver(templateResolver());
 			
 			engine.addDialect(new LayoutDialect()); // add layout
-//			engine.addDialect(new TJsistemasDialect()); // tags
+			engine.addDialect(new RistoranteDialect()); // tags
 			engine.addDialect(new DataAttributeDialect());
 			engine.addDialect(new SpringSecurityDialect());
 			return engine;

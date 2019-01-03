@@ -63,4 +63,6 @@ public class CamareiroController {
      mv.addObject(camareiro);	   
 	 return mv;
   }
+   
+   
 }

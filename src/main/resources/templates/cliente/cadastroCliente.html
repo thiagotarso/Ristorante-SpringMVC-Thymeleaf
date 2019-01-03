@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/layoutPadrao">
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
 <title>Cadastro de Clientes</title>
@@ -41,17 +42,17 @@
 								<legend>Basico</legend>
 								<div class="row">
 								
-								 <div class="col-sm-2">
+								 <div class="col-sm-2" ristorante:classforerror="codigo">
 									<label class="control-label">CODIGO</label> 
 									<input class="form-control" type="text" th:field="*{codigo}">
 								 </div>
 
-									 <div class="col-sm-5" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+									 <div class="col-sm-5" ristorante:classforerror="nome" >
 											<label class="control-label">RAZÓN
 												SOCIAL/NOMBRE</label> <input class="form-control" type="text"  th:field="*{nome}">
 									</div>
 
-									<div class="col-sm-5" th:classappend="${#fields.hasErrors('nomeFantasia')} ? has-error">
+									<div class="col-sm-5" ristorante:classforerror="nomeFantasia">
 										<label class="control-label" >NOM. COMERCIAL</label> 
 											<input class="form-control" type="text" th:field="*{nomeFantasia}">
 									</div>
@@ -60,18 +61,18 @@
 
 								<div class="row">
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('numeroDocumento')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="numeroDocumento">
 											<label class="control-label">N°
 												DOCUMENTO</label> <input class="form-control" type="text"
 												placeholder="999.999.999-99" th:field="*{numeroDocumento}">
 									</div>
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('email')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="email">
 										<label class="control-label" >E-Mail</label> <input
 										class="form-control" type="text" th:field="*{email}" >
 									</div>
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('telefone')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="telefone">
 										<label class="control-label">TELÉFONO</label>
 										<input class="form-control" type="text" th:field="*{telefone}">
 									</div>
@@ -90,18 +91,18 @@
 								<legend>Dirección</legend>
 								<div class="row">
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('cep')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="cep">
 										<label class="control-label" >COD.POSTAL</label>
 											 <input class="form-control" type="text"
 											placeholder="99999" th:field="*{cep}">
 									</div>
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('provincia')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="provincia">
 										<label class="control-label">PROVINCIA</label>
 										<input class="form-control" type="text" th:field="*{provincia}">
 									</div>
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('localidad')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="localidad">
 										<label class="control-label" for="inputEmail">LOCALIDAD</label>
 										<input class="form-control" type="text" th:field="*{localidad}">
 									</div>
@@ -109,12 +110,12 @@
 								</div>
 
 								<div class="row  form-group">
-									<div class="col-sm-8" th:classappend="${#fields.hasErrors('direcion')} ? has-error">
+									<div class="col-sm-8" ristorante:classforerror="direcion">
 										<label class="control-label">DIRECCIÓN</label>
 										<input class="form-control" type="text" th:field="*{direcion}">
 									</div>
 
-									<div class="col-sm-4" th:classappend="${#fields.hasErrors('numero')} ? has-error">
+									<div class="col-sm-4" ristorante:classforerror="numero">
 										<label class="control-label">NÚMERO</label> <input
 											class="form-control" type="text" th:field="*{numero}">
 									</div>
@@ -122,7 +123,7 @@
 								</div>
 
 								<div class="row">
-									<div class="col-sm-3" th:classappend="${#fields.hasErrors('fornecerdor')} ? has-error">
+									<div class="col-sm-3" ristorante:classforerror="fornecerdor">
 									
 									<!--Checkbox Markup-->
 								   	 <div>
@@ -133,16 +134,15 @@
 									 </div>
 									</div>
 								</div>
-							</fieldset>
-					</div>
-			
-				 <div class="card">	
-					<div class="row">
+								
+								<div class="row">
 						<div class="col-sm-2">
 							<button class="btn btn-primary" type="submit">Submit</button>
 						</div>
 					</div>
-				 </div>	
+								
+							</fieldset>
+					</div>
 				</div>
 
 			</div>

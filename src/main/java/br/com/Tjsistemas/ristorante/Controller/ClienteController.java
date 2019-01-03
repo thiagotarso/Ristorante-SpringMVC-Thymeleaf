@@ -2,9 +2,12 @@ package br.com.Tjsistemas.ristorante.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Cliente;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Clientes;
+import br.com.Tjsistemas.ristorante.repository.filter.ClienteFilter;
 import br.com.Tjsistemas.ristorante.service.ClienteService;
 
 @Controller
@@ -71,13 +76,15 @@ public class ClienteController {
    }
    
 	@GetMapping
-	 public ModelAndView pesquisar() {
+	 public ModelAndView pesquisar(ClienteFilter clientefilter, BindingResult result,
+			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/cliente/pesquisaClientes");
-		  mv.addObject("listaClientes", clientes.findAll());
+		  
+		  PageWrapper<Cliente> paginasWrapper = new PageWrapper<>(clientes.filtrar(clientefilter, pageable), httpServletRequest);
+ 		  mv.addObject("pagina", paginasWrapper);
 		  
 		  return mv;
 	}
-    
 	
 	@RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Cliente> ListaClientes(String nome){

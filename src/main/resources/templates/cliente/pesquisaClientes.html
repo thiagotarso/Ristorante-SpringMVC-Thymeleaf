@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/layoutPadrao">
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
 <title>Cadastro de Clientes</title>
@@ -12,9 +13,6 @@
 
 	<div layout:fragment="conteudo">
 		<div th:replace="/layout/menu-lateral/menuLateral"></div>
-
- <!-- 		<form  method="POST" th:object="${cliente}" th:action="@{/cliente/novo}"> -->
-<!-- 		  </form> -->
 
      <div class="content-wrapper">
         <div class="page-title">
@@ -31,6 +29,43 @@
           </div>
         </div>
         <div class="row">
+        
+          <div class="col-md-12">
+            <div class="card">
+          
+               <form class="form-horizontal" method="GET" th:object=${clienteFilter}>
+             
+              		  
+          <div class="row"> 
+            
+            <div class="col-sm-2">
+              <label class="control-label" >COD.</label>
+                          <input class="form-control" type="text" th:field="*{codigo}">
+              </div> 
+
+             <div class="col-sm-3">
+              <label class="control-label" >NOMBRE</label>
+                          <input class="form-control"  type="text" th:field="*{nome}">
+            </div> 
+            <div class="col-sm-2">
+              <label class="control-label" >DOC.</label>
+                          <input class="form-control"  type="text" th:field="*{documento}">
+            </div> 
+           
+           <div class="col-sm-3">		  
+               <label class="control-label" >E-Mail</label>
+                       <input class="form-control"  type="text" th:field="*{email}">
+            </div> 
+
+            <div class="col-sm-2 text-center" >		  
+              <button class="btn btn-primary " style="margin-top:3rem" type="submit">Submit</button>
+           </div> 
+                  
+        </div> 
+          
+             </form>
+            </div>
+        </div>
           
           <div class="col-md-12">
             <div class="card">
@@ -38,7 +73,10 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Cod.</th>
+                    <th>
+<!--                         <th:block th:replace="fragments/Ordenacao :: order (${pagina}, 'codigo', 'COD.')"></th:block> -->
+                             <ristorante:order page="${pagina}" field="codigo" text="COD."/>        
+                    </th>
                     <th>Razon Social</th>
                     <th>doc.</th>
                     <th>E-mail</th>
@@ -47,7 +85,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="cliente : ${listaClientes}">
+                  <tr th:each="cliente : ${pagina.conteudo}">
                     <td th:text="${cliente.codigo}">1</td>
                     <td th:text="${cliente.nome}">Mark</td>
                     <td th:text="${cliente.numeroDocumento}">Otto</td>
@@ -61,12 +99,14 @@
 						</td>
                   </tr>
                   
-<!--                   <tr th:if="${pagina.vazia}"> -->
-<!-- 					  <td colspan="7">Nenhum Produto Cadastrado!</td> -->
-<!-- 					</tr> -->
+                  <tr th:if="${pagina.vazia}">
+					  <td colspan="7">Nenhum Cliente Cadastrado!</td>
+					</tr>
                 </tbody>
               </table>
             </div>
+               <ristorante:pagination page="${pagina}"/>
+            
           </div>
         </div>
        </div>
