@@ -6,7 +6,7 @@
 	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
-<title>Cadastro de Clientes</title>
+<title>Categorias</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
      <div class="content-wrapper">
         <div class="page-title">
           <div>
-            <h1><i class="fa fa-th-list"></i>Busca Categorias</h1>
+            <h1><i class="fa fa-th-list"></i> Busca Categorias</h1>
              <!-- <p>Basic bootstrap tables</p> -->
           </div>
           <div>
@@ -34,11 +34,11 @@
           <div class="col-md-12">
             <div class="card">
           
-         <form class="form-horizontal" method="GET" th:object=${categoriafilter}>
+         <form class="form-horizontal" method="GET" th:object=${categoriaFilter}>
               		  
           <div class="row"> 
             
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-sm-offset-2">
               <label class="control-label" >COD.</label>
                    <input class="form-control" type="text" th:field="*{codigo}">
               </div> 
@@ -84,7 +84,7 @@
                   </tr>
                   
                   <tr th:if="${pagina.vazia}">
-					  <td colspan="7">Nenhum Cliente Cadastrado!</td>
+					  <td colspan="7">Nenhuma Categoria Cadastrada!</td>
 					</tr>
                 </tbody>
               </table>

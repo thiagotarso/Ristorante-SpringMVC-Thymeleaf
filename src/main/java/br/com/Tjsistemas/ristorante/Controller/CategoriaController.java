@@ -21,7 +21,7 @@ import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Categoria;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
-import br.com.Tjsistemas.ristorante.repository.filter.Categoriafilter;
+import br.com.Tjsistemas.ristorante.repository.filter.CategoriaFilter;
 import br.com.Tjsistemas.ristorante.service.CategoriaService;
 
 @Controller
@@ -58,7 +58,7 @@ public class CategoriaController {
 	
 	   
 	@GetMapping
-	 public ModelAndView pesquisar(Categoriafilter categoriafilter, BindingResult result,
+	 public ModelAndView pesquisar(CategoriaFilter categoriafilter, BindingResult result,
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/categoria/pesquisaCategoria");
 		  

@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/layoutPadrao">
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
 <title>Lista de Usuarios</title>
@@ -28,41 +29,77 @@
 		          </div>
 		       </div>
 
-		<form  method="GET" >  
-<!-- 		th:object="${clientesFilter}"> -->
-
-		
 		        <div class="row">
-		          
-		          <div class="clearfix"></div>
-		          <div class="col-md-12">
-		            <div class="card">
-		              <div class="table-responsive">
-		                <table class="table">
-		                  <thead>
-		                    <tr>
-		                      <th>Codigo</th>
-		                      <th>Nome</th>
-		                      <th>Email</th>
-		                      <th>Ativo</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody>
-		                    <tr th:each="usuario : ${usuarios}">
-		                      <td th:text="${usuario.id}" th:class="hidden">1</td>
-		                      <td th:text="${usuario.codigo}">1</td>
-		                      <td th:text="${usuario.nome}">Mark</td>
-		                      <td th:text="${usuario.email}">Otto@hotmail.com</td>
-		                      <td th:text="${usuario.ativo}">1</td>
-		                    </tr>
-		                  </tbody>
-		                </table>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
+		        
+		         <div class="col-md-12">
+     <div class="card">
+          
+        <form class="form-horizontal" method="GET" th:object=${usuarioFilter}>
+          <div class="row"> 
+            
+            <div class="col-sm-2">
+              <label class="control-label" >COD.</label>
+                          <input class="form-control" type="text" th:field="*{codigo}">
+              </div> 
 
-		  </form>
+             <div class="col-sm-3">
+              <label class="control-label" >NOMBRE</label>
+                          <input class="form-control"  type="text" th:field="*{nome}">
+            </div> 
+           
+           <div class="col-sm-3">		  
+               <label class="control-label" >E-Mail</label>
+                       <input class="form-control"  type="text" th:field="*{email}">
+            </div> 
+
+            <div class="col-sm-2 text-center" >		  
+              <button class="btn btn-primary " style="margin-top:3rem" type="submit">Submit</button>
+           </div> 
+                  
+         </div> 
+        </form>
+      </div>
+    </div>
+    
+              <div class="col-md-12">
+            <div class="card">
+             <!-- <h3 class="card-title">Tabela Cliente</h3> -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                       <ristorante:order page="${pagina}" field="codigo" text="COD."/>        
+                    </th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ativo</th>
+                    <th class="text-right">acoes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="usuario : ${pagina.conteudo}">
+                    <td th:text="${usuario.codigo}">1</td>
+                    <td th:text="${usuario.nome}">Mark</td>
+		            <td th:text="${usuario.email}">Otto@hotmail.com</td>
+		            <td th:text="${usuario.ativo}">1</td>
+		            
+                    	<td class="text-right" >
+							<a class="btn  btn-link  btn-xs" title="Editar" > 
+								<i class="fa fa-pencil"></i>
+							</a>
+						</td>
+                  </tr>
+                  
+                  <tr th:if="${pagina.vazia}">
+					  <td colspan="7">Nenhum Cliente Cadastrado!</td>
+					</tr>
+                </tbody>
+              </table>
+            </div>
+               <ristorante:pagination page="${pagina}"/>
+            
+          </div>
+          </div> 
 		</div>
 	</div>
 </body>

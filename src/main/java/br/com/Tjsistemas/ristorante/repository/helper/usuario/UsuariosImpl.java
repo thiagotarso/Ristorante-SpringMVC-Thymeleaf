@@ -8,17 +8,30 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import br.com.Tjsistemas.ristorante.model.EmpresaUsuario;
 import br.com.Tjsistemas.ristorante.model.Usuario;
+import br.com.Tjsistemas.ristorante.repository.filter.UsuarioFilter;
+import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
 
 public class UsuariosImpl implements UsuariosQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 	
 	@Override
 	public Long codigoUsuario(Long codigoEmpresa) {
@@ -54,4 +67,47 @@ public class UsuariosImpl implements UsuariosQueries {
         
 		return (List<EmpresaUsuario>) criteria.list();
 	} 
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	@Override
+	public Page<Usuario> filtrar(UsuarioFilter filtro, Pageable pageable) {
+		Criteria criteria =  manager.unwrap(Session.class).createCriteria(Usuario.class);
+		
+        paginacaoUtil.preparar(criteria, pageable);		
+		adicionarFiltro(filtro, criteria);
+		
+		
+		Sort sort = pageable.getSort();
+		if (sort != null) {
+			Sort.Order order = sort.iterator().next();
+			String property = order.getProperty();
+			criteria.addOrder(order.isAscending()? Order.asc(property) : Order.desc(property));
+		}
+		
+		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+	}
+	
+	private Long total(UsuarioFilter filtro) {
+		   Criteria criteria =  manager.unwrap(Session.class).createCriteria(Usuario.class);
+		   adicionarFiltro(filtro, criteria);
+		   criteria.setProjection(Projections.rowCount());
+			return (Long) criteria.uniqueResult();
+		}
+	
+	
+	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
+		//filtros vindo da tela 
+		if (filtro != null) {
+			if (!StringUtils.isEmpty(filtro.getCodigo())) {
+				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
+			}
+			if (!StringUtils.isEmpty(filtro.getNome())) {
+				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE)); //  MatchMode.ANYWHER funciona como %%
+			}
+			if (!StringUtils.isEmpty(filtro.getEmail())) {
+				criteria.add(Restrictions.ilike("email", filtro.getEmail(),  MatchMode.ANYWHERE));
+			}
+		}
+	}
 }

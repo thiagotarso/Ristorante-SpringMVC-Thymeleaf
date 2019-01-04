@@ -66,6 +66,17 @@ public class ClienteController {
 	return new ModelAndView("redirect:/cliente/novo");
     }
    
+	@GetMapping
+	 public ModelAndView pesquisar(ClienteFilter clientefilter, BindingResult result,
+			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
+		  ModelAndView mv = new ModelAndView("/cliente/pesquisaClientes");
+		  
+		  PageWrapper<Cliente> paginasWrapper = new PageWrapper<>(clientes.filtrar(clientefilter, pageable), httpServletRequest);
+		  mv.addObject("pagina", paginasWrapper);
+		  
+		  return mv;
+	}
+   
    @GetMapping("/{id}")
    private ModelAndView editar(@PathVariable Long id) {
       Cliente cliente = clientes.findOne(id);
@@ -75,17 +86,6 @@ public class ClienteController {
       return mv;
    }
    
-	@GetMapping
-	 public ModelAndView pesquisar(ClienteFilter clientefilter, BindingResult result,
-			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
-		  ModelAndView mv = new ModelAndView("/cliente/pesquisaClientes");
-		  
-		  PageWrapper<Cliente> paginasWrapper = new PageWrapper<>(clientes.filtrar(clientefilter, pageable), httpServletRequest);
- 		  mv.addObject("pagina", paginasWrapper);
-		  
-		  return mv;
-	}
-	
 	@RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Cliente> ListaClientes(String nome){
 		validarTamanhoNome(nome);

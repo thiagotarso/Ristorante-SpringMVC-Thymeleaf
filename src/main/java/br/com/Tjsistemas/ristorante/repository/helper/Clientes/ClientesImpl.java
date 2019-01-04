@@ -76,11 +76,12 @@ public class ClientesImpl implements ClientesQueries{
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE)); //  MatchMode.ANYWHER funciona como %%
 			}
 			if (!StringUtils.isEmpty(filtro.getDocumento())) {
-				criteria.add(Restrictions.ilike("documento", filtro.getDocumento()));
+				criteria.add(Restrictions.ilike("numeroDocumento", filtro.getDocumento(), MatchMode.ANYWHERE));
 			}
 			if (!StringUtils.isEmpty(filtro.getEmail())) {
-				criteria.add(Restrictions.ilike("email", filtro.getEmail()));
+				criteria.add(Restrictions.ilike("Email", filtro.getEmail(), MatchMode.ANYWHERE));
 			}
 		}
+		criteria.add(Restrictions.eq("empresa", 1L));
 	}
 }

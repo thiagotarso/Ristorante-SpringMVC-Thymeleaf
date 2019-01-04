@@ -1,6 +1,6 @@
 package br.com.Tjsistemas.ristorante.repository.filter;
 
-public class Categoriafilter {
+public class CategoriaFilter {
 
 	public Long codigo;
 	public String descricao;

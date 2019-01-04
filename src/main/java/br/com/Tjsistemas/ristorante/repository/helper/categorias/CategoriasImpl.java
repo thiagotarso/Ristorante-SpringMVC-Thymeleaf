@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.Tjsistemas.ristorante.model.Categoria;
-import br.com.Tjsistemas.ristorante.repository.filter.Categoriafilter;
+import br.com.Tjsistemas.ristorante.repository.filter.CategoriaFilter;
 import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
 
 public class CategoriasImpl implements CategoriasQueries {
@@ -42,7 +42,7 @@ public class CategoriasImpl implements CategoriasQueries {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public Page<Categoria> filtrar(Categoriafilter filtro, Pageable pageable) {
+	public Page<Categoria> filtrar(CategoriaFilter filtro, Pageable pageable) {
 		Criteria criteria =  manager.unwrap(Session.class).createCriteria(Categoria.class);
 		
         paginacaoUtil.preparar(criteria, pageable);		
@@ -59,7 +59,7 @@ public class CategoriasImpl implements CategoriasQueries {
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 	
-	private Long total(Categoriafilter filtro) {
+	private Long total(CategoriaFilter filtro) {
 		   Criteria criteria =  manager.unwrap(Session.class).createCriteria(Categoria.class);
 		   adicionarFiltro(filtro, criteria);
 		   criteria.setProjection(Projections.rowCount());
@@ -67,7 +67,7 @@ public class CategoriasImpl implements CategoriasQueries {
 		}
 	
 	
-	private void adicionarFiltro(Categoriafilter filtro, Criteria criteria) {
+	private void adicionarFiltro(CategoriaFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
