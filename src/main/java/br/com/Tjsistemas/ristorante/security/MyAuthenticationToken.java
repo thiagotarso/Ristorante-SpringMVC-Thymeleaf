@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.Tjsistemas.ristorante.model.Usuario;
 
@@ -15,13 +14,14 @@ public class MyAuthenticationToken extends UsernamePasswordAuthenticationToken {
 	@Autowired
 	private Usuario usuario;
    
-	public MyAuthenticationToken(UserDetails usuarioDetails, Collection<? extends GrantedAuthority> authorities, Usuario usuarioSessao) {
-		super(usuarioDetails.getUsername() , usuarioDetails.getPassword(), authorities);
-		this.usuario = usuarioSessao;
+	public MyAuthenticationToken(UsuarioSistema usuarioSistema, Collection<? extends GrantedAuthority> authorities) {
+		super(usuarioSistema.getUsername() , usuarioSistema.getPassword(), authorities);
+		this.usuario = usuarioSistema.getUsuario();
 	}
 	
 	@Override
 	public Usuario getPrincipal() {
+		usuario.setSenha("");
 		return this.usuario;
 	}
 }

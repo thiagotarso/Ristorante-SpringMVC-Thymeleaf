@@ -27,7 +27,6 @@ import br.com.Tjsistemas.ristorante.security.TowFactorAuthenticantionFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 
-	
 	@Autowired
     private MyAuthenticationProvider authProvider;	
 	
@@ -50,7 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http 
 		.addFilterBefore(authenticantionFilter(), UsernamePasswordAuthenticationFilter.class) // adicionar um campo a mais no login 
 		.authorizeRequests()
-		.antMatchers("/cliente/**").hasRole("CADASTRO_CLIENTE")    // acresceta ROLE_ no banco. .hasAuthority() do jeito que esta no banco
+		.antMatchers("/comanda/**").hasRole("CADASTRO_CLIENTE")    // acresceta ROLE_ no banco. .hasAuthority() do jeito que esta no banco
 			.anyRequest().authenticated()                         // libera tudo que nao foi informado acima
 			.and()
 			.formLogin()
@@ -64,7 +63,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		  .and()
 //		  .sessionManagement().maximumSessions(1).expiredUrl("/login"); // maximo de usuarios por conta    
 		  .sessionManagement()
-		  .invalidSessionUrl("/login");    // Redireciona quando sessao expira e tenta fazer um POST
+		  .invalidSessionUrl("/login")
+		  ;    // Redireciona quando sessao expira e tenta fazer um POST
 	}
 	
 

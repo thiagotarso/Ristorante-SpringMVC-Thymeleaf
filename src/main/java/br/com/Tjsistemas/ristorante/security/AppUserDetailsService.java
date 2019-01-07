@@ -28,19 +28,11 @@ public class AppUserDetailsService implements UserDetailsService {
 	   
        Optional<Usuario> usuarioOptional = usuarios.porNomeEAtivo(nome);
 	   Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuario/ou Senha Incorretos") );
+	   
+	   usuario.setEmpresaUsuario(usuarios.BuscarEmpresaUsuario(usuario));
 		
 	   return new UsuarioSistema(usuario , getPermissoes(usuario));
 	}
-	
-	public Usuario loadUserPorNome(String nome) throws UsernameNotFoundException {
-		   
-	       Optional<Usuario> usuarioOptional = usuarios.porNomeEAtivo(nome);
-		   Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuario/ou Senha Incorretos") );
-		   
-		  usuario.setEmpresaUsuario(usuarios.BuscarEmpresaUsuario(usuario));
-		   
-		   return usuario;
-		}
 
 	private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();

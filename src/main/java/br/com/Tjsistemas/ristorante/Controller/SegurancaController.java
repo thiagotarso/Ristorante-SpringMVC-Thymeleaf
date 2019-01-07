@@ -56,4 +56,5 @@ public class SegurancaController {
 		
 		return ResponseEntity.badRequest().body("Usuario não Localizado!");
 	}
+
 }

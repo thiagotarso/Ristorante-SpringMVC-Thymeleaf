@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao">
+
+<head>
+<title>Lista de Usuarios</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+		<div class="content-wrapper">
+             <div class="page-title">
+		          <div>
+		            <h1><i class="fa fa-th-list"></i>Lista de Usuarios</h1>
+		            <p>Lista de usuarios</p>
+		          </div>
+		          <div>
+		            <ul class="breadcrumb">
+		              <li><i class="fa fa-home fa-lg"></i></li>
+		              <li>Tables</li>
+		              <li class="active"><a href="#">Simple Tables</a></li>
+		            </ul>
+		          </div>
+		       </div>
+
+		<form  method="GET" >  
+<!-- 		th:object="${clientesFilter}"> -->
+
+		
+		        <div class="row">
+		          
+		          <div class="clearfix"></div>
+		          <div class="col-md-12">
+		            <div class="card">
+		              <div class="table-responsive">
+		                <table class="table">
+		                  <thead>
+		                    <tr>
+		                      <th>Codigo</th>
+		                      <th>Nome</th>
+		                      <th>Email</th>
+		                      <th>Ativo</th>
+		                    </tr>
+		                  </thead>
+		                  <tbody>
+		                    <tr th:each="usuario : ${usuarios}">
+		                      <td th:text="${usuario.id}" th:class="hidden">1</td>
+		                      <td th:text="${usuario.codigo}">1</td>
+		                      <td th:text="${usuario.nome}">Mark</td>
+		                      <td th:text="${usuario.email}">Otto@hotmail.com</td>
+		                      <td th:text="${usuario.ativo}">1</td>
+		                    </tr>
+		                  </tbody>
+		                </table>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+
+		  </form>
+		</div>
+	</div>
+</body>
+</html>

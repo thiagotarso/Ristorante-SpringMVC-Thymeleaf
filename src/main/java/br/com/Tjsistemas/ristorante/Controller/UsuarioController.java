@@ -50,7 +50,7 @@ public class UsuarioController {
 			       @AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes) {
 	
 		if (bindingResult.hasErrors()) {
-			return novo(usuario);
+			return novo(usuarioSessao);
 		}
 		try {
 			

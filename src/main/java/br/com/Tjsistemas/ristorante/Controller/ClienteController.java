@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -41,6 +41,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Cliente cliente){
 	 ModelAndView mv = new ModelAndView("/cliente/cadastroCliente");	
@@ -48,15 +49,15 @@ public class ClienteController {
 	}
 
    @PostMapping("/novo")
-   public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult,
-		          @AuthenticationPrincipal Usuario usuarioSessao , Model model, RedirectAttributes attributes) {
+   public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult ,
+		                             Model model, RedirectAttributes attributes) {
 	
 	   if (bindingResult.hasErrors()) {
 		 return novo(cliente);
 	   }
 	   
 	   try {
-		 cliente.setEmpresa(usuarioSessao.getEmpresa());
+		  cliente.setEmpresa(empresaSessao(cliente));
 		 clienteService.salvar(cliente);
 	} catch (Exception e) {
 		return novo(cliente);
@@ -68,13 +69,27 @@ public class ClienteController {
    
 	@GetMapping
 	 public ModelAndView pesquisar(ClienteFilter clientefilter, BindingResult result,
-			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
+			                          @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/cliente/pesquisaClientes");
 		  
+		  clientefilter.setEmpresa(empresaSessao(null));
 		  PageWrapper<Cliente> paginasWrapper = new PageWrapper<>(clientes.filtrar(clientefilter, pageable), httpServletRequest);
 		  mv.addObject("pagina", paginasWrapper);
 		  
 		  return mv;
+	}
+	
+	protected Long empresaSessao(Cliente  cliente) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 Long empresa = null;
+		 
+		 if (cliente !=  null) {
+			empresa =  cliente.getEmpresa() != null ? cliente.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 empresa = usuarioSessaos.getEmpresa();
+		 }
+		 
+		 return empresa;
 	}
    
    @GetMapping("/{id}")
@@ -102,4 +117,5 @@ public class ClienteController {
     public ResponseEntity<Void> IllegalArgumentException(IllegalArgumentException e ) {
 		return ResponseEntity.badRequest().build();
 	}	
+
 }

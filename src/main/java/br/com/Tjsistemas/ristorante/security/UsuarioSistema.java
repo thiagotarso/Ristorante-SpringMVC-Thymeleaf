@@ -19,6 +19,6 @@ public class UsuarioSistema extends User {
 	}
 
 	public Usuario getUsuario() {
-		return usuario;
+		return  usuario;
 	}
 }

@@ -6,6 +6,7 @@ public class ClienteFilter {
 	private String nome;
 	private String documento;
 	private String email;
+	private Long empresa;
 	
 	
 	public Long getCodigo() {
@@ -32,5 +33,10 @@ public class ClienteFilter {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	public Long getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Long empresa) {
+		this.empresa = empresa;
+	}
 }

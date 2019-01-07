@@ -29,6 +29,7 @@ public class ClientesImpl implements ClientesQueries{
 	@Autowired
 	private PaginacaoUtil paginacaoUtil;
 	
+	
 	@Override
 	public Long codigoCliente(Long codigoEmpresa) {
 		Long valor = manager.createQuery("select max(c.codigo) from Cliente c where c.empresa = :emp", Long.class)
@@ -68,7 +69,9 @@ public class ClientesImpl implements ClientesQueries{
 	
 	private void adicionarFiltro(ClienteFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
-		if (filtro != null) {
+		if (filtro != null && filtro.getEmpresa() != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
 				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 			}
@@ -82,6 +85,5 @@ public class ClientesImpl implements ClientesQueries{
 				criteria.add(Restrictions.ilike("Email", filtro.getEmail(), MatchMode.ANYWHERE));
 			}
 		}
-		criteria.add(Restrictions.eq("empresa", 1L));
 	}
 }

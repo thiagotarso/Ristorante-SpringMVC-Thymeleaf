@@ -49,19 +49,12 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         try{
              //autentico no sistema
             if( usuarioDetails != null && this.passwordEncoder.matches(senha, usuarioDetails.getPassword()) == true){
-            	Usuario usuario = userDetailService.loadUserPorNome(usuarioDetails.getUsername());
+            	UsuarioSistema usuarioSistema = (UsuarioSistema) usuarioDetails;
 
-            	if(confirmacaoAutorizacaoEmpresa(empresa, usuario) == true){
-            		usuario.setEmpresa(Long.parseLong(empresa));
+            	if(confirmacaoAutorizacaoEmpresa(empresa, usuarioSistema.getUsuario()) == true){
+            		usuarioSistema.getUsuario().setEmpresa(Long.parseLong(empresa));
             		
-            		   Usuario usuarioSessao = new Usuario(usuario.getId(),
-                                                           usuario.getNome(), 
-                                                           usuario.getEmail(),
-                                                           usuario.getEmpresa(), 
-                                                           usuario.getEmpresaUsuario()) ;
-            		
-            		return new MyAuthenticationToken(usuarioDetails , usuarioDetails.getAuthorities(), usuarioSessao);
-
+            		return new MyAuthenticationToken(usuarioSistema , usuarioSistema.getAuthorities());
             	}else{
 	                  throw new AuthenticationServiceException("Empresa não Liberada!");
 	              } 
