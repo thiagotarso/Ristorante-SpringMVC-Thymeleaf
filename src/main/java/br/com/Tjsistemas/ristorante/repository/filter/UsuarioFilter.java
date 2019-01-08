@@ -5,7 +5,8 @@ public class UsuarioFilter {
 	 public Long codigo;
 	 public String nome;
 	 public String email;
-	 public Boolean ativo; 
+	 public Boolean ativo;
+	 public Long empresa;
 	 
 	public Long getCodigo() {
 		return codigo;
@@ -30,5 +31,11 @@ public class UsuarioFilter {
 	}
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+	public Long getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Long empresa) {
+		this.empresa = empresa;
 	}
 }

@@ -6,6 +6,7 @@ public class MesaFilter {
 
     public Long codigo;
     public SituacaoMesa situacaoMesa;
+    public Long empresa;
     
 	public Long getCodigo() {
 		return codigo;
@@ -19,6 +20,10 @@ public class MesaFilter {
 	public void setSituacaoMesa(SituacaoMesa situacaoMesa) {
 		this.situacaoMesa = situacaoMesa;
 	}
-    
-    
+	public Long getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Long empresa) {
+		this.empresa = empresa;
+	}
 }

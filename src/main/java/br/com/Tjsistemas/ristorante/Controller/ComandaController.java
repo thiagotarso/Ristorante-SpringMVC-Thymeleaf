@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -86,12 +87,12 @@ public class ComandaController {
 
 		setComandaUuid(comanda);
 
-		mv.addObject("mesas", mesas.findBySituacaoMesaOrderByNumeroMesaAsc(SituacaoMesa.LIVRE) );  //mesasDisponiveis(mesasLivres, comanda)
+		mv.addObject("mesas", mesas.findBySituacaoMesaAndEmpresaOrderByNumeroMesaAsc(SituacaoMesa.LIVRE, empresaSessao(comanda))); 
 		
 		mv.addObject("mesasSelecionada", comanda.getMesasComanda()); 
 		mv.addObject("itens", comanda.getItens());
-		mv.addObject("categorias", categorias.findAll());
-		mv.addObject("camareiros", camareiros.findAll());
+		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
+		mv.addObject("camareiros", camareiros.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
 		
 		mv.addObject("valorTotalItens", tabelaItensSession.getValorTotal(comanda.getUuid()));
 		mv.addObject("totalItens", comanda.getItens().size());
@@ -102,7 +103,7 @@ public class ComandaController {
 	
 	@PostMapping("/comanda")
 	public ModelAndView salvar(@Valid Comanda comanda, BindingResult bindingResult,
-			              @AuthenticationPrincipal Usuario usurioSessao, Model model, RedirectAttributes attributes){
+			                         Model model, RedirectAttributes attributes){
           
 		comanda.adicionarMesas(tabelaItensSession.getMesas(comanda.getUuid()));
 		comanda.adicionarItens(tabelaItensSession.getItens(comanda.getUuid()));
@@ -112,7 +113,7 @@ public class ComandaController {
 		}
 		
 		try {
-			comanda.setEmpresa(usurioSessao.getEmpresa());
+			comanda.setEmpresa(empresaSessao(comanda));
 			comandaService.salvar(comanda);
 			attributes.addFlashAttribute("mensagem", "venda Salva com Sucesso!");
 			
@@ -128,7 +129,7 @@ public class ComandaController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id){
-		Comanda comanda = comandas.findOne(id);
+		Comanda comanda = comandas.findByIdAndEmpresa(id, empresaSessao(null)) ;
 		
 		comanda.setMesasComanda(comandas.BuscarMesasComanda(comanda));
 		comanda.setItens(comandas.BuscarItensComanda(comanda));
@@ -152,14 +153,14 @@ public class ComandaController {
 	
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long idProduto, String uuid){
-		Produto produto = produtos.findOne(idProduto);
+		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
 		tabelaItensSession.adicionaItem(uuid ,produto, 1, "");
         return mvTabelaItensComanda(uuid);
 	}
 	
 	@PutMapping("/item/{idProduto}")
 	public ModelAndView alterarQuandidadeDeItem(@PathVariable Long idProduto, Integer quantidade, String uuid) {
-		Produto produto = produtos.findOne(idProduto);
+		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
 		tabelaItensSession.alterarQuantidadeItens(uuid ,produto, quantidade);
 	
 		return mvTabelaItensComanda(uuid);
@@ -167,7 +168,7 @@ public class ComandaController {
 	
 	@DeleteMapping("item/{uuid}/{idProduto}")
 	public ModelAndView removerItem(@PathVariable Long idProduto, @PathVariable String uuid){
-		Produto produto = produtos.findOne(idProduto);
+		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
 		tabelaItensSession.removerItemComanda(uuid ,produto);
 		return mvTabelaItensComanda(uuid);
 	}
@@ -175,7 +176,7 @@ public class ComandaController {
 	
 	@PostMapping("/mesa")
 	public ModelAndView adicionarMesa(Long idMesa, String uuid){
-		Mesa mesa = mesas.findOne(idMesa);
+		Mesa mesa = mesas.findByIdAndEmpresa(idMesa, empresaSessao(null));
 		tabelaItensSession.adicionaMesas(uuid, mesa);
         return mvTabelaMesasComanda(uuid);
 	}
@@ -227,5 +228,13 @@ public class ComandaController {
 		}
 	}
 	
-	
+	private Long empresaSessao(Comanda comanda) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 
+		 if (comanda !=  null) {
+		 	return  comanda.getEmpresa() != null ? comanda.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return  usuarioSessaos.getEmpresa();
+		 }
+	}
 }

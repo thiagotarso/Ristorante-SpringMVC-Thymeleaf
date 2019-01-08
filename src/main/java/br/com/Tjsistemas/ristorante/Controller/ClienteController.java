@@ -41,7 +41,6 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	
 	@GetMapping("/novo")
 	public ModelAndView novo(Cliente cliente){
 	 ModelAndView mv = new ModelAndView("/cliente/cadastroCliente");	
@@ -78,23 +77,10 @@ public class ClienteController {
 		  
 		  return mv;
 	}
-	
-	protected Long empresaSessao(Cliente  cliente) {
-		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		 Long empresa = null;
-		 
-		 if (cliente !=  null) {
-			empresa =  cliente.getEmpresa() != null ? cliente.getEmpresa() :usuarioSessaos.getEmpresa();
-		 }else {
-			 empresa = usuarioSessaos.getEmpresa();
-		 }
-		 
-		 return empresa;
-	}
    
    @GetMapping("/{id}")
    private ModelAndView editar(@PathVariable Long id) {
-      Cliente cliente = clientes.findOne(id);
+      Cliente cliente = clientes.findByIdAndEmpresa(id, empresaSessao(null));
       
       ModelAndView mv = novo(cliente);
       mv.addObject(cliente);
@@ -104,11 +90,11 @@ public class ClienteController {
 	@RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Cliente> ListaClientes(String nome){
 		validarTamanhoNome(nome);
-		return clientes.findByNomeStartingWithIgnoreCase(nome); 
+		return clientes.findByNomeStartingWithIgnoreCaseAndEmpresa(nome, empresaSessao(null)); 
 	}
 	
 	public void validarTamanhoNome(String nome){
-	   if (StringUtils.isEmpty(nome) || nome.length() < 3) {
+	   if (StringUtils.isEmpty(nome) || nome.length() < 1) {
 		   throw new IllegalArgumentException();
     	}	
 	}
@@ -118,4 +104,12 @@ public class ClienteController {
 		return ResponseEntity.badRequest().build();
 	}	
 
+	private Long empresaSessao(Cliente  cliente) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 if (cliente !=  null) {
+			return  cliente.getEmpresa() != null ? cliente.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return usuarioSessaos.getEmpresa();
+		 }
+	}
 }

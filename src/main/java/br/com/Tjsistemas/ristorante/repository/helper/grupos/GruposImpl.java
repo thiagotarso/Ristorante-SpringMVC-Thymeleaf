@@ -13,6 +13,6 @@ public class GruposImpl implements GruposQueries{
 			  .setParameter("emp", codigoGrupo)
 			  .getSingleResult();
 		
-		return valor +1;
+	  return valor != null ? valor + 1 : 1L;
 	}
 }

@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,21 +42,20 @@ public class ProdutoController {
 	@GetMapping("/novo")
 	public ModelAndView novo(Produto produto){
 		ModelAndView mv = new ModelAndView("/produto/cadastroProduto");
-		mv.addObject("categorias", categorias.findAll());
+		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(produto)));
 		
 		return mv;
 	}
 	
 	@PostMapping("/novo")
-	public ModelAndView salvar(@Valid Produto produto,BindingResult bindingResult, 
-			       @AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes){
+	public ModelAndView salvar(@Valid Produto produto,BindingResult bindingResult, Model model, RedirectAttributes attributes){
 		
 		if (bindingResult.hasErrors()) {
 			return novo(produto);
 		}
 		try {
 			
-			produto.setEmpresa(usuarioSessao.getEmpresa());
+			produto.setEmpresa(empresaSessao(produto));
 			produtoService.salvar(produto);
 		} catch (Exception e) {
 			return novo(produto); 
@@ -67,7 +66,7 @@ public class ProdutoController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
-	 Produto produto = produtos.findOne(id);
+	 Produto produto = produtos.findByIdAndEmpresa(id, empresaSessao(null));
 		
 	 ModelAndView mv = novo(produto);
 	 mv.addObject(produto);	
@@ -77,15 +76,23 @@ public class ProdutoController {
 	
 	@RequestMapping(consumes= {MediaType.APPLICATION_JSON_VALUE})
 	private @ResponseBody List<Produto> listaProdutos(String categoria){
-      
-		Categoria categoriaSelecionada = categorias.findOne(Long.parseLong(categoria));
-		return  produtos.findByCategoria(categoriaSelecionada);
+		Long empresa =empresaSessao(null);
+        // categorias.findOne
+		Categoria categoriaSelecionada = categorias.findByIdAndEmpresa(Long.parseLong(categoria), empresa);
+		return  produtos.findByCategoriaAndEmpresa(categoriaSelecionada, empresa);
 	}
 	
 	@GetMapping("/filtro")
 	private @ResponseBody ResponseEntity<?> buscarProdutosDescricao(String descricao){
-		return ResponseEntity.ok(produtos.porDescricao(descricao));
+		return ResponseEntity.ok(produtos.porDescricao(descricao, empresaSessao(null)));
 	}
 	
-
+	private Long empresaSessao(Produto  produto) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 if (produto !=  null) {
+			return  produto.getEmpresa() != null ? produto.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return usuarioSessaos.getEmpresa();
+		 }
+	}
 }

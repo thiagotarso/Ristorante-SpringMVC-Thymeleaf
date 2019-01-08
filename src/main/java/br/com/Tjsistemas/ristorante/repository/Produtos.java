@@ -12,7 +12,9 @@ import br.com.Tjsistemas.ristorante.repository.helper.produtos.ProdutosQueries;
 @Repository
 public interface Produtos extends JpaRepository<Produto, Long>, ProdutosQueries {
 
-	public List<Produto> findByCategoria(Categoria categoria);
+	public List<Produto> findByCategoriaAndEmpresa(Categoria categoria, Long empresa);
 	
 	public List<Produto> findByEmpresaOrderByCodigoAsc(Long codigoEmpresa);
+
+	public Produto findByIdAndEmpresa(Long id, Long empresaSessao);
 }

@@ -4,7 +4,7 @@ public class CategoriaFilter {
 
 	public Long codigo;
 	public String descricao;
-	
+	public Long empresa;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -17,5 +17,11 @@ public class CategoriaFilter {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	public Long getEmpresa() {
+		return empresa;
+	}
+	public void setEmpresa(Long empresa) {
+		this.empresa = empresa;
 	}
 }

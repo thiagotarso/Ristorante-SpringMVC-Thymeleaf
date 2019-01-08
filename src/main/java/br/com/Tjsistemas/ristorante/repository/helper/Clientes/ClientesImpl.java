@@ -36,7 +36,7 @@ public class ClientesImpl implements ClientesQueries{
 				.setParameter("emp", codigoEmpresa)
 				.getSingleResult();
 		
-		return  valor + 1L;
+		return valor != null ? valor + 1 : 1L;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -47,7 +47,6 @@ public class ClientesImpl implements ClientesQueries{
 		
         paginacaoUtil.preparar(criteria, pageable);		
 		adicionarFiltro(filtro, criteria);
-		
 		
 		Sort sort = pageable.getSort();
 		if (sort != null) {
@@ -66,10 +65,9 @@ public class ClientesImpl implements ClientesQueries{
 			return (Long) criteria.uniqueResult();
 		}
 	
-	
 	private void adicionarFiltro(ClienteFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
-		if (filtro != null && filtro.getEmpresa() != null) {
+		if (filtro != null) {
 			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
 			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {

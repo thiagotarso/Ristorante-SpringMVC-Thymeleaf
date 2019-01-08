@@ -14,6 +14,6 @@ public interface Mesas extends JpaRepository<Mesa, Long>, MesasQueries {
 
 //	public List<Mesa> findAllByOrderByNumeroMesaAsc();
 	public List<Mesa> findByEmpresaOrderByNumeroMesaAsc(Long CodigoEmpresa);
-	
-	public List<Mesa> findBySituacaoMesaOrderByNumeroMesaAsc(SituacaoMesa situacaoMesa); 
+    public Mesa findByIdAndEmpresa(Long id, Long empresa);
+	public List<Mesa> findBySituacaoMesaAndEmpresaOrderByNumeroMesaAsc(SituacaoMesa livre, Long empresaSessao);   
 }

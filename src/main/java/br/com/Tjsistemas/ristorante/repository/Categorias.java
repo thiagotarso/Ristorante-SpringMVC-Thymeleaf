@@ -12,5 +12,6 @@ import br.com.Tjsistemas.ristorante.repository.helper.categorias.CategoriasQueri
 public interface Categorias extends  JpaRepository<Categoria, Long>, CategoriasQueries{
 
 	public List<Categoria> findByEmpresaOrderByCodigoAsc(Long codigoEmpresa);
-	
+
+	public Categoria findByIdAndEmpresa(Long parseLong, Long empresaSessao);
 }

@@ -8,7 +8,7 @@ import br.com.Tjsistemas.ristorante.model.MesaComanda;
 
 public interface ComandasQueries {
 	
-	public List<Comanda> ListaDeComandas(); 
+	public List<Comanda> ListaDeComandas(Long empresa); 
 	public List<ItemComanda> BuscarItensComanda(Comanda comanda);
 	public List<MesaComanda> BuscarMesasComanda(Comanda comanda);
 }

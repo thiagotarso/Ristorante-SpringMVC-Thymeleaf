@@ -22,9 +22,9 @@ public class ComandasImpl implements ComandasQueries {
 
 	@SuppressWarnings(value = { "static-access", "unchecked" })
 	@Transactional(readOnly = true)
-	public List<Comanda> ListaDeComandas() {
+	public List<Comanda> ListaDeComandas(Long empresa) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Comanda.class);
-//		criteria.createAlias("mesa", "m", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("empresa", empresa));
 		criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
 
 		return (List<Comanda>) criteria.list();
@@ -37,11 +37,8 @@ public class ComandasImpl implements ComandasQueries {
 		
         Criteria criteria= manager.unwrap(Session.class).createCriteria(ItemComanda.class);
         criteria.add(Restrictions.eq("comanda", comanda)); 
+        criteria.add(Restrictions.eq("empresa", comanda.getEmpresa()));
         criteria.addOrder(Order.desc("id"));
-                
-//       List<ItemComanda> lista = (List<ItemComanda>) criteria.list();
-//       System.out.println(lista.size());
-//       return lista;
     		   
 		return (List<ItemComanda>) criteria.list();
 	}
@@ -53,9 +50,9 @@ public class ComandasImpl implements ComandasQueries {
 		
         Criteria criteria= manager.unwrap(Session.class).createCriteria(MesaComanda.class);
         criteria.add(Restrictions.eq("comanda", comanda)); 
+        criteria.add(Restrictions.eq("empresa", comanda.getEmpresa()));
         criteria.addOrder(Order.desc("id"));
     		   
 		return (List<MesaComanda>) criteria.list();
 	}
-	
 }

@@ -12,5 +12,6 @@ import br.com.Tjsistemas.ristorante.repository.helper.camareiros.CamareirosQueri
 public interface Camareiros extends JpaRepository<Camareiro, Long>, CamareirosQueries {
 	
 	 public List<Camareiro> findByEmpresaOrderByCodigoAsc(Long codigoEmpresa); 
-
+     public Camareiro findByIdAndEmpresa(Long id, Long empresa);
+	 
 }

@@ -12,5 +12,6 @@ import br.com.Tjsistemas.ristorante.repository.helper.comanda.ComandasQueries;
 public interface Comandas extends JpaRepository<Comanda, Long>, ComandasQueries {
 
 	public List<Comanda> findByEmpresaOrderByIdAsc(Long CodigoEmpresa);
+	public Comanda findByIdAndEmpresa(Long id, Long empresaSessao);
 
 }

@@ -39,7 +39,7 @@ public class UsuariosImpl implements UsuariosQueries {
 				.setParameter("emp", codigoEmpresa)
 				.getSingleResult();
 		
-		return  valor + 1L;
+		return valor != null ? valor + 1 : 1L;
 	}
 	
 	@Override
@@ -99,6 +99,8 @@ public class UsuariosImpl implements UsuariosQueries {
 	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
 		if (filtro != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
 				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 			}

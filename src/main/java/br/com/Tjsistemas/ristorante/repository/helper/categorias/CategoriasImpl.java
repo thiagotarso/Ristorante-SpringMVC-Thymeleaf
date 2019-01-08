@@ -35,7 +35,7 @@ public class CategoriasImpl implements CategoriasQueries {
 			  .setParameter("emp", codigoUsuario)
 			  .getSingleResult();
 	  
-		return valor + 1;
+		return valor != null ? valor + 1 : 1L;
 	}
 	
 	
@@ -70,6 +70,8 @@ public class CategoriasImpl implements CategoriasQueries {
 	private void adicionarFiltro(CategoriaFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
 		if (filtro != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
 				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 			}

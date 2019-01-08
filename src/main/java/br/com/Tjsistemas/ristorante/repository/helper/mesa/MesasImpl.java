@@ -37,7 +37,7 @@ public class MesasImpl implements MesasQueries {
 				.setParameter("emp", codigoMesa)
 				.getSingleResult();
 	  				
-		return valor + 1L;
+		return valor != null ? valor + 1 : 1L;
 	}
 	
 	
@@ -82,6 +82,8 @@ public class MesasImpl implements MesasQueries {
 	private void adicionarFiltro(MesaFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
 		if (filtro != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
 				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 			}

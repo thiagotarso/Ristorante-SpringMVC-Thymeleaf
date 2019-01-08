@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,16 +41,15 @@ public class CamareiroController {
 	}
 	
    @PostMapping("/novo")	
-   public ModelAndView salvar(@Valid Camareiro camareiro, BindingResult bindingResult, 
-		   @AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes ){
+   public ModelAndView salvar(@Valid Camareiro camareiro, BindingResult bindingResult,
+		                                Model model, RedirectAttributes attributes ){
 	  
 	   if (bindingResult.hasErrors()) {
 		  return novo(camareiro);  
 	    }
 	   
 	   try {
-		   		   
-	   camareiro.setEmpresa(usuarioSessao.getEmpresa());
+	   camareiro.setEmpresa(empresaSessao(camareiro));
        camareiroService.salvar(camareiro);		
        
 	} catch (Exception e) {
@@ -64,6 +63,7 @@ public class CamareiroController {
 	 public ModelAndView pesquisar(CamareiroFilter camareirofilter, BindingResult result,
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/camareiro/pesquisaCamareiros");
+		  camareirofilter.setEmpresa(empresaSessao(null));
 		  
 		  PageWrapper<Camareiro> paginasWrapper = new PageWrapper<>(camareiros.filtrar(camareirofilter, pageable), httpServletRequest);
 		  mv.addObject("pagina", paginasWrapper);
@@ -73,12 +73,20 @@ public class CamareiroController {
    
    @GetMapping("/{id}")
    public ModelAndView editar(@PathVariable Long id) {
-	 Camareiro camareiro = camareiros.findOne(id);
+	 Camareiro camareiro = camareiros.findByIdAndEmpresa(id, empresaSessao(null));
 	   
 	 ModelAndView mv = novo(camareiro);
      mv.addObject(camareiro);	   
 	 return mv;
   }
    
-   
+	private Long empresaSessao(Camareiro camrerero) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 
+		 if (camrerero !=  null) {
+		 	return  camrerero.getEmpresa() != null ? camrerero.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return  usuarioSessaos.getEmpresa();
+		 }
+	}
 }

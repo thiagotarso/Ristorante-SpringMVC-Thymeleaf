@@ -14,4 +14,8 @@ public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries 
 	public List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
 	
 	public List<Cliente> findByEmpresaOrderByCodigoAsc(Long codigoEmpresa);
+
+	public Cliente findByIdAndEmpresa(Long id, Long empresaSessao);
+
+	public List<Cliente> findByNomeStartingWithIgnoreCaseAndEmpresa(String nome, Long empresaSessao);
 }

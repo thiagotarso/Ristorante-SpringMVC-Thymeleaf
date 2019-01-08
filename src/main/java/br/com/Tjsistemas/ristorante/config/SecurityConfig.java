@@ -49,7 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http 
 		.addFilterBefore(authenticantionFilter(), UsernamePasswordAuthenticationFilter.class) // adicionar um campo a mais no login 
 		.authorizeRequests()
-		.antMatchers("/comanda/**").hasRole("CADASTRO_CLIENTE")    // acresceta ROLE_ no banco. .hasAuthority() do jeito que esta no banco
+		.antMatchers("/camareiro/**").hasRole("CADASTRO_CLIENTE")    // acresceta ROLE_ no banco. .hasAuthority() do jeito que esta no banco
 			.anyRequest().authenticated()                         // libera tudo que nao foi informado acima
 			.and()
 			.formLogin()

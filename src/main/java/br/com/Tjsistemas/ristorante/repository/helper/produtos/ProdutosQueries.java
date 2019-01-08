@@ -6,6 +6,6 @@ import br.com.Tjsistemas.ristorante.model.Produto;
 
 public interface ProdutosQueries {
 
-	public List<Produto> porDescricao(String descricao);
-	public Long codigoProduto(Long codigoProduto);
+	public List<Produto> porDescricao(String descricao, Long empresa);
+	public Long codigoProduto(Long codigoEmpresaProduto);
 }

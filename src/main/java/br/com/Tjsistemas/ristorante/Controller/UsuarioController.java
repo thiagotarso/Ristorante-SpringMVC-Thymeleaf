@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,14 +47,14 @@ public class UsuarioController {
 	
 	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Usuario usuario,  BindingResult bindingResult,
-			       @AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes) {
+			                         Model model, RedirectAttributes attributes) {
 	
 		if (bindingResult.hasErrors()) {
-			return novo(usuarioSessao);
+			return novo(usuario);
 		}
 		try {
 			
-			usuario.setEmpresa(usuarioSessao.getEmpresa()); 
+			usuario.setEmpresa(empresaSessao(usuario)); 
 			UsuarioService.salvar(usuario);
 			
 		} catch (Exception e) {
@@ -68,6 +68,7 @@ public class UsuarioController {
 	 public ModelAndView pesquisar(UsuarioFilter  usuarioFilter, BindingResult result,
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/usuario/pesquisaUsuario");
+		  usuarioFilter.setEmpresa(empresaSessao(null));
 		  
 		  PageWrapper<Usuario> paginasWrapper = new PageWrapper<>(usuarios.filtrar(usuarioFilter, pageable), httpServletRequest);
 		  mv.addObject("pagina", paginasWrapper);
@@ -76,11 +77,20 @@ public class UsuarioController {
 	}
 	
    @GetMapping("/{id}")
-   public void editar(@PathVariable Long id){
-	   Usuario usuario = usuarios.findOne(id);
+   public ModelAndView editar(@PathVariable Long id){
+	   Usuario usuario = usuarios.findByIdAndEmpresa(id, empresaSessao(null));
        
-	   usuario.getEmpresaUsuario().forEach(f ->{
-		   System.out.println( f.getEmpresa().getFantasia());
-	   });
-   }	
+       ModelAndView mv = novo(usuario);
+       mv.addObject(usuario);
+     return mv;
+   }
+   
+	private Long empresaSessao(Usuario usuario) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 if (usuario !=  null) {
+			return  usuario.getEmpresa() != null ? usuario.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return usuarioSessaos.getEmpresa();
+		 }
+	}
 }

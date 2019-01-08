@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,13 +44,13 @@ public class MesaController {
 	
 	@PostMapping("/nova")
 	public ModelAndView salvar(@Valid Mesa mesa,BindingResult bindingResult, 
-			    @AuthenticationPrincipal Usuario usuarioSessao , Model model, RedirectAttributes attributes ) {
+			                          Model model, RedirectAttributes attributes ) {
 	
 		if (bindingResult.hasErrors()) {
 			return nova(mesa);
 		}
 		
-		mesa.setEmpresa(usuarioSessao.getEmpresa());
+		mesa.setEmpresa(empresaSessao(mesa));
 		mesaService.salve(mesa);
 		
 		attributes.addFlashAttribute("mesagem", "Mesa Salva Com Sucesso!");
@@ -62,6 +62,7 @@ public class MesaController {
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/mesas/pesquisaMesa");
 		  mv.addObject("situacao", SituacaoMesa.values());
+          mesafilter.setEmpresa(empresaSessao(null));
 		  
 		  PageWrapper<Mesa> paginasWrapper = new PageWrapper<>(mesas.filtrar(mesafilter, pageable), httpServletRequest);
 		  mv.addObject("pagina", paginasWrapper);
@@ -71,10 +72,19 @@ public class MesaController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
-		Mesa mesa = mesas.findOne(id);
+		Mesa mesa = mesas.findByIdAndEmpresa(id, empresaSessao(null));
 		
 		ModelAndView mv = nova(mesa);
 		mv.addObject(mesa);
       return mv;
+	}
+	
+	private Long empresaSessao(Mesa mesa) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 if (mesa !=  null) {
+			return  mesa.getEmpresa() != null ? mesa.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return usuarioSessaos.getEmpresa();
+		 }
 	}
 }

@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,13 +42,13 @@ public class CategoriaController {
 
 	@PostMapping("/nova")
 	public ModelAndView salvar(@Valid Categoria categoria, BindingResult bindingResult,
-			@AuthenticationPrincipal Usuario usuarioSessao, Model model, RedirectAttributes attributes){
+			                                 Model model, RedirectAttributes attributes){
 		
 		if(bindingResult.hasErrors()){
 			return novo(categoria);
 		}
 		
-		 categoria.setEmpresa(usuarioSessao.getEmpresa()); 
+		 categoria.setEmpresa(empresaSessao(categoria)); 
 		 categoriaService.salvar(categoria);		
 		
 	    attributes.addFlashAttribute("mensagem", "categoria salvo com Sucesso!");   
@@ -61,6 +61,7 @@ public class CategoriaController {
 	 public ModelAndView pesquisar(CategoriaFilter categoriafilter, BindingResult result,
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
 		  ModelAndView mv = new ModelAndView("/categoria/pesquisaCategoria");
+		  categoriafilter.setEmpresa(empresaSessao(null));
 		  
 		  PageWrapper<Categoria> paginasWrapper = new PageWrapper<>(categorias.filtrar(categoriafilter, pageable), httpServletRequest);
 		  mv.addObject("pagina", paginasWrapper);
@@ -70,10 +71,19 @@ public class CategoriaController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
-		Categoria categoria = categorias.findOne(id);
+		Categoria categoria = categorias.findByIdAndEmpresa(id, empresaSessao(null));
 		
 		ModelAndView mv = novo(categoria);
 		mv.addObject(categoria);
 		return mv;
+	}
+	
+	private Long empresaSessao(Categoria categoria) {
+		 Usuario usuarioSessaos = (Usuario)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 if (categoria !=  null) {
+			return  categoria.getEmpresa() != null ? categoria.getEmpresa() :usuarioSessaos.getEmpresa();
+		 }else {
+			 return usuarioSessaos.getEmpresa();
+		 }
 	}
 }

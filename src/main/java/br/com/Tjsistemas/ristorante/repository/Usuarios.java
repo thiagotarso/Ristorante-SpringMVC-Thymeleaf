@@ -13,6 +13,6 @@ import br.com.Tjsistemas.ristorante.repository.helper.usuario.UsuariosQueries;
 public interface Usuarios extends  JpaRepository<Usuario, Long>, UsuariosQueries {
 	
 	public Optional<Usuario> findByEmail(String email);
-	
 	public List<Usuario> findByEmpresa(Long codigoEmpresa);
+    public Usuario findByIdAndEmpresa(Long id, Long empresa);	
 }

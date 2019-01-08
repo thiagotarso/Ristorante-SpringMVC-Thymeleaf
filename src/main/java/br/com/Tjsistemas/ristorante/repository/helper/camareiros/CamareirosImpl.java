@@ -34,7 +34,7 @@ public class CamareirosImpl implements CamareirosQueries{
          Long valor = manager.createQuery("select max(c.codigo) from Camareiro c where c.empresa = :emp", Long.class)
         		 .setParameter("emp", codigoCamareiros)
         		 .getSingleResult(); 
-		return valor + 1L;
+         return valor != null ? valor + 1 : 1L;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -67,6 +67,8 @@ public class CamareirosImpl implements CamareirosQueries{
 	private void adicionarFiltro(CamareiroFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
 		if (filtro != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
 				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 			}
