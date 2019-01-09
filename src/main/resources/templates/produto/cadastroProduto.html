@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/layoutPadrao">
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
 <title>Cadastro de Produtos</title>
@@ -28,58 +29,164 @@
 					</ul>
 				</div>
 			</div>
+			
+	<th:block th:include="fragments/MensagemSucesso"></th:block>
+   <form method="POST" th:object="${produto}" th:action="@{/produto/novo}"> 
+	 <th:block th:include="fragments/MensagensErrosValidacao"></th:block>	
+		
+		<input type="hidden" th:field="*{id}">
+		
+		<div class="row">
+          <div class="col-md-12">
+            <div class="card">
+			
+              <fieldset> 
+              <legend>Basico</legend>			  
+			  <div class="row"> 
+		      
+			    	<div class="col-sm-2" ristorante:classforerror="codigo">
+					<label class="control-label">Cod.</label> 
+					<input class="form-control" type="text" th:field="*{id}"
+						disabled="disabled"/>
+                 </div>
+				 
+				 <div class="col-sm-6" ristorante:classforerror="descricao">
+					<label class="control-label" for="inputProduto">Descrição:</label>
+					<input class="form-control" type="text" th:field="*{descricao}">
+				 </div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
+               </div> 
+			   
+			    <div class="row">
+			   
+			      <div class="col-sm-6" ristorante:classforerror="abreviacao">
+				     <label class="control-label" for="inputAbraviacao">ABRAVIAÇÃO</label>
+                     <input class="form-control"  type="text" th:field="*{abreviacao}">
+                  </div> 
+				 
+				  <div class="col-sm-6" ristorante:classforerror="EAN">
+				       <label class="control-label" for="inputEan">EAN</label>
+                        <input class="form-control"  type="text" th:field="*{EAN}">
+                  </div> 
+				  
+			   </div>			   
+			   
+			   <div class="row">
+			   
+			   	<div class="col-sm-4" ristorante:classforerror="categoria">
+					<label class="control-label" for="selectCategoria">Mesa:</label>
 
-						<form method="POST" th:object="${produto}" th:action="@{/produto/novo}">
-							<fieldset>
-								<legend>Basico</legend>
-								<div class="row">
-									<div class="col-sm-2">
+						<select class="form-control" id="selectCategoria" th:field="*{categoria}">
+							<option value="">Selecione uma mesa</option>
+							<option th:each="categoria : ${categorias}" th:value="${categoria.id}" 
+							   th:text="${categoria.descricao}">mesa 1</option>
+						</select>
+             	</div>
+				 
+				 <div class="col-lg-4">
+				   <label class="control-label" for="select">Categoria 2</label>
+                          
+                            <select class="form-control" id="select">
+                              <option>SABOR</option>
+							  <option>SABOR</option>
+                              <option>SABOR</option>
+                            </select> 
+			      </div>
+				 
+				  <div class="col-lg-4">
+				   <label class="control-label" for="select">Categoria 3</label>
+                          
+                            <select class="form-control" id="select">
+                              <option>EMBALAGEM</option>
+                              <option>EMBALAGEM</option>
+                            </select> 
+			      </div>
+			   </div> 			  	   
 
-										<label class="control-label">Cod.</label> <input
-											class="form-control" type="text" th:field="*{id}"
-											disabled="disabled">
-
-									</div>
-
-									<div class="col-sm-6" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
-										<label class="control-label" for="inputProduto">Descrição:</label>
-										<input class="form-control" type="text" th:field="*{descricao}">
-									</div>
-									
-									<div class="col-sm-2" th:classappend="${#fields.hasErrors('categoria')} ? has-error">
-													<label class="control-label" for="selectCategoria">Mesa:</label>
-
-										<select class="form-control" id="selectCategoria" th:field="*{categoria}">
-											<option value="">Selecione uma mesa</option>
-											<option th:each="categoria : ${categorias}" th:value="${categoria.id}" 
-											   th:text="${categoria.descricao}">mesa 1</option>
-											   
-										</select>
-									</div>
-
-									<div class="col-sm-2" th:classappend="${#fields.hasErrors('valor')} ? has-error">
-										<label class="control-label " for="inputValor">Valor:</label> 
-										<input 	class="form-control js-decimal" type="text" th:field="*{valor}">
-									</div>
-
-								</div>
-
-								<div class="row">
-									<div class="col-sm-2 form-group">
-										<button class="btn btn-primary" type="submit">Submit</button>
-									</div>
-								</div>
+		    </fieldset>
+			</div> 
+		 </div>
+    </div>
+	
+   <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+			
+              <fieldset>
+              <legend>dados adicionais</legend>			  
+			  <div class="row"> 
+		      
+			     <div class="col-sm-2" ristorante:classforerror="precoCusto">
+				    <label class="control-label" for="inputEmail">Preco de custo</label>
+                     <input class="form-control js-decimal"  type="text" th:field="*{precoCusto}">
+                 </div> 
+				 
+				 <div class="col-sm-2" ristorante:classforerror="margemDelucro">		  
+				     <label class="control-label" for="inputPassword">margem de lucro</label>
+                     <input class="form-control"  type="text" th:field="*{margemDelucro}">
+                 </div> 
+				 
+				 <div class="col-sm-2" ristorante:classforerror="descontoMaximo">
+				     <label class="control-label" for="inputEmail">desconto Maximo</label>
+                     <input class="form-control"  type="text" th:field="*{descontoMaximo}">
+				 </div> 
+				 
+				 <div class="col-sm-2" ristorante:classforerror="valor">
+					<label class="control-label " for="inputValor">Valor:</label> 
+					<input 	class="form-control js-decimal" type="text" th:field="*{valor}">
+				 </div>
+				 
+				 <div class="col-sm-2" ristorante:classforerror="estoqueMinimo">
+				     <label class="control-label" for="inputEmail">Estoque Min</label>
+                     <input class="form-control"  type="text" th:field="*{estoqueMinimo}">
+				 </div> 
+				 
+				 <div class="col-sm-2" ristorante:classforerror="estoqueAtual">
+				     <label class="control-label" for="inputEmail">Estoque Atual</label>
+                     <input class="form-control"  type="text" th:field="*{estoqueAtual}">
+				 </div> 
+               </div> 
+			   
+			   <div class="row">
+			     <div class="col-sm-8" ristorante:classforerror="cliente">
+					<label class="control-label" for="inputEmail">FORNECEDOR:</label>
+                    <input class="form-control"  type="text" th:field="*{cliente}">
+                 </div> 
+				 
+				 <div class="col-lg-4">
+				 
+                   <div class="card-body" ristorante:classforerror="ultimaCompra">
+                     <label class="control-label" for="inputEmail">Ultima Compra</label>
+                     <input class="form-control" disabled  id="demoDate" type="text" th:field="*{ultimaCompra}">
+                  </div>
+				
+                </div>
+          
+			      </div> 
+			  
+			   <div class="row">
+			      <div class="col-sm-2">
+                   <div class="checkbox checkbox-inline">
+					    <input id="Ativo" type="checkbox" th:field="*{ativo}">
+						<label  for="Ativo">Ativo?</label>
+					</div>
+				 </div>
+				 
+				 <div class="col-sm-3">
+					<div class="checkbox checkbox-inline">
+					    <input id="estoque" type="checkbox" th:field="*{controleEstoque}">
+						<label  for="estoque">es fornecedor?</label>
+					</div>
+				   </div>
+					
+			      </div>
 
 							</fieldset>
-						</form>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+	  </form>
+	  </div>
+ </div>
 </body>
 </html>

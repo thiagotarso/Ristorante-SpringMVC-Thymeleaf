@@ -1,6 +1,7 @@
 package br.com.Tjsistemas.ristorante.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,35 @@ public class Produto {
 	private BigDecimal valor;
 	
 	private Long empresa;
+	
+	public String abreviacao;
+    public String EAN;
+    
+    @Column(name="preco_custo")
+    public BigDecimal precoCusto ;
+   
+    @Column(name="margem_de_lucro")
+    public Integer margemDelucro;
+    
+    @Column(name="desconto_maximo")
+    public Integer descontoMaximo;
+    
+    @Column(name="estoque_minimo")
+    public Integer estoqueMinimo;
+    
+    @Column(name="estoque_atual")
+    public Integer estoqueAtual;
+    
+    @Column(name="ultima_eompra")
+    public LocalDateTime ultimaCompra;                
+    
+    public boolean ativo;
+    @Column(name="controle_estoque")
+    public boolean controleEstoque;
+	
+    @ManyToOne
+    @JoinColumn(name="fornecedor_id")
+    public Cliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(name="categoria_id")
@@ -67,6 +97,73 @@ public class Produto {
 	}
 	public void setEmpresa(Long empresa) {
 		this.empresa = empresa;
+	}
+	
+	public String getAbreviacao() {
+		return abreviacao;
+	}
+	public void setAbreviacao(String abreviacao) {
+		this.abreviacao = abreviacao;
+	}
+	public String getEAN() {
+		return EAN;
+	}
+	public void setEAN(String eAN) {
+		EAN = eAN;
+	}
+	public BigDecimal getPrecoCusto() {
+		return precoCusto;
+	}
+	public void setPrecoCusto(BigDecimal precoCusto) {
+		this.precoCusto = precoCusto;
+	}
+	public Integer getMargemDelucro() {
+		return margemDelucro;
+	}
+	public void setMargemDelucro(Integer margemDelucro) {
+		this.margemDelucro = margemDelucro;
+	}
+	public Integer getDescontoMaximo() {
+		return descontoMaximo;
+	}
+	public void setDescontoMaximo(Integer descontoMaximo) {
+		this.descontoMaximo = descontoMaximo;
+	}
+	public Integer getEstoqueMinimo() {
+		return estoqueMinimo;
+	}
+	public void setEstoqueMinimo(Integer estoqueMinimo) {
+		this.estoqueMinimo = estoqueMinimo;
+	}
+	public Integer getEstoqueAtual() {
+		return estoqueAtual;
+	}
+	public void setEstoqueAtual(Integer estoqueAtual) {
+		this.estoqueAtual = estoqueAtual;
+	}
+	public LocalDateTime getUltimaCompra() {
+		return ultimaCompra;
+	}
+	public void setUltimaCompra(LocalDateTime ultimaCompra) {
+		this.ultimaCompra = ultimaCompra;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	public boolean isControleEstoque() {
+		return controleEstoque;
+	}
+	public void setControle_estoque(boolean controleEstoque) {
+		this.controleEstoque = controleEstoque;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	@Override
 	public int hashCode() {

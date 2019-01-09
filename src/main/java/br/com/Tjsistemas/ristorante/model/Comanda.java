@@ -48,11 +48,6 @@ public class Comanda {
     @ManyToOne
     @JoinColumn(name="camareiro_id")
 	private Camareiro camareiro;
-    
-//    @Size(min=1 , message="selecione uma ou mais mesas!")
-//    @ManyToMany(fetch= FetchType.EAGER )// duplicaçao produtos na comanda
-//	@JoinTable(name="comanda_mesa", joinColumns = @JoinColumn(name ="id_comanda"), inverseJoinColumns = @JoinColumn(name="id_mesa"))
-//	private List<Mesa> mesa;
 
     @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true) 
     private List<MesaComanda> mesasComanda = new ArrayList<>();
