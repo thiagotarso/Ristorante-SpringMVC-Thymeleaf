@@ -37,7 +37,6 @@ public class ComandasImpl implements ComandasQueries {
 		
         Criteria criteria= manager.unwrap(Session.class).createCriteria(ItemComanda.class);
         criteria.add(Restrictions.eq("comanda", comanda)); 
-        criteria.add(Restrictions.eq("empresa", comanda.getEmpresa()));
         criteria.addOrder(Order.desc("id"));
     		   
 		return (List<ItemComanda>) criteria.list();
@@ -50,7 +49,6 @@ public class ComandasImpl implements ComandasQueries {
 		
         Criteria criteria= manager.unwrap(Session.class).createCriteria(MesaComanda.class);
         criteria.add(Restrictions.eq("comanda", comanda)); 
-        criteria.add(Restrictions.eq("empresa", comanda.getEmpresa()));
         criteria.addOrder(Order.desc("id"));
     		   
 		return (List<MesaComanda>) criteria.list();

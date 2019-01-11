@@ -88,9 +88,9 @@ public class ClienteController {
    }
    
 	@RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody List<Cliente> ListaClientes(String nome){
+	public @ResponseBody List<Cliente> ListaClientes(String nome, boolean fornecedor){
 		validarTamanhoNome(nome);
-		return clientes.findByNomeStartingWithIgnoreCaseAndEmpresa(nome, empresaSessao(null)); 
+		return clientes.findByNomeStartingWithIgnoreCaseAndEmpresaAndFornecerdor(nome, empresaSessao(null), fornecedor); 
 	}
 	
 	public void validarTamanhoNome(String nome){

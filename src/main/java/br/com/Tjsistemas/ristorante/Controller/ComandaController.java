@@ -65,7 +65,6 @@ public class ComandaController {
 	@Autowired
 	private TabelaItensSession tabelaItensSession;
 	
-	
 	@GetMapping("/visao")
 	public ModelAndView VisaoComandas(Comanda comanda, @AuthenticationPrincipal Usuario userAltenticado){
 		ModelAndView mv = new ModelAndView("/comanda/visaoComandas");

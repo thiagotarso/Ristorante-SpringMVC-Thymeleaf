@@ -20,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.Tjsistemas.ristorante.model.Categoria;
+import br.com.Tjsistemas.ristorante.model.Cliente;
 import br.com.Tjsistemas.ristorante.model.Produto;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
+import br.com.Tjsistemas.ristorante.repository.Clientes;
 import br.com.Tjsistemas.ristorante.repository.Produtos;
 import br.com.Tjsistemas.ristorante.service.ProdutoService;
 
@@ -35,6 +37,9 @@ public class ProdutoController {
 	
 	@Autowired
 	private Categorias categorias;
+	
+	@Autowired
+	private Clientes clientes;
 	
 	@Autowired
 	private ProdutoService produtoService;
@@ -54,6 +59,8 @@ public class ProdutoController {
 			return novo(produto);
 		}
 		try {
+			Cliente cli = clientes.findOne(1L);
+			produto.setCliente(cli);
 			
 			produto.setEmpresa(empresaSessao(produto));
 			produtoService.salvar(produto);

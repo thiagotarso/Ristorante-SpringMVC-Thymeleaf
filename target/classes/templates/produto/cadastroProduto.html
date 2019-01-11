@@ -3,6 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout/layoutPadrao"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
@@ -19,7 +20,7 @@
 			<div class="page-title">
 				<div>
 					<h1>
-						<i class="fa fa-dashboard"></i> Mesas
+						<i class="fa fa-dashboard"></i> Produto
 					</h1>
 				</div>
 				<div>
@@ -44,13 +45,13 @@
               <legend>Basico</legend>			  
 			  <div class="row"> 
 		      
-			    	<div class="col-sm-2" ristorante:classforerror="codigo">
+			    	<div class="col-sm-3" ristorante:classforerror="codigo">
 					<label class="control-label">Cod.</label> 
 					<input class="form-control" type="text" th:field="*{id}"
 						disabled="disabled"/>
                  </div>
 				 
-				 <div class="col-sm-6" ristorante:classforerror="descricao">
+				 <div class="col-sm-9" ristorante:classforerror="descricao">
 					<label class="control-label" for="inputProduto">Descrição:</label>
 					<input class="form-control" type="text" th:field="*{descricao}">
 				 </div>
@@ -59,22 +60,18 @@
 			   
 			    <div class="row">
 			   
-			      <div class="col-sm-6" ristorante:classforerror="abreviacao">
+			      <div class="col-sm-4" ristorante:classforerror="abreviacao">
 				     <label class="control-label" for="inputAbraviacao">ABRAVIAÇÃO</label>
                      <input class="form-control"  type="text" th:field="*{abreviacao}">
                   </div> 
 				 
-				  <div class="col-sm-6" ristorante:classforerror="EAN">
+				  <div class="col-sm-4" ristorante:classforerror="EAN">
 				       <label class="control-label" for="inputEan">EAN</label>
                         <input class="form-control"  type="text" th:field="*{EAN}">
                   </div> 
-				  
-			   </div>			   
-			   
-			   <div class="row">
-			   
-			   	<div class="col-sm-4" ristorante:classforerror="categoria">
-					<label class="control-label" for="selectCategoria">Mesa:</label>
+                  
+                 <div class="col-sm-4" ristorante:classforerror="categoria">
+					<label class="control-label" for="selectCategoria">Categoria:</label>
 
 						<select class="form-control" id="selectCategoria" th:field="*{categoria}">
 							<option value="">Selecione uma mesa</option>
@@ -82,26 +79,7 @@
 							   th:text="${categoria.descricao}">mesa 1</option>
 						</select>
              	</div>
-				 
-				 <div class="col-lg-4">
-				   <label class="control-label" for="select">Categoria 2</label>
-                          
-                            <select class="form-control" id="select">
-                              <option>SABOR</option>
-							  <option>SABOR</option>
-                              <option>SABOR</option>
-                            </select> 
-			      </div>
-				 
-				  <div class="col-lg-4">
-				   <label class="control-label" for="select">Categoria 3</label>
-                          
-                            <select class="form-control" id="select">
-                              <option>EMBALAGEM</option>
-                              <option>EMBALAGEM</option>
-                            </select> 
-			      </div>
-			   </div> 			  	   
+			   </div>			   
 
 		    </fieldset>
 			</div> 
@@ -117,76 +95,104 @@
 			  <div class="row"> 
 		      
 			     <div class="col-sm-2" ristorante:classforerror="precoCusto">
-				    <label class="control-label" for="inputEmail">Preco de custo</label>
-                     <input class="form-control js-decimal"  type="text" th:field="*{precoCusto}">
+				    <label class="control-label">Preco de custo</label>
+                     <input class="form-control js-decimal js-preco-custo"  type="text" th:field="*{precoCusto}">
                  </div> 
 				 
 				 <div class="col-sm-2" ristorante:classforerror="margemDelucro">		  
-				     <label class="control-label" for="inputPassword">margem de lucro</label>
-                     <input class="form-control"  type="text" th:field="*{margemDelucro}">
+				     <label class="control-label" >margem de lucro</label>
+                     <input class="form-control js-somente-numeros js-margem-lucro"  type="text" th:field="*{margemDelucro}">
                  </div> 
+                 
+                 <div class="col-sm-2" ristorante:classforerror="valor">
+					<label class="control-label">Valor:</label> 
+					<input 	class="form-control js-decimal js-valor-final" type="text" th:field="*{valor}">
+				 </div>
 				 
 				 <div class="col-sm-2" ristorante:classforerror="descontoMaximo">
-				     <label class="control-label" for="inputEmail">desconto Maximo</label>
+				     <label class="control-label" >desconto Maximo</label>
                      <input class="form-control"  type="text" th:field="*{descontoMaximo}">
 				 </div> 
 				 
-				 <div class="col-sm-2" ristorante:classforerror="valor">
-					<label class="control-label " for="inputValor">Valor:</label> 
-					<input 	class="form-control js-decimal" type="text" th:field="*{valor}">
-				 </div>
-				 
 				 <div class="col-sm-2" ristorante:classforerror="estoqueMinimo">
-				     <label class="control-label" for="inputEmail">Estoque Min</label>
+				     <label class="control-label">Estoque Min</label>
                      <input class="form-control"  type="text" th:field="*{estoqueMinimo}">
 				 </div> 
 				 
 				 <div class="col-sm-2" ristorante:classforerror="estoqueAtual">
-				     <label class="control-label" for="inputEmail">Estoque Atual</label>
+				     <label class="control-label">Estoque Atual</label>
                      <input class="form-control"  type="text" th:field="*{estoqueAtual}">
 				 </div> 
                </div> 
 			   
-			   <div class="row">
-			     <div class="col-sm-8" ristorante:classforerror="cliente">
-					<label class="control-label" for="inputEmail">FORNECEDOR:</label>
-                    <input class="form-control"  type="text" th:field="*{cliente}">
-                 </div> 
+			   <div class="row form-group">
+			   
+			      <div class="col-sm-8" ristorante:classforerror="cliente">
+			      <label class="control-label">FORNECEDOR:</label>
+			      
+			        <div class="input-group">
+				        <input id="nomeCliente" data:fornecedor="true" type="text" class="form-control " th:field="*{cliente.nome}" placeholder="pesquise um Fornecedor.">
+				        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
+                        <span class="input-group-btn">
+                           <button  class="btn btn-primary" type="button" 
+                                       data-toggle="modal" data-target="#pesquisaRapidaCliente" ><span class="fa fa-search"></span></button>
+                         </span>
+		              </div>
+			        </div> 
 				 
-				 <div class="col-lg-4">
-				 
-                   <div class="card-body" ristorante:classforerror="ultimaCompra">
-                     <label class="control-label" for="inputEmail">Ultima Compra</label>
-                     <input class="form-control" disabled  id="demoDate" type="text" th:field="*{ultimaCompra}">
-                  </div>
-				
-                </div>
-          
+					 <div class="col-lg-4 ">
+					 
+	                   <div class="card-body" ristorante:classforerror="ultimaCompra">
+	                     <label class="control-label">Ultima Compra</label>
+	                     <input class="form-control" disabled  id="demoDate" type="text" th:field="*{ultimaCompra}">
+	                  </div>
+					
+	                  </div>
 			      </div> 
 			  
-			   <div class="row">
-			      <div class="col-sm-2">
-                   <div class="checkbox checkbox-inline">
-					    <input id="Ativo" type="checkbox" th:field="*{ativo}"></input>
-						<label  for="Ativo">Ativo?</label>
-					</div>
-				 </div>
-				 
-				 <div class="col-sm-3">
-					<div class="checkbox checkbox-inline">
-					    <input id="estoque" type="checkbox" th:field="*{controleEstoque}">
-						<label  for="estoque">es fornecedor?</label>
-					</div>
-				   </div>
-					
-			      </div>
-
-							</fieldset>
+				   <div class="row">
+				      <div class="col-sm-2">
+				      <div>
+	                   <div class="checkbox checkbox-inline">
+						    <input id="Ativo" type="checkbox" th:field="*{ativo}"></input>
+							<label  for="Ativo">Ativo?</label>
+						</div>
+						</div>
+					 </div>
+					 
+					 <div class="col-sm-3">
+					   <div>
+						 <div class="checkbox checkbox-inline">
+						    <input id="estoque" type="checkbox" th:field="*{controleEstoque}"/>
+							<label  for="estoque">Controla Estoque?</label>
+						 </div>
+						</div>
+					   </div>
+						
+				      </div>
+			      
+				      <div class="row">
+					       <div>
+								<div class="col-sm-2">
+									<button class="btn btn-primary" type="submit">Submit</button>
+								</div>
+						   </div>
+		              </div>
+					</fieldset>
 					</div>
 				</div>
 			</div>
 	  </form>
 	  </div>
+	  
+  <th:block th:replace="modal/pesquisaRapidaCliente :: pesquisaRapidaCliente"></th:block>
  </div>
+ 
+  <th:block layout:fragment="javascript-extra">
+     <script th:src="@{/javascripts/produto.cadastro.js}"></script> 
+     <script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	 <script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
+ </th:block>
+ 
 </body>
 </html>

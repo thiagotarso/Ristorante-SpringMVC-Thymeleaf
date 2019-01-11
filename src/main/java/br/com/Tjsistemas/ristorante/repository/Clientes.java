@@ -17,5 +17,5 @@ public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries 
 
 	public Cliente findByIdAndEmpresa(Long id, Long empresaSessao);
 
-	public List<Cliente> findByNomeStartingWithIgnoreCaseAndEmpresa(String nome, Long empresaSessao);
+	public List<Cliente> findByNomeStartingWithIgnoreCaseAndEmpresaAndFornecerdor(String nome, Long empresaSessao, boolean b);
 }

@@ -3,6 +3,7 @@ var Ristorante = Ristorante || {};
 Ristorante.PesquisaRapidaCliente = (function(){
 	 
 	function PesquisaRapidaCliente(){
+		this.clienteFornecedor =  $('#nomeCliente').data('fornecedor');
 		this.pesquisaRapidaClienteModal = $('#pesquisaRapidaCliente');
 		this.nomeClienteModal = $("#nomeClienteModal");
 		this.pesquisaRapidaBtn = $(".js-pesquisa-rapida-cliente-btn");
@@ -23,12 +24,14 @@ Ristorante.PesquisaRapidaCliente = (function(){
 	 
 	 function onPesquisaRapidaClicada(event){
 		 event.preventDefault();
+		 
 		 $.ajax({
 			 url: this.pesquisaRapidaClienteModal.find('form').attr('action'),
 			 method: 'GET',
 			 contentType: 'application/json',
 			 data: {
-				 nome: this.nomeClienteModal.val()
+				 nome: this.nomeClienteModal.val(),
+				 fornecedor: this.clienteFornecedor
 			 },
 			success: onPesquisaConcluida.bind(this), 
 		    error:   onErrorPesquisa.bind(this)
@@ -51,7 +54,6 @@ Ristorante.PesquisaRapidaCliente = (function(){
 		 this.mensagemErro.removeClass('hidden');
 	 }
 	 
-	
 	return PesquisaRapidaCliente;
 })();
 

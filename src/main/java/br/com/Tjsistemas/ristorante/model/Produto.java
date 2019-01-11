@@ -49,6 +49,7 @@ public class Produto {
     public LocalDateTime ultimaCompra;                
     
     public boolean ativo;
+    
     @Column(name="controle_estoque")
     public boolean controleEstoque;
 	
@@ -156,7 +157,7 @@ public class Produto {
 	public boolean isControleEstoque() {
 		return controleEstoque;
 	}
-	public void setControle_estoque(boolean controleEstoque) {
+	public void setControleEstoque(boolean controleEstoque) {
 		this.controleEstoque = controleEstoque;
 	}
 	public Cliente getCliente() {

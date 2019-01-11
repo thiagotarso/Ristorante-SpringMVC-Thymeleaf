@@ -35,7 +35,7 @@
 			<div class="card-body">
 				
 				  <div class="row">
-			       <div class=" col-sm-6">
+			       <div class="col-xs-6">
 	     
 			          <div class="form-group">  
 			           
@@ -46,7 +46,7 @@
 						    
 						</div> 	
 				   </div>	
-			       <div class=" col-sm-6">   
+			       <div class="col-xs-6">   
 	                  <div class="form-group">   
 	     				 <select id="select-camareiro" class="input-sm btn btn-primary" th:field="*{camareiro}">
 					        <option value="">Camareiro</option>
@@ -61,7 +61,7 @@
 				     <div class=" col-sm-12">
 		               <div class="form-group" >        
 						   <div class="input-group">
-						      <input id="nomeCliente" type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
+						      <input id="nomeCliente" data:fornecedor="false" type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
 						        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
 		                        <span class="input-group-btn">
 		                           <button  class="btn btn-primary button-size-sm" type="button" 
@@ -71,7 +71,6 @@
 						</div>
 					 </div>
 			     </div>	
-	
 
 					<div class="form-group">
 						<div class="row">
@@ -143,12 +142,12 @@
 			</div>
 			<div class="card-footer">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-xs-4">
 						<button class="btn btn-primary icon-btn" type="submit">
 							<i class="fa fa-fw fa-lg fa-check-circle"></i>Register
 						</button>
 					</div>
-					<div class="col-sm-offset-3 col-sm-4">
+					<div class="col-xs-offset-4 col-xs-4">
 						<button class="btn btn-default icon-btn" type="button">
 							<i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel
 						</button>
@@ -194,18 +193,15 @@
 			<div class="card-body">
 
 				<div class="row">
-    
                <th:block th:each="categoria : ${categorias}">           
 					<div class="col-md-3">
-						<div class="produto js-categoria-produtos" th:classappend="${categoria.cores}" data:categoria="${categoria.id}">
+						<div class="produto js-categoria-produtos" style="margin-bottom: 5%" th:classappend="${categoria.cores}" data:categoria="${categoria.id}">
 							<div class="descricao-produto">
 								<div th:text="${categoria.descricao}">sanduiches</div>
 							</div>
-							<div class="produto-rodape"></div>
 						</div>
 					</div>
 			    </th:block>	
-
 				</div>
 			</div>
        </div>
@@ -230,7 +226,7 @@
 	 
 	 <script th:src="@{/javascripts/comanda.tabela-mesas.js}"></script>
 	 
-	 <script th:src="@{/javascripts/produto.pesquisa-comanda.js}"></script>
+	 <script th:src="@{/javascripts/comanda.pesquisa-produto.js}"></script>
 	 <script th:src="@{/javascripts/comanda.tabela-itens.js}"></script> 
 	 <script th:src="@{/javascripts/comanda.js}"></script> 
 	 
