@@ -34,10 +34,10 @@ public class Produto {
     public BigDecimal precoCusto ;
    
     @Column(name="margem_de_lucro")
-    public Integer margemDelucro;
+    public Double margemDelucro;
     
     @Column(name="desconto_maximo")
-    public Integer descontoMaximo;
+    public Double descontoMaximo;
     
     @Column(name="estoque_minimo")
     public Integer estoqueMinimo;
@@ -118,16 +118,16 @@ public class Produto {
 	public void setPrecoCusto(BigDecimal precoCusto) {
 		this.precoCusto = precoCusto;
 	}
-	public Integer getMargemDelucro() {
+	public Double getMargemDelucro() {
 		return margemDelucro;
 	}
-	public void setMargemDelucro(Integer margemDelucro) {
+	public void setMargemDelucro(Double margemDelucro) {
 		this.margemDelucro = margemDelucro;
 	}
-	public Integer getDescontoMaximo() {
+	public Double getDescontoMaximo() {
 		return descontoMaximo;
 	}
-	public void setDescontoMaximo(Integer descontoMaximo) {
+	public void setDescontoMaximo(Double descontoMaximo) {
 		this.descontoMaximo = descontoMaximo;
 	}
 	public Integer getEstoqueMinimo() {

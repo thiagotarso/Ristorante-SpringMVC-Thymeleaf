@@ -4,6 +4,7 @@ Ristorante.maskMoney = (function(){
 	
 	 function maskMoney(){
 		 this.somenteNumeros = $('.js-somente-numeros');
+		 this.porcentagem = $('.js-porcentagem');
 		 this.decimal = $('.js-decimal');
 		 this.plain = $('.js-plain');
 	 }
@@ -11,6 +12,7 @@ Ristorante.maskMoney = (function(){
          this.somenteNumeros.mask('9#');
 //		 this.decimal.maskMoney({decimal: ',', thousands: '.' });
 //		 this.plain.maskMoney({precision: 0, thousands: '.'});
+         this.porcentagem.maskNumber({decimal: '.'})
          this.decimal.maskNumber({decimal: ',', thousands: '.' });
  		 this.plain.maskNumber({integer: true, thousands: '.'});
          

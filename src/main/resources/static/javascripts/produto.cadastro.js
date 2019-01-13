@@ -20,10 +20,13 @@ Ristorante.CadastroProduto =(function(){
 	
 	function onCalculaValorFinal(){
 		var percentual = ((numeral(this.valorFinal.val()) / numeral(this.precoCusto.val())) -1)* 100;
-		this.margemDeLucro.val(percentual.toFixed(2)); tocar para o tipo DOBLE
+		
+        if (this.valorFinal.val() == "" || this.valorFinal.val() == null){
+        	this.margemDeLucro.val(0);
+        }   else {
+        this.margemDeLucro.val(percentual.toFixed(2));
+	  }
 	}
-	
-	
 	return CadastroProduto;
 })();
 

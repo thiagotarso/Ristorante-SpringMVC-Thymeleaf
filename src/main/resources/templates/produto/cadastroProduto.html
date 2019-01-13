@@ -101,7 +101,7 @@
 				 
 				 <div class="col-sm-2" ristorante:classforerror="margemDelucro">		  
 				     <label class="control-label" >margem de lucro</label>
-                     <input class="form-control js-somente-numeros js-margem-lucro"  type="text" th:field="*{margemDelucro}">
+                     <input class="form-control  js-porcentagem js-margem-lucro"  type="text" th:field="*{margemDelucro}">
                  </div> 
                  
                  <div class="col-sm-2" ristorante:classforerror="valor">
@@ -111,17 +111,17 @@
 				 
 				 <div class="col-sm-2" ristorante:classforerror="descontoMaximo">
 				     <label class="control-label" >desconto Maximo</label>
-                     <input class="form-control"  type="text" th:field="*{descontoMaximo}">
+                     <input class="form-control js-porcentagem"  type="text" th:field="*{descontoMaximo}">
 				 </div> 
 				 
 				 <div class="col-sm-2" ristorante:classforerror="estoqueMinimo">
 				     <label class="control-label">Estoque Min</label>
-                     <input class="form-control"  type="text" th:field="*{estoqueMinimo}">
+                     <input class="form-control js-somente-numeros"  type="text" th:field="*{estoqueMinimo}">
 				 </div> 
 				 
 				 <div class="col-sm-2" ristorante:classforerror="estoqueAtual">
 				     <label class="control-label">Estoque Atual</label>
-                     <input class="form-control"  type="text" th:field="*{estoqueAtual}">
+                     <input class="form-control js-somente-numeros"  type="text" th:field="*{estoqueAtual}">
 				 </div> 
                </div> 
 			   
