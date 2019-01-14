@@ -43,7 +43,6 @@ Ristorante.Security = (function(){
 //		 toda vez que o ajax for chamado ele inseri o token crsf
        $(document).ajaxSend(function(event, jqxhr, settings){
     	   jqxhr.setRequestHeader(this.header, this.token);
-//    	   console.log('header '+ this.header)
     	   
       }.bind(this));		
 	}
