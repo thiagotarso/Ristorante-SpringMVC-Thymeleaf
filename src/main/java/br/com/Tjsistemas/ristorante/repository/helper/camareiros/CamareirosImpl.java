@@ -66,7 +66,7 @@ public class CamareirosImpl implements CamareirosQueries{
 	
 	private void adicionarFiltro(CamareiroFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
-		if (filtro != null) {
+		if (filtro.getEmpresa() != null) {
 			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
 			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {

@@ -67,7 +67,7 @@ public class ClientesImpl implements ClientesQueries{
 	
 	private void adicionarFiltro(ClienteFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
-		if (filtro != null) {
+		if (filtro.getEmpresa() != null) {
 			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
 			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {

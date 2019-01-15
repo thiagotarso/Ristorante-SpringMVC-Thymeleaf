@@ -68,6 +68,8 @@ $(function () {
 
 			//Check if the next element is a menu and is visible
 			if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible'))) {
+				
+				
 				//Close the menu
 				checkElement.slideUp(animationSpeed, function () {
 						checkElement.removeClass('menu-open');

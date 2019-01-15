@@ -98,7 +98,7 @@ public class UsuariosImpl implements UsuariosQueries {
 	
 	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
 		//filtros vindo da tela 
-		if (filtro != null) {
+		if (filtro.getEmpresa() != null) {
 			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
 			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {

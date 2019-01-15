@@ -80,8 +80,7 @@ public class MesasImpl implements MesasQueries {
 		}
 	
 	private void adicionarFiltro(MesaFilter filtro, Criteria criteria) {
-		//filtros vindo da tela 
-		if (filtro != null) {
+		if (filtro.getEmpresa() != null) {
 			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
 			
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
