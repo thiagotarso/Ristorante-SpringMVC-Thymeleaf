@@ -36,8 +36,9 @@ public class MenuAttributeTagProcessor extends AbstractAttributeTagProcessor {
 		String URI = request.getRequestURI();
 		
   		if (URI.matches(menu)) { 
-  			String classesExistentes = tag.getAttributeValue("class"); 
-  			structureHandler.setAttribute("class", classesExistentes + " menu-open"); 
+//  			String classesExistentes = tag.getAttributeValue("class"); 
+//  			structureHandler.setAttribute("class", classesExistentes + " active"); 
+  			  structureHandler.setAttribute("class"," active"); 
   	  } 
 	}
 }

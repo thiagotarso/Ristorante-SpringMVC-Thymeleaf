@@ -59,6 +59,9 @@ $(function () {
 
 	// Sidebar treemenu prototype
 	$.tree = function (menu) {
+		// adjust class as active in the menu
+		$('.active').parents('.treeview').addClass('active');
+		 
 		var _this = this;
 		var animationSpeed = 200;
 		$(document).on('click', menu + ' li a', function (e) {
@@ -69,7 +72,6 @@ $(function () {
 			//Check if the next element is a menu and is visible
 			if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible'))) {
 				
-				
 				//Close the menu
 				checkElement.slideUp(animationSpeed, function () {
 						checkElement.removeClass('menu-open');
@@ -77,6 +79,7 @@ $(function () {
 					//_this.layout.fix();
 				});
 				checkElement.parent("li").removeClass("active");
+				
 			}
 			//If the menu is not visible
 			else if ((checkElement.is('.treeview-menu')) && (!checkElement.is(':visible'))) {

@@ -2,9 +2,12 @@ package br.com.Tjsistemas.ristorante.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Categoria;
 import br.com.Tjsistemas.ristorante.model.Cliente;
 import br.com.Tjsistemas.ristorante.model.Produto;
@@ -26,6 +30,7 @@ import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
 import br.com.Tjsistemas.ristorante.repository.Clientes;
 import br.com.Tjsistemas.ristorante.repository.Produtos;
+import br.com.Tjsistemas.ristorante.repository.filter.ProdutoFilter;
 import br.com.Tjsistemas.ristorante.service.ProdutoService;
 
 @Controller
@@ -69,6 +74,20 @@ public class ProdutoController {
 		}
 		attributes.addFlashAttribute("mensagem", "Produto salvo com Sucesso!"); 
 		return new ModelAndView("redirect:/produto/novo");
+	}
+	
+	@GetMapping
+	 public ModelAndView pesquisar(ProdutoFilter produtoFilter, BindingResult result,
+			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
+		  ModelAndView mv = new ModelAndView("/mesas/pesquisaMesa");
+		  mv.addObject("fornecedor", clientes.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
+		  mv.addObject("categoria", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
+          produtoFilter.setEmpresa(empresaSessao(null));
+		  
+		  PageWrapper<Produto> paginasWrapper = new PageWrapper<>(produtos.filtrar(produtoFilter, pageable), httpServletRequest);
+		  mv.addObject("pagina", paginasWrapper);
+		  
+		  return mv;
 	}
 	
 	@GetMapping("/{id}")
