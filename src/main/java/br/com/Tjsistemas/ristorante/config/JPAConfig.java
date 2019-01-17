@@ -1,11 +1,16 @@
 package br.com.Tjsistemas.ristorante.config;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -26,11 +31,29 @@ import br.com.Tjsistemas.ristorante.repository.Clientes;
 @EnableTransactionManagement
 public class JPAConfig {
 
+	@Profile("local")
 	@Bean
 	public DataSource dataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 		dataSourceLookup.setResourceRef(true);
 		return dataSourceLookup.getDataSource("jdbc/Ristorante");
+	}
+	
+	@Profile("prod")
+	@Bean
+	public DataSource dataSourceProd() throws URISyntaxException {
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+	    String username = dbUri.getUserInfo().split(":")[0];
+	    String password = dbUri.getUserInfo().split(":")[1];
+	    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+	    BasicDataSource dataSource = new BasicDataSource();
+	    dataSource.setUrl(dbUrl);
+	    dataSource.setUsername(username);
+	    dataSource.setPassword(password);
+	    dataSource.setInitialSize(10);
+	    return dataSource;
 	}
 
 	@Bean

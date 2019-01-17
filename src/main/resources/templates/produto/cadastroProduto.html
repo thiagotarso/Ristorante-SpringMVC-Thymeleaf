@@ -29,10 +29,10 @@
 						<li><a href="#">cadastro Cliente</a></li>
 					</ul>
 				</div>
-			</div>
+			</div> 
 			
 	<th:block th:include="fragments/MensagemSucesso"></th:block>
-   <form method="POST" th:object="${produto}" th:action="@{/produto/novo}"> 
+   <form method="POST" th:object="${produto}" th:action="${produto.novo}? @{/produto/novo} :  @{/produto/{id}(id=${produto.id})}"> 
 	 <th:block th:include="fragments/MensagensErrosValidacao"></th:block>	
 		
 		<input type="hidden" th:field="*{id}">

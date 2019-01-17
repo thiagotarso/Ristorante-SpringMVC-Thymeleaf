@@ -10,9 +10,9 @@ public class ProdutoFilter {
 	public Long codigo;
 	public String descricao;
     public String EAN;
-    public Categoria categoria;
     public BigDecimal valorMinimo;
     public BigDecimal valorMaximo;
+    public Categoria categoria;
 	public Cliente cliente;
 	public Long empresa;
 	

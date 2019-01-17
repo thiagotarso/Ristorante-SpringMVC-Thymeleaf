@@ -57,7 +57,7 @@ public class ProdutoController {
 		return mv;
 	}
 	
-	@PostMapping("/novo")
+	@PostMapping(value ={"/novo", "{\\\\d+}"})
 	public ModelAndView salvar(@Valid Produto produto,BindingResult bindingResult, Model model, RedirectAttributes attributes){
 		
 		if (bindingResult.hasErrors()) {
@@ -79,7 +79,7 @@ public class ProdutoController {
 	@GetMapping
 	 public ModelAndView pesquisar(ProdutoFilter produtoFilter, BindingResult result,
 			                      @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
-		  ModelAndView mv = new ModelAndView("/mesas/pesquisaMesa");
+		  ModelAndView mv = new ModelAndView("/produto/pesquisaProduto");
 		  mv.addObject("fornecedor", clientes.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
 		  mv.addObject("categoria", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
           produtoFilter.setEmpresa(empresaSessao(null));

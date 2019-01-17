@@ -9,7 +9,6 @@
 
 	<packaging>war</packaging>
 
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,13 +25,13 @@
 		<servlet.version>3.1.0</servlet.version>
 
 		<!-- tymeleaf -->
-		<thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
+		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 
 		<!-- Bean validator /hibernate-validator -->
 		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
 
 		<!-- Thymeleaf - Layout Dialect -->
-		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
@@ -71,6 +70,10 @@
 
 		<!-- Java Mail -->
 		<javax.mail.version>1.5.6</javax.mail.version>
+		
+		<!-- Apache commons DBCP -->
+		<commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+		
 	</properties>
 
 	<build>
@@ -207,7 +210,7 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4.1212.jre7</version>
-			<scope>provided</scope>                  <!-- so esta aqui apra auxiliar o Flyway -->
+			<scope>compile</scope>                  <!-- so esta aqui apra auxiliar o Flyway -->
 		</dependency>
 
 		<!-- Spring Data JPA -->
@@ -293,6 +296,13 @@
 			<artifactId>javax.mail</artifactId>
 			<version>${javax.mail.version}</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Apache commons DBCP -->
+		<dependency>
+		      <groupId>org.apache.commons</groupId>
+			  <artifactId>commons-dbcp2</artifactId>
+			  <version>${commons-dbcp2.version}</version>
 		</dependency>
 	</dependencies>
 
