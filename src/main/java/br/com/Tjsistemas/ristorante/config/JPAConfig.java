@@ -60,7 +60,7 @@ public class JPAConfig {
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
-		hibernateJpaVendorAdapter.setShowSql(true);
+		hibernateJpaVendorAdapter.setShowSql(false);
 		hibernateJpaVendorAdapter.setGenerateDdl(false);
 		hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 
@@ -73,7 +73,7 @@ public class JPAConfig {
 		Factory.setDataSource(dataSource);
 		Factory.setJpaVendorAdapter(jpaVendorAdapter);
         Factory.setPackagesToScan(Cliente.class.getPackage().getName());
-//        Factory.setMappingResources("sql/consultas-nativas.xml");
+//      Factory.setMappingResources("sql/consultas-nativas.xml");
 		Factory.afterPropertiesSet();
 		
 		return Factory.getObject();
