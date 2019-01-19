@@ -1,1 +1,0 @@
-ALTER TABLE usuario ADD COLUMN empresa BIGINT;
