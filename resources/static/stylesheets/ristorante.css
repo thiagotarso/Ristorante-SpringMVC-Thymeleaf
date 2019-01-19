@@ -1,0 +1,405 @@
+/* ######################################
+# CUSTOMIZACAO DE COMPONENTES
+###################################### **/
+
+
+.checkbox input[type="checkbox"]:checked + input + label::after {
+    font-family: 'FontAwesome';
+    content: "\f00c"; 
+}
+
+/*####################
+  ####   PRODUTOS ####                 
+######################  **/	
+
+.produto {
+    font-size: 80%;
+	border-radius:4px;
+	min-width:50%;
+	width: 95%;
+	box-shadow:0 1px 1px rgba(0,0,0,0.1);
+
+    height: 0; /* A mágica está aqui */
+    padding-bottom: 38%; /* ... e está aqui */
+	position: relative;
+}
+
+.produto .descricao-produto{
+ display:flex;
+ justify-content: center;
+
+ width: 100%;
+ padding: 10%;
+  
+ overflow: hidden;
+}
+
+.produto .descricao-produto   div{
+    color: #ffffff;
+	transition:all 0.3s ease;
+	text-decoration:none;
+	
+	
+	font-weight: 900;
+	text-transform: uppercase;
+	}
+
+.produto .produto-rodape{
+    color: #ffffff;
+
+    font-size: 70%;
+	font-weight: bold;
+	text-align: center;
+	
+	bottom: 0%;
+	width: 100%;
+    position: absolute;
+
+	background: rgba(0,0,0,0.1);
+}
+
+.produto .descricao-produto div:hover, div:focus{
+	font-weight: bold;
+	transition:all 0.3s ease;
+	text-decoration:none;
+	
+}
+
+.row .produto-selecao .col-md-3  {
+    padding: 1%;
+    }
+
+
+.produto.primary{
+	background-color:#0000FF}
+	
+.produto.danger{
+	background-color:#F44336}
+
+.produto.success{
+	background-color:#00b207}
+
+.produto.warning{
+	background-color:#FF9800}
+
+.produto.info{
+	background-color:#93eafcfa
+}
+
+.produto.black{
+	background-color:rgb(3, 3, 3)}
+	
+.produto.pink{
+	background-color:rgb(204, 0, 194)}
+
+.produto.Grey{
+	background-color:#575757}
+
+
+.alert-mesa {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.alert-primary {
+		background-color: #0000FF;
+		border-color:#0000FF;
+		color: #ffffff;
+}
+	
+.alert-primary hr {
+		border-top-color: rgba(16, 16, 250, 0.733);
+}
+	
+.alert-primary .alert-link {
+		color:  #1e1f72
+}
+
+/*####################
+  ####   Mesas ####                 
+######################  **/	
+	
+.mesas-small{
+	border-radius:4px;
+	color:#fff;
+	margin-bottom:10px;
+	box-shadow:0 1px 1px rgba(0,0,0,0.1)
+	}
+		
+.mesas-small a{
+	color:#FFF;
+	text-decoration:none;
+	cursor:pointer}
+	
+.mesas-small a:hover,a:focus{
+	color:#e2e2e2;
+	transition:all 0.3s ease;
+	text-decoration:none}	
+	
+.mesas-small .icon{
+	display:-ms-flexbox;
+	display:flex;
+	min-width:85px;-ms-flex-align:center;
+	align-items:center;-ms-flex-pack:center;
+	justify-content:center;
+	padding:10px 0px;
+	background-color:rgba(0,0,0,0.2);
+	border-radius:4px 0 0 4px
+	}
+	
+.mesas-small .valor {
+	display:-ms-flexbox;
+	display:flex;
+	min-width:85px;-ms-flex-align:center;
+	align-items:center;-ms-flex-pack:center;
+	justify-content:center;
+	border-radius:4px 0 0 4px
+	}
+	
+ .tempo {
+    display:-ms-flexbox;
+	display:flex;
+	min-width:85px;-ms-flex-align:center;
+	align-items:center;-ms-flex-pack:center;
+	justify-content:center;
+	border-radius:4px 0 0 0;	
+	}
+	
+.mesas-small .info{
+	-ms-flex:1;
+	flex:1;
+	padding-left:20px;
+	-ms-flex-item-align:center;
+	align-self:center}
+	
+.mesas-small .info h4{
+	text-transform:uppercase;
+	margin:0;
+	margin-bottom:5px;
+	font-weight:400
+	}
+	
+.mesas-small .info p{
+	margin:0;
+	font-size:20px
+	}
+	
+.mesas-small.primary{
+	background-color:#0000FF}
+	
+.mesas-small.primary.coloured-icon{
+	background-color:#fff;
+	color:#2a2a2a}
+	
+.mesas-small.primary.coloured-icon .icon{
+	background-color:#0000FF;
+	color:#fff}
+	
+.mesas-small.info{
+	background-color:#ede500
+	}
+.mesas-small.info.coloured-icon{
+	background-color:#fff;
+	color:#2a2a2a}
+	
+.mesas-small.info.coloured-icon .icon{
+	background-color:#ede500;
+	color:#fff}
+	
+.mesas-small.warning{
+	background-color:#FF9800}
+	
+.mesas-small.warning.coloured-icon{
+	background-color:#fff;
+     color:#2a2a2a}
+	 
+.mesas-small.warning.coloured-icon .icon{
+	background-color:#FF9800;
+	color:#fff}
+	
+.mesas-small.danger{
+	background-color:#F44336}
+	
+.mesas-small.danger.coloured-icon{
+	background-color:#fff;
+    color:#2a2a2a}
+	
+.mesas-small.danger.coloured-icon .icon{
+	background-color:#F44336;
+	color:#fff}
+	
+.mesas-small.success{
+	background-color:#00b207}
+	
+.mesas-small.success.coloured-icon{
+	background-color:#fff;
+    color:#2a2a2a}
+	
+.mesas-small.success.coloured-icon .icon{
+	background-color:#F44336;
+	color:#fff}	
+/*
+#################
+botoes      #####
+#################
+**/
+.input-group-btn .button-size-sm{
+padding: 5px 10px;
+}
+
+/*
+#################
+tabela iten #####     
+#################
+**/
+
+/* Tabela produto página de Venda */
+.tj-tabela-produto {
+	margin-bottom: 15px;
+}
+
+.tj-tabela-produto__vazio {
+	padding: 15px 15px;
+	
+	border: 1px dashed #ddd;
+	
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: 300;
+	color: #555;
+}
+
+.tj-tabela-item {
+	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
+	
+	padding: 2px 0;
+	
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.tj-tabela-item:after {
+	clear: both;
+	display: block;
+    content: "";
+}
+
+.tj-tabela-item ~ .tj-tabela-item {
+	border-top: 1px solid #ddd;
+}
+
+.tj-tabela-item__coluna {
+	padding: 0 1px;
+}
+
+.tj-tabela-item__coluna--valores {
+	padding-right: 0px;
+}
+.tj-tabela-item__coluna--valor-unitario{
+	padding-right: 0px;
+}
+
+.tj-tabela-item__coluna--detalhes, .tj-tabela-item__coluna--valores, .tj-tabela-item__coluna--quantidade, .tj-tabela-item__coluna--acoes {
+	margin-left: 4px;
+}
+
+.tj-tabela-produto-cabecalho {
+	font-weight: bold;
+	font-size: 70%;
+	display: block;
+}
+
+.tj-tabela-produto-nome {
+	font-weight: 900;
+	font-size: 90%;
+	display: block;
+	
+	overflow: hidden;
+}
+
+.tj-produtos-observacoes > .control-label:before{
+ content: " *";
+ color: #C0C0C0;
+}
+
+.tj-tabela-produto-campo-quantidade {
+	width: 30px;
+	text-align: right;
+}
+
+
+.tj-tabela-produto-valor-unitario{
+    font-size: 65%;
+	font-weight: bold;
+    display: block;
+    text-align: center;
+    margin-top: 8%;
+     
+}
+
+
+.tj-tabela-produto-quantidade {
+	font-weight: 300;
+	font-size: 70%;
+	text-align: center;
+}
+
+.tj-tabela-produto-valor-grande {
+	font-weight: 900;
+	font-size: 85%;
+	display: block;
+	text-align: center;
+	margin-top: 3%;
+}
+
+.tj-tabela-item__coluna--acoes  a{
+   margin-left:80%;
+}
+
+/*
+##########################
+tabela total comanda #####     
+##########################
+**/
+
+.tj-tabela-item__total-comanda {
+	font-weight: 900;
+	font-size: 70%;
+	
+	margin-top: center;
+}
+
+.tj-tabela-item__descricao-resumo-comanda {
+   text-align: left;
+}
+
+.tj-tabela-item__descricao-resumo-valores {
+	text-align: right;
+ }
+
+@media (min-width: 768px) { /* screen-sm-min */
+	.tj-tabela-item__coluna {
+		float: left;
+		margin-left: 3px;
+	}
+	
+	.tj-tabela-item__coluna--detalhes {
+		width: calc(60% - 30px);
+	}
+	
+	.tj-tabela-item__coluna--valor-unitario {
+		width: calc(20% - 30px);
+	}
+	
+	.tj-tabela-item__coluna--acoes{
+	    width: calc(10% - 30px);
+	}
+	
+	.tj-tabela-item__coluna--valores {
+		width: calc(30% - 30px);
+
+		text-align: right;
+	}
+}

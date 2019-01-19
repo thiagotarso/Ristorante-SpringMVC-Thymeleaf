@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+         
+         
+         <div class="col-xs-6 col-sm-2 js-tabela-mesas"   th:each="mesas : ${mesasSelecionada}" >
+			<div class="bs-component">
+			
+		         <div  class="alert alert-mesa alert-dismissible alert-primary js-mesa-selecionada js-remover-mesa-comanda-btn"  data:id="${mesas.mesa.id}">
+					   <button class="close " type="button" data-dismiss="alert" ></button><strong th:text="|mesa_${mesas.mesa.numeroMesa}|" >mesa 101</strong>
+				 </div>
+            </div>
+		 </div>
+</html>

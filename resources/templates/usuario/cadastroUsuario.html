@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao">
+
+<head>
+<title>Cadastro de Usuario</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+		<div class="content-wrapper">
+			<div class="page-title">
+				<div>
+					<h1>
+						<i class="fa fa-dashboard"></i> Cadastros de Usuarios
+					</h1>
+				</div>
+				<div>
+					<ul class="breadcrumb">
+						<li><i class="fa fa-home fa-lg"></i></li>
+						<li><a href="#">cadastro Cliente</a></li>
+					</ul>
+				</div>
+			</div>
+
+         <th:block th:include="fragments/MensagemSucesso"></th:block>
+		<form  method="POST" th:object="${usuario}" th:action="@{/usuario/novo}">
+		   <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
+		   
+			<div class="row form-group">
+				<div class="col-md-12">
+
+              <div class="card">
+			     <div class="row form-group"> 
+					 <div class="col-sm-2 hidden">
+						<label class="control-label">ID</label>
+						<input class="form-control"  type="text" th:field="*{id}">
+					 </div> 
+					 
+					  <div class="col-sm-2" th:classappend="${#fields.hasErrors('codigo')} ? has-error">
+						<label class="control-label">Codigo</label>
+						<input class="form-control"  type="text" disabled th:field="*{codigo}">
+					 </div> 
+					 
+					 <div class="col-sm-6" th:classappend="${#fields.hasErrors('nome')} ? has-error">		  
+						 <label class="control-label" >NOME</label>
+						 <input class="form-control"  type="text"  th:field="*{nome}">
+					 </div> 
+					 
+			          <div class="col-sm-4" th:classappend="${#fields.hasErrors('email')} ? has-error">
+					      <label class="control-label">E-MAIL</label>
+	                      <input class="form-control"  type="text"  th:field="*{email}">
+	                  </div> 
+                 </div> 
+			   
+				   <div class="row form-group">
+				      <div class="col-sm-4" th:classappend="${#fields.hasErrors('senha')} ? has-error">
+					        <label class="control-label" >SENHA</label>
+	                        <input class="form-control"  type="text" th:field="*{senha}">
+	                  </div>
+					   
+				      <div class="col-sm-4" th:classappend="${#fields.hasErrors('confirmacaoSenha')} ? has-error">
+				        <label class="control-label" >CONF. SENHA</label>
+                        <input class="form-control"  type="text" th:field="*{confirmacaoSenha}">
+                      </div>
+						 
+					  <div class="col-sm-3">
+					     
+					    <label class="control-label">Usuario Ativo?</label>
+					  
+	                   <!--Checkbox Markup-->
+					       <div class="checkbox checkbox-inline">
+	                             <input id="ativo" type="checkbox" th:field="*{ativo}">
+						         <label  for="ativo">Ativo</label> 
+	                       </div>
+			           </div>
+					 </div>  
+					 
+					<div class="row">
+					  <div class="col-sm-3"  th:classappend="${#fields.hasErrors('grupo')} ? has-error">
+                          
+                          <th:block th:each="grupo : ${grupos}">
+   					       <div class="checkbox checkbox-inline">
+	                             <input type="checkbox" th:value="${grupo.id}" th:field="*{grupo}">
+						         <label th:for="${#ids.prev('grupo')}" th:text="${grupo.nome}" for="ativos">Ativo?</label> 
+	                       </div>
+	                      </th:block> 
+			           </div>
+				   </div>  
+				 
+				  <div class="row">
+			      <div class="col-sm-4">
+				        <button type="submit" class="btn btn-primary">Salvar</button> 
+                  </div>
+				 </div>  
+				
+			   </div>
+				</div>
+			</div>
+
+		  </form>
+		</div>
+	</div>
+</body>
+</html>

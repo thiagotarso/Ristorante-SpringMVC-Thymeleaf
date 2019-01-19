@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
+	
+<body>	
+     <aside class="main-sidebar hidden-print"  th:fragment="menuLateral">
+        <section class="sidebar">
+          
+          <ul class="sidebar-menu">
+          
+            <li  ><a href="#"><i class="fa fa-line-chart"></i><span>Dashboard</span></a></li>
+            <li class="treeview">
+                   <a href="#"><i class="fa fa-id-card-o" aria-hidden="true"></i><span>Cliente</span><i class="fa fa-angle-right"></i></a>
+              <ul class="treeview-menu" >
+                <li ristorante:menu="@{/cliente}"><a th:href="@{/cliente}"><i class="fa fa-circle-o"></i>Lista clientes</a></li>
+                <li ristorante:menu="@{/cliente/novo}"><a th:href="@{/cliente/novo}"><i class="fa fa-circle-o"></i>Cad. clientes</a></li>
+              </ul>
+            </li>
+            
+            <li class="treeview"><a href="#"><i class="fa fa-barcode"></i><span>Produtos</span><i class="fa fa-angle-right"></i></a>
+              <ul class="treeview-menu">
+<!--                   <li ristorante:menu="@{/produto}"><a th:href="@{/produto}"><i class="fa fa-circle-o"></i>Lista Produtos</a></li> -->
+                  <li ristorante:menu="@{/produto/novo}"><a th:href="@{/produto/novo}"><i class="fa fa-circle-o"></i>Cad. Produtos</a></li>   
+                    
+                 <li class="treeview"><a href="#"><i class="fa fa-circle-o"></i><span> niveis</span><i class="fa fa-angle-right"></i></a>
+                     <ul class="treeview-menu">
+                       <li ristorante:menu="@{/categoria}"><a th:href="@{/categoria}"><i class="fa fa-circle-o"></i>Lista Categoria</a></li>
+                       <li ristorante:menu="@{/categoria/nova}"><a th:href="@{/categoria/nova}"><i class="fa fa-circle-o"></i>Cad. Categoria</a></li>
+<!--                        <li><a href="#"><i class="fa fa-circle-o"></i>sabor</a></li> -->
+<!--                        <li><a href="#"><i class="fa fa-circle-o"></i>embalagem</a></li> -->
+                     </ul>
+                </li>
+              </ul>
+            </li>
+            
+             <li class="treeview"><a href="#"><i class="fa fa-square-o"></i><span>Mesas</span><i class="fa fa-angle-right"></i></a>
+              <ul class="treeview-menu">
+                  <li ristorante:menu="@{/mesa}"><a th:href="@{/mesa}"><i class="fa fa-circle-o"></i>ListaMesas</a></li>
+                  <li ristorante:menu="@{/mesa/nova}"><a th:href="@{/mesa/nova}"><i class="fa fa-circle-o"></i>Cadastro Mesas</a></li>
+              </ul>
+            </li>
+            
+            <li class="treeview"><a href="#"><i class="fa fa-cart-plus"></i><span>Comanda</span><i class="fa fa-angle-right"></i></a>
+              <ul class="treeview-menu">
+                <li ristorante:menu="@{/comanda/visao}"><a th:href="@{/comanda/visao}"><i class="fa fa-circle-o"></i>Visão Comandas</a></li>
+                <li ristorante:menu="@{/comanda/comanda}"><a th:href="@{/comanda/comanda}"><i class="fa fa-circle-o"></i>Cad. Comanda</a></li>
+              </ul>
+            </li>
+            
+              <li class="treeview"><a href="#"><i class="fa fa-user-o"></i><span>Pessoal</span><i class="fa fa-angle-right"></i></a>
+              <ul class="treeview-menu">
+                 <li ristorante:menu="@{/camareiro}"><a th:href="@{/camareiro}"><i class="fa fa-circle-o"></i>Lista Camareiros</a></li>
+                 <li ristorante:menu="@{/camareiro/novo}"><a th:href="@{/camareiro/novo}"><i class="fa fa-circle-o"></i>Cadastro Camareiros</a></li>
+                 <li ristorante:menu="@{/usuario/novo}"><a th:href="@{/usuario/novo}"><i class="fa fa-circle-o"></i>Cadastro Usuarios</a></li>
+              </ul>
+            </li>
+           
+          </ul>
+       </section>
+     </aside>
+</body>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
+
+<head>
+<title>Cadastro de Clientes</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+		<div class="content-wrapper">
+			<div class="page-title">
+				<div>
+					<h1>
+						<i class="fa fa-dashboard"></i> Cliente
+					</h1>
+				</div>
+				<div>
+					<ul class="breadcrumb">
+						<li><i class="fa fa-home fa-lg"></i></li>
+						<li><a href="#">cadastro Cliente</a></li>
+					</ul>
+				</div>
+			</div>
+
+         <th:block th:include="fragments/MensagemSucesso"></th:block>
+		<form  method="POST" th:object="${cliente}" th:action="@{/cliente/novo}">
+		    <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
+			
+			<input type="hidden" th:field="*{id}">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="card">
+							<fieldset>
+								<legend>Basico</legend>
+								<div class="row">
+								
+								 <div class="col-sm-2" ristorante:classforerror="codigo">
+									<label class="control-label">CODIGO</label> 
+									<input class="form-control" type="text" th:field="*{codigo}">
+								 </div>
+
+									 <div class="col-sm-5" ristorante:classforerror="nome" >
+											<label class="control-label">RAZÓN
+												SOCIAL/NOMBRE</label> <input class="form-control" type="text"  th:field="*{nome}">
+									</div>
+
+									<div class="col-sm-5" ristorante:classforerror="nomeFantasia">
+										<label class="control-label" >NOM. COMERCIAL</label> 
+										<input class="form-control" type="text" th:field="*{nomeFantasia}">
+									</div>
+
+								</div>
+
+								<div class="row">
+
+									<div class="col-sm-4" ristorante:classforerror="numeroDocumento">
+											<label class="control-label">N°
+												DOCUMENTO</label> <input class="form-control" type="text"
+												placeholder="999.999.999-99" th:field="*{numeroDocumento}">
+									</div>
+
+									<div class="col-sm-4" ristorante:classforerror="email">
+										<label class="control-label" >E-Mail</label> <input
+										class="form-control" type="text" th:field="*{email}" >
+									</div>
+
+									<div class="col-sm-4" ristorante:classforerror="telefone">
+										<label class="control-label">TELÉFONO</label>
+										<input class="form-control" type="text" th:field="*{telefone}">
+									</div>
+								</div>
+
+							</fieldset>
+					   </div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+
+							<fieldset>
+								<legend>Dirección</legend>
+								<div class="row">
+
+									<div class="col-sm-4" ristorante:classforerror="cep">
+										<label class="control-label" >COD.POSTAL</label>
+											 <input class="form-control" type="text"
+											placeholder="99999" th:field="*{cep}">
+									</div>
+
+									<div class="col-sm-4" ristorante:classforerror="provincia">
+										<label class="control-label">PROVINCIA</label>
+										<input class="form-control" type="text" th:field="*{provincia}">
+									</div>
+
+									<div class="col-sm-4" ristorante:classforerror="localidad">
+										<label class="control-label" for="inputEmail">LOCALIDAD</label>
+										<input class="form-control" type="text" th:field="*{localidad}">
+									</div>
+
+								</div>
+
+								<div class="row  form-group">
+									<div class="col-sm-8" ristorante:classforerror="direcion">
+										<label class="control-label">DIRECCIÓN</label>
+										<input class="form-control" type="text" th:field="*{direcion}">
+									</div>
+
+									<div class="col-sm-4" ristorante:classforerror="numero">
+										<label class="control-label">NÚMERO</label> <input
+											class="form-control" type="text" th:field="*{numero}">
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-3" ristorante:classforerror="fornecerdor">
+									
+									<!--Checkbox Markup-->
+								   	 <div>
+										<div class="checkbox checkbox-inline">
+										    <input id="fornecedor" type="checkbox" th:field="*{fornecerdor}">
+											<label  for="fornecedor">es fornecedor?</label>
+										</div>
+									 </div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-sm-2">
+										<button class="btn btn-primary" type="submit">Submit</button>
+									</div>
+					            </div>
+								
+							</fieldset>
+					</div>
+				</div>
+
+			</div>
+		  </form>
+		</div>
+	</div>
+</body>
+</html>
