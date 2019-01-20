@@ -57,8 +57,8 @@ Ristorante.Login = (function(){
 	    return unescape(cookies.substring(begin + prefix.length, end));
 	}
 	
-	function onEmpresas(event){
-		var categoriaSelecionado = $(event.currentTarget);
+	function onEmpresas(){
+//		var categoriaSelecionado = $(event.currentTarget);
 		
         	$.ajax({
 				url:  '/ristorante/empresas',
@@ -86,7 +86,7 @@ Ristorante.Login = (function(){
 		this.selectEmpresas.attr('disabled', true);
 		this.selectEmpresas.empty();
 		
-		this.selectEmpresas.append('<option value= 0> Empresas </option>');
+		this.selectEmpresas.append('<option value="0"> Empresas </option>');
 	}
 	
 	return Login;

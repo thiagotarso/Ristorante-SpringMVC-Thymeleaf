@@ -39,7 +39,7 @@ public class SegurancaController {
 	
 	@RequestMapping(value="/empresas", consumes= {MediaType.APPLICATION_JSON_VALUE})
 	private @ResponseBody ResponseEntity<?>  listaEmpresas(String userName){
-
+      System.out.println("chamou!"); 
 		Optional<Usuario> usuario = usuarios.porNomeEAtivo(userName);
 		
 		if (usuario.isPresent()) {
@@ -51,10 +51,10 @@ public class SegurancaController {
 					   new EmpresaDTO(emp.getEmpresa().getId(), emp.getEmpresa().getCodigo() ,emp.getEmpresa().getRazaoSocial()));
 		 }
     	
-    	return ResponseEntity.ok(empresasDto);         
+    	System.out.println("chamou e encontrou!"); 
+    	return ResponseEntity.ok(empresasDto);    
 		}
-		
+		System.out.println("chamou e erro"); 
 		return ResponseEntity.badRequest().body("Usuario não Localizado!");
 	}
-
 }

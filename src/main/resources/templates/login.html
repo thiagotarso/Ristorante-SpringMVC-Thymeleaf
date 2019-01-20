@@ -21,7 +21,6 @@
    <div class="form-login col-xs-offset-1 col-xs-10  col-sm-offset-3 col-sm-6  col-md-offset-4 col-md-4 ">
           
            <header>
-<!--               <h1 class="centralizar-img"><img class="img-responsive" th:src="@{/layout/images/logo-gray.png}"></h1> -->
               <h2 class="text-center">Entre com seu <b>usuário</b> e <b>senha</b></h2>
            
                 <div class="tem-erro text-center" th:if="${#bools.isTrue(param.error)}">
@@ -59,7 +58,7 @@
                   </div> 
 
 				<select  class="form-control" id="empresas" name="empresa" disabled="disabled" >
-                      <option value='1'> Empresas</option>
+                      <option value="0"> Empresas</option>
 				</select>
             
               </div>
@@ -72,7 +71,6 @@
        </div>
 
 <script th:src="@{/layout/javascripts/jquery-2.1.4.min.js}"></script>
-<!-- <script th:src="@{/layout/javascripts/main.js}"></script> -->
 <script th:src="@{/layout/javascripts/login.js}"></script>
 </body>
 </html>
