@@ -84,7 +84,7 @@ Ristorante.Login = (function(){
 		this.selectEmpresas.attr('disabled', true);
 		this.selectEmpresas.empty();
 		
-		this.selectEmpresas.append('<option value= 0> Empresas </option>');
+		this.selectEmpresas.append('<option value="0"> Empresas </option>');
 	}
 	
 	return Login;
