@@ -40,7 +40,7 @@ public class CamareiroController {
 		return mv;
 	}
 	
-   @PostMapping("/novo")	
+   @PostMapping(value ={"/novo", "{\\d+}"})	
    public ModelAndView salvar(@Valid Camareiro camareiro, BindingResult bindingResult,
 		                                Model model, RedirectAttributes attributes ){
 	  

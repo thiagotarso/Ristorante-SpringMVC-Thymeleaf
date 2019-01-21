@@ -66,6 +66,9 @@ public class Mesa {
 	public void setSituacaoMesa(SituacaoMesa situacaoMesa) {
 		this.situacaoMesa = situacaoMesa;
 	}
+	public boolean isNova() {
+		return id == null;
+	}
 
 	@SuppressWarnings("static-access")
 	public boolean isLivre(Mesa mesa){

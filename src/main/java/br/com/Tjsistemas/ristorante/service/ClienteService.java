@@ -15,8 +15,13 @@ public class ClienteService {
 	
 	@Transactional
 	public Cliente salvar(Cliente cliente){
-		
-		cliente.setCodigo(clientes.codigoCliente(cliente.getEmpresa()));
+		if (cliente.isNovo()) {
+			cliente.setCodigo(clientes.codigoCliente(cliente.getEmpresa()));
+		}
+		else if (!cliente.isNovo()) {
+			 cliente.setCodigo(cliente.getCodigo()); 	
+			}
+
 		return clientes.save(cliente);
 	}
 }

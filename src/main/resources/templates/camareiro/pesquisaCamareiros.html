@@ -71,12 +71,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="categoria : ${pagina.conteudo}">
-                    <td class="text-center" th:text="${categoria.codigo}">1</td>
-                    <td class="text-center" th:text="${categoria.nome}">categoria</td>
+                  <tr th:each="camareiro : ${pagina.conteudo}">
+                    <td class="text-center" th:text="${camareiro.codigo}">1</td>
+                    <td class="text-center" th:text="${camareiro.nome}">categoria</td>
                     
                     	<td class="text-right" >
-							<a class="btn  btn-link  btn-xs" title="Editar" > 
+							<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/camareiro/{id}(id=${camareiro.id})}"> 
 								<i class="fa fa-pencil"></i>
 							</a>
 						</td>

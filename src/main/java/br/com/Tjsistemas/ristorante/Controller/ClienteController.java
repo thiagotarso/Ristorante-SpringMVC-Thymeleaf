@@ -47,7 +47,7 @@ public class ClienteController {
 	 return mv;
 	}
 
-   @PostMapping("/novo")
+   @PostMapping(value ={"/novo", "{\\d+}"})
    public ModelAndView salvar(@Valid Cliente cliente, BindingResult bindingResult ,
 		                             Model model, RedirectAttributes attributes) {
 	

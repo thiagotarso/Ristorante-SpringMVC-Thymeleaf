@@ -17,8 +17,11 @@
 		<div class="content-wrapper">
 			<div class="page-title">
 				<div>
-					<h1>
+					<h1 th:if="${mesa.nova}">
 						<i class="fa fa-dashboard"></i> Mesa
+					</h1>
+					<h1 th:unless="${mesa.nova}" th:text="|Edição: Mesa- ${mesa.numeroMesa}|">
+					  <i class="fa fa-dashboard"></i> mesa edicao
 					</h1>
 				</div>
 				<div>
@@ -33,7 +36,7 @@
 				<div class="col-md-12">
 					<div class="card">
 
-						<form method="POST" th:object="${mesa}" th:action="@{/mesa/nova}">
+						<form method="POST" th:object="${mesa}" th:action="${mesa.nova}? @{/mesa/nova} :  @{/mesa/{id}(id=${mesa.id})}">
 							<fieldset>
 								<legend>Basico</legend>
 								<div class="row">

@@ -13,11 +13,13 @@ public class CategoriaService {
 	@Autowired
 	private Categorias categorias;
 	
-	
 	@Transactional
 	public void salvar(Categoria categoria) {
 		
-		categoria.setCodigo(categorias.codigoCategorias(categoria.getEmpresa()));
+		if (categoria.isNova()) {
+		 categoria.setCodigo(categorias.codigoCategorias(categoria.getEmpresa()));
+		 }	
+		
 		categorias.save(categoria);
 	}
 }

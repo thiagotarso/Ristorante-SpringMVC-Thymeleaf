@@ -15,7 +15,10 @@ public class CamareiroService {
 	
 	@Transactional
 	public void salvar(Camareiro camareiro){
-	    camareiro.setCodigo(camareiros.codigoCamareiros(camareiro.getEmpresa()));
+		if (camareiro.isNovo()) {
+			camareiro.setCodigo(camareiros.codigoCamareiros(camareiro.getEmpresa()));
+		}
+
 		camareiros.save(camareiro);	
 	}
 }

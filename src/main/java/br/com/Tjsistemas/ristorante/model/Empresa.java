@@ -54,6 +54,9 @@ public class Empresa implements Serializable {
 	public void setFantasia(String fantasia) {
 		this.fantasia = fantasia;
 	}
+	public boolean isNova() {
+		return id == null;
+	}
 
 	@Override
 	public int hashCode() {

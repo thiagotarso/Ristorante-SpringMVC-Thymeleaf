@@ -150,6 +150,10 @@ public class Usuario {
 		this.empresaUsuario = empresaUsuario;
 	}
 	
+	public boolean isNovo() {
+		return id == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

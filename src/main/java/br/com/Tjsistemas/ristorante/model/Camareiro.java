@@ -46,6 +46,10 @@ public class Camareiro {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public boolean isNovo() {
+		return id == null;
+	}
+	
 	
 	@Override
 	public int hashCode() {

@@ -100,7 +100,7 @@ public class ComandaController {
 		return mv;
 	}
 	
-	@PostMapping("/comanda")
+	@PostMapping(value ={"/novo", "{\\d+}"})
 	public ModelAndView salvar(@Valid Comanda comanda, BindingResult bindingResult,
 			                         Model model, RedirectAttributes attributes){
           

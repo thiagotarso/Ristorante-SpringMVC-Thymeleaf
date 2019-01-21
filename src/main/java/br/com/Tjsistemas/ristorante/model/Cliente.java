@@ -159,6 +159,9 @@ public class Cliente {
 	public void setFornecerdor(boolean fornecerdor) {
 		this.fornecerdor = fornecerdor;
 	}
+	public boolean isNovo() {
+		return id == null;
+	}
 
 	@Override
 	public int hashCode() {

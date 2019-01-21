@@ -79,7 +79,7 @@
                     <td class="text-center" th:text="${mesa.situacaoMesa.descricao}">categoria</td>
                     
                     	<td class="text-right" >
-							<a class="btn  btn-link  btn-xs" title="Editar" > 
+							<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/mesa/{id}(id=${mesa.id})}"> 
 								<i class="fa fa-pencil"></i>
 							</a>
 						</td>

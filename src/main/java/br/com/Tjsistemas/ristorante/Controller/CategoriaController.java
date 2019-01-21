@@ -40,7 +40,7 @@ public class CategoriaController {
 		return mv;
 	}
 
-	@PostMapping("/nova")
+	@PostMapping(value ={"/nova", "{\\d+}"})
 	public ModelAndView salvar(@Valid Categoria categoria, BindingResult bindingResult,
 			                                 Model model, RedirectAttributes attributes){
 		
@@ -53,7 +53,7 @@ public class CategoriaController {
 		
 	    attributes.addFlashAttribute("mensagem", "categoria salvo com Sucesso!");   
 		
-		return  new ModelAndView("categoria/cadastroCategoria"); 
+		return  new ModelAndView("redirect:/categoria/nova"); 
 	}
 	
 	   

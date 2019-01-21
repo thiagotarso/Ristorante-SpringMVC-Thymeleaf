@@ -24,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Categoria;
-import br.com.Tjsistemas.ristorante.model.Cliente;
 import br.com.Tjsistemas.ristorante.model.Produto;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
@@ -57,15 +56,13 @@ public class ProdutoController {
 		return mv;
 	}
 	
-	@PostMapping(value ={"/novo", "{\\\\d+}"})
+	@PostMapping(value ={"/novo", "{\\d+}"})
 	public ModelAndView salvar(@Valid Produto produto,BindingResult bindingResult, Model model, RedirectAttributes attributes){
 		
 		if (bindingResult.hasErrors()) {
 			return novo(produto);
 		}
 		try {
-			Cliente cli = clientes.findOne(1L);
-			produto.setCliente(cli);
 			
 			produto.setEmpresa(empresaSessao(produto));
 			produtoService.salvar(produto);

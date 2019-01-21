@@ -17,8 +17,11 @@
 		<div class="content-wrapper">
 			<div class="page-title">
 				<div>
-					<h1>
+					<h1 th:if="${camareiro.novo}">
 						<i class="fa fa-dashboard"></i> Camareiro
+					</h1>
+					<h1 th:unless="${camareiro.novo}" th:text="|Edição: ${camareiro.codigo}- ${camareiro.nome}|">
+					  <i class="fa fa-dashboard"></i> Camareiro edicao
 					</h1>
 				</div>
 				<div>
@@ -33,7 +36,7 @@
 				<div class="col-md-12">
 					<div class="card">
 
-						<form method="POST" th:object="${camareiro}" th:action="@{/camareiro/novo}">
+						<form method="POST" th:object="${camareiro}" th:action="${camareiro.novo}? @{/camareiro/novo} :  @{/camareiro/{id}(id=${camareiro.id})}">
 							<fieldset>
 								<legend>Basico</legend>
 								<div class="row">

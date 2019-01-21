@@ -84,7 +84,7 @@
 		            <td th:text="${usuario.ativo}">1</td>
 		            
                     	<td class="text-right" >
-							<a class="btn  btn-link  btn-xs" title="Editar" > 
+							<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/usuario/{id}(id=${usuario.id})}"> 
 								<i class="fa fa-pencil"></i>
 							</a>
 						</td>

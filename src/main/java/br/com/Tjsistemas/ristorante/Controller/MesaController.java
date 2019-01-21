@@ -42,7 +42,7 @@ public class MesaController {
 	return mv;	
 	}
 	
-	@PostMapping("/nova")
+	@PostMapping(value ={"/nova", "{\\d+}"})
 	public ModelAndView salvar(@Valid Mesa mesa,BindingResult bindingResult, 
 			                          Model model, RedirectAttributes attributes ) {
 	

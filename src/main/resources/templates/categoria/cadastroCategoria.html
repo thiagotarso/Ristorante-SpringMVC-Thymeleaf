@@ -19,8 +19,11 @@
 		<div class="content-wrapper">
 			<div class="page-title">
 				<div>
-					<h1>
+					<h1 th:if="${categoria.nova}">
 						<i class="fa fa-dashboard"></i> Categoria
+					</h1>
+					<h1 th:unless="${categoria.nova}" th:text="|Edição: ${categoria.codigo}- ${categoria.descricao}|">
+					  <i class="fa fa-dashboard"></i> categoria edicao
 					</h1>
 				</div>
 				<div>
@@ -35,7 +38,7 @@
 				<div class="col-md-12">
 					<div class="card">
 
-						<form method="POST" th:object="${categoria}" th:action="@{/categoria/nova}">
+						<form method="POST" th:object="${categoria}" th:action="${categoria.nova}? @{/categoria/nova} : @{/categoria/{id}(id=${categoria.id})}">
 						<input type="hidden" th:field="*{id}">
 
 							<fieldset>
@@ -45,7 +48,7 @@
 
 										<label class="control-label">Cod.</label> <input
 											class="form-control" type="text" th:field="*{codigo}"
-											disabled="disabled">
+											disabled>
 
 									</div>
 

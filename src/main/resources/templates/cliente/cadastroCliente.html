@@ -17,8 +17,11 @@
 		<div class="content-wrapper">
 			<div class="page-title">
 				<div>
-					<h1>
+					<h1 th:if="${cliente.novo}">
 						<i class="fa fa-dashboard"></i> Cliente
+					</h1>
+					<h1 th:unless="${cliente.novo}" th:text="|Edição: ${cliente.codigo}- ${cliente.nome}|">
+					  <i class="fa fa-dashboard"></i> cliente edicao
 					</h1>
 				</div>
 				<div>
@@ -30,7 +33,7 @@
 			</div>
 
          <th:block th:include="fragments/MensagemSucesso"></th:block>
-		<form  method="POST" th:object="${cliente}" th:action="@{/cliente/novo}">
+		<form  method="POST" th:object="${cliente}" th:action="${cliente.novo}? @{/cliente/novo} :  @{/cliente/{id}(id=${cliente.id})}">
 		    <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
 			
 			<input type="hidden" th:field="*{id}">

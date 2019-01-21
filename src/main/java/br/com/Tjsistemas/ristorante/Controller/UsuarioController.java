@@ -45,7 +45,7 @@ public class UsuarioController {
 	return mv;	
 	}
 	
-	@PostMapping("/novo")
+	@PostMapping(value ={"/novo", "{\\d+}"})
 	public ModelAndView salvar(@Valid Usuario usuario,  BindingResult bindingResult,
 			                         Model model, RedirectAttributes attributes) {
 	

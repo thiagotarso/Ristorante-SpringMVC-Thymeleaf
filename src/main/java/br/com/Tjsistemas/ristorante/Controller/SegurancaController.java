@@ -50,10 +50,8 @@ public class SegurancaController {
 					   new EmpresaDTO(emp.getEmpresa().getId(), emp.getEmpresa().getCodigo() ,emp.getEmpresa().getRazaoSocial()));
 		 }
     	
-    	System.out.println("chamou e encontrou!"); 
     	return ResponseEntity.ok(empresasDto);    
 		}
-		System.out.println("chamou e erro"); 
 		return ResponseEntity.badRequest().body("Usuario não Localizado!");
 	}
 }

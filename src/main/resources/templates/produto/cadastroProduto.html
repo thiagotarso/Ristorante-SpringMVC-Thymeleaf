@@ -19,9 +19,13 @@
 		<div class="content-wrapper">
 			<div class="page-title">
 				<div>
-					<h1>
-						<i class="fa fa-dashboard"></i> Produto
+					<h1 th:if="${produto.novo}">
+						 Produto
 					</h1>
+					<h1 th:unless="${produto.novo}" th:text="|Edição: ${produto.codigo}- ${produto.descricao}|">
+					  <i class="fa fa-dashboard"></i> Edição de produto
+					</h1>
+					
 				</div>
 				<div>
 					<ul class="breadcrumb">
@@ -45,9 +49,9 @@
               <legend>Basico</legend>			  
 			  <div class="row"> 
 		      
-			    	<div class="col-sm-3" ristorante:classforerror="codigo">
-					<label class="control-label">Cod.</label> 
-					<input class="form-control" type="text" th:field="*{id}"
+			      <div class="col-sm-3" ristorante:classforerror="codigo">
+					 <label class="control-label">Cod.</label> 
+					 <input class="form-control" type="text" th:field="*{id}" 
 						disabled="disabled"/>
                  </div>
 				 
@@ -131,7 +135,7 @@
 			      <label class="control-label">FORNECEDOR:</label>
 			      
 			        <div class="input-group">
-				        <input id="nomeCliente" data:fornecedor="true" type="text" class="form-control " th:field="*{cliente.nome}" placeholder="pesquise um Fornecedor.">
+				        <input id="nomeCliente" data:fornecedor="true" type="text" class="form-control " th:field="*{cliente.nome}" disabled="disabled" placeholder="pesquise um Fornecedor.">
 				        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
                         <span class="input-group-btn">
                            <button  class="btn btn-primary" type="button" 

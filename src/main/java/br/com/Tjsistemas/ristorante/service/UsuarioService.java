@@ -17,7 +17,9 @@ public class UsuarioService {
 //	@PreAuthorize("#usuario.email == principal.usuario.email")
 	@Transactional
 	public void salvar(Usuario usuario){
-		usuario.setCodigo(usuarios.codigoUsuario(usuario.getEmpresa()));
+     if (usuario.isNovo()) {
+	    usuario.setCodigo(usuarios.codigoUsuario(usuario.getEmpresa()));
+		}
 		
 		usuarios.save(usuario);
 	}
