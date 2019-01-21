@@ -3,7 +3,6 @@ var Ristorante = Ristorante || {};
 Ristorante.Login = (function(){
 	
 	function Login(){
-		
 		this.limpaCookie = $('.js-limpaCookies');
 		this.inputUsuario = $('.js-usuario');
 		this.selectEmpresas = $('#empresas');
@@ -57,11 +56,10 @@ Ristorante.Login = (function(){
 	    return unescape(cookies.substring(begin + prefix.length, end));
 	}
 	
-	function onEmpresas(event){
-		var categoriaSelecionado = $(event.currentTarget);
+	function onEmpresas(){
 		
         	$.ajax({
-				url:  '/ristorante/empresas',
+				url: this.inputUsuario.data('url') + 'empresas',
 				method: 'GET',
 				contentType: 'application/json',
 				data:{

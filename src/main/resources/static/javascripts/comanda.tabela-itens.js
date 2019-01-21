@@ -2,7 +2,7 @@ Ristorante.TabelaItens = (function(){
 
 	function TabelaItens(PesquisaProdutos){
 	    this.tabelaprodutos = PesquisaProdutos;
-	    this.produtoContainer = $('.js-tabela-produtos-container')
+	    this.produtoContainer = $('.js-tabela-produtos-container');
 	    this.uuid = $('#uuid').val();
 	    
 	    this.emitter= $({});
@@ -30,7 +30,7 @@ Ristorante.TabelaItens = (function(){
 	function onItemSelecionado(event, idItem){
 		
 		var resposta = $.ajax({
-			url: '/ristorante/comanda/item',
+			url: this.produtoContainer.data('url') +'/item',
 			method: 'POST',
 			data:{
 				idProduto: idItem ,
@@ -67,7 +67,7 @@ Ristorante.TabelaItens = (function(){
 			var idProduto =  input.data('id-produto');
 			
 			var resposta = $.ajax({
-				url: '/ristorante/comanda/item/'+ idProduto,
+				url: this.produtoContainer.data('url') + '/item/'+ idProduto,
 				method: 'PUT',
 				data:{
 					quantidade: quantidade,
@@ -83,7 +83,7 @@ Ristorante.TabelaItens = (function(){
 	  	var idProduto=  $(evento.target).data('id-produto');
 	
 		var resposta = $.ajax({
-			url: '/ristorante/comanda/item/'+ this.uuid +'/' + idProduto,
+			url: this.produtoContainer.data('url') +  '/item/'+ this.uuid +'/' + idProduto,
 			method: 'DELETE'
 		});
 		

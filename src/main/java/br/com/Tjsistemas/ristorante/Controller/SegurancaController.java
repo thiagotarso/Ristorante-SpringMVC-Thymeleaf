@@ -39,7 +39,6 @@ public class SegurancaController {
 	
 	@RequestMapping(value="/empresas", consumes= {MediaType.APPLICATION_JSON_VALUE})
 	private @ResponseBody ResponseEntity<?>  listaEmpresas(String userName){
-
 		Optional<Usuario> usuario = usuarios.porNomeEAtivo(userName);
 		
 		if (usuario.isPresent()) {
@@ -51,10 +50,8 @@ public class SegurancaController {
 					   new EmpresaDTO(emp.getEmpresa().getId(), emp.getEmpresa().getCodigo() ,emp.getEmpresa().getRazaoSocial()));
 		 }
     	
-    	return ResponseEntity.ok(empresasDto);         
+    	return ResponseEntity.ok(empresasDto);    
 		}
-		
 		return ResponseEntity.badRequest().body("Usuario não Localizado!");
 	}
-
 }

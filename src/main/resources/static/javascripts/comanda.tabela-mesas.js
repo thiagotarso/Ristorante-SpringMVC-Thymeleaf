@@ -3,7 +3,7 @@ var Ristorante = Ristorante || {};
 Ristorante.TabelaMesas = (function() {
 	
    function TabelaMesas(){
-	   	
+	   this.produtoContainer = $('.js-tabela-produtos-container');
 	   this.mesas = $('.js-mesas');
 	   this.containerMesas = $('.js-tabela-mesas-container');
 	   this.uuid = $('#uuid').val();
@@ -24,7 +24,7 @@ Ristorante.TabelaMesas = (function() {
    function onMesaSelecionada(){
 	   var valorSelecionado = $(event.currentTarget);
 		var res = $.ajax({
-			url: '/ristorante/comanda/mesa',
+			url: this.produtoContainer.data('url') + '/mesa',
 			method: 'POST',
 			data:{
 				idMesa: valorSelecionado.val(),
@@ -41,7 +41,7 @@ Ristorante.TabelaMesas = (function() {
 		var idMesa = mesaSelecionado.data('id');
 		
 		var res = $.ajax({
-			url: '/ristorante/comanda/mesa/'+ this.uuid +'/' + idMesa,
+			url: this.produtoContainer.data('url') + '/mesa/'+ this.uuid +'/' + idMesa,
 			method: 'DELETE'
 		});
 		

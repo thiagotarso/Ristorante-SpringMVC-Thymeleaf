@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 <head>
   <meta charset="UTF-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -29,14 +30,14 @@
 		        </div>
            </header>
            
-           <form th:action="@{/login}" method="POST">
+           <form th:action="@{/login}" method="POST" >
              <div class="form-group">
                 <div class="input-group"> 
                  
                    <div class="input-group-addon">
                       <span class="fa fa-user"></span>
                    </div> 
-                   <input type="text" name="username" class="form-control js-usuario" placeholder="Seu Usuario">
+                   <input type="text" name="username" class="form-control js-usuario" placeholder="Seu Usuario" data:url="@{/}">
                 </div>
             </div>
                
@@ -59,7 +60,7 @@
                   </div> 
 
 				<select  class="form-control" id="empresas" name="empresa" disabled="disabled" >
-                      <option value='1'> Empresas</option>
+                      <option value="0"> Empresas</option>
 				</select>
             
               </div>
@@ -72,7 +73,6 @@
        </div>
 
 <script th:src="@{/layout/javascripts/jquery-2.1.4.min.js}"></script>
-<!-- <script th:src="@{/layout/javascripts/main.js}"></script> -->
 <script th:src="@{/layout/javascripts/login.js}"></script>
 </body>
 </html>
