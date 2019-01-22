@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/layoutPadrao">
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
 <title>Cadastro de Camareiro</title>
@@ -37,36 +38,25 @@
 					<div class="card">
 
 						<form method="POST" th:object="${camareiro}" th:action="${camareiro.novo}? @{/camareiro/novo} :  @{/camareiro/{id}(id=${camareiro.id})}">
+						<input type="hidden" th:field="*{id}">
 							<fieldset>
 								<legend>Basico</legend>
 								<div class="row">
 									<div class="col-sm-2">
-
-										<label class="control-label">COD.</label> <input
-											class="form-control" type="text" th:field="*{id}" disabled="disabled">
-
+									  <label class="control-label">COD.</label> <input
+									  class="form-control" type="text" th:field="*{id}" readonly>
 									</div>
 
-									<div class="col-sm-8"  th:classappend="${#fields.hasErrors('nome')} ? has-error">
+									<div class="col-sm-8" ristorante:classforerror="nome" >
 										<label class="control-label" for="inputNome">nome</label>
 										<input class="form-control" type="text" th:field="*{nome}">
 									</div>
-									
-<!-- 									<div class="col-sm-2"> -->
-<!-- 										<label class="control-label" for="inputProduto">Valor</label> -->
-<!-- 										<input class="form-control" type="text"> -->
-<!-- 									</div> -->
 
+                                   <div class="col-sm-2 form-group">
+								     <button class="btn btn-primary" style="margin-top:3rem" type="submit">Salvar</button>
+								   </div>   
 								</div>
-								
-								
-								<div class="row">
-								   <div class="col-sm-2 form-group">
-								  <button class="btn btn-primary" type="submit">Submit</button>
-								  </div>
-								</div>
-								
-								</fieldset>
+							</fieldset>
 						</form>
 					</div>
 				</div>

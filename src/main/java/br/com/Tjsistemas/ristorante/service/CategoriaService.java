@@ -17,7 +17,7 @@ public class CategoriaService {
 	public void salvar(Categoria categoria) {
 		
 		if (categoria.isNova()) {
-		 categoria.setCodigo(categorias.codigoCategorias(categoria.getEmpresa()));
+		   categoria.setCodigo(categorias.codigoCategorias(categoria.getEmpresa()));
 		 }	
 		
 		categorias.save(categoria);
