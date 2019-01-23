@@ -93,6 +93,33 @@
 				</div>
 			</div>
 		</div>
+		
+	  <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <h3 class="card-title">Line Chart</h3>
+              <div class="embed-responsive embed-responsive-16by9">
+                <canvas class="embed-responsive-item" id="GraficoComandas"></canvas>
+              </div>
+            </div>
+          </div>
+          
+           <div class="col-md-6">
+            <div class="card">
+              <h3 class="card-title">Line Chart</h3>
+              <div class="embed-responsive embed-responsive-16by9">
+                <canvas class="embed-responsive-item" id="GraficoVenda"></canvas>
+              </div>
+            </div>
+          </div>
+      </div>
+		
       </div>
 	</div>
+	
+ <th:block layout:fragment="javascript-extra">
+	 <script th:src="@{/layout/javascripts/Chart.min.js}"></script>
+	 <script th:src="@{/javascripts/dashboard.js}"></script>
+ </th:block>
+	
 </body>
