@@ -1,6 +1,7 @@
 package br.com.Tjsistemas.ristorante.repository.helper.comanda;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.MonthDay;
 import java.time.Year;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.Tjsistemas.ristorante.dto.ComandaMes;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
@@ -59,18 +61,20 @@ public class ComandasImpl implements ComandasQueries {
 	}
 
 	@Override
-	public BigDecimal totalComandaAnual() {
+	public BigDecimal totalComandaAnual(Long empresa) {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				manager.createQuery("select sum(valorTotal) from Comanda where year(inicioAtendimento) =:ano ", BigDecimal.class)
-						.setParameter("ano", Year.now().getValue()).getSingleResult());
+				manager.createQuery("select sum(valorTotal) from Comanda where year(inicioAtendimento) =:ano and empresa = :emp", BigDecimal.class)
+				   .setParameter("emp", empresa)		
+				   .setParameter("ano", Year.now().getValue()).getSingleResult());
 
 		return optional.orElse(BigDecimal.ZERO);
 	}
 	
 	@Override
-	public BigDecimal totalComandaMesal() {
+	public BigDecimal totalComandaMes(Long empresa) {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				  manager.createQuery("select sum(valorTotal) from Comanda where month(inicioAtendimento) =:mes", BigDecimal.class)
+				  manager.createQuery("select sum(valorTotal) from Comanda where month(inicioAtendimento) =:mes and empresa = :emp", BigDecimal.class)
+				      .setParameter("emp", empresa)
 				      .setParameter("mes", MonthDay.now().getMonthValue())
 				      .getSingleResult());
 
@@ -78,13 +82,34 @@ public class ComandasImpl implements ComandasQueries {
 	}
 	
 	@Override
-	public BigDecimal valorTicketMedioAno() {
+	public BigDecimal valorTicketMedioAno(Long empresa) {
 		Optional<BigDecimal> optional = Optional.ofNullable(
-				manager.createQuery("select sum(valorTotal)/count(*) from Comanda where year(inicioAtendimento) =:ano ", BigDecimal.class)
+				manager.createQuery("select sum(valorTotal)/count(*) from Comanda where year(inicioAtendimento) =:ano and empresa = :emp", BigDecimal.class)
+				.setParameter("emp", empresa)
 				.setParameter("ano", Year.now().getValue())
                 .getSingleResult());
 		
 		return optional.orElse(BigDecimal.ZERO);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ComandaMes> totalPorMes(Long empresa) {
+		List<ComandaMes> comandaMes = manager.createNamedQuery("Comanda.totalPorMes")
+				.setParameter("emp", empresa)
+				.getResultList();
+		
+		LocalDate hoje = LocalDate.now();
+		for (int i = 0; i <= 6; i++) {
+			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+
+			boolean possueMes = comandaMes.stream().filter(v-> v.getMes().equals(mesIdeal)).findAny().isPresent();
+			if (!possueMes) {
+				comandaMes.add(i - 1, new ComandaMes(mesIdeal, 0));
+			}
+			
+			hoje = hoje.minusMonths(1);
+		}
+		return comandaMes;
+	}
 }

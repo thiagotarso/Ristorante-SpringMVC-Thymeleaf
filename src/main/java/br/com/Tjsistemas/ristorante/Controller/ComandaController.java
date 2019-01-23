@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.Tjsistemas.ristorante.dto.ComandaMes;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.Mesa;
@@ -208,6 +209,11 @@ public class ComandaController {
 		
 	  ItemComanda item =  tabelaItensSession.buscarObservacoesItens(uuid, produto);
 	  return  ResponseEntity.ok(item.getObservacoes());
+	}
+	
+	@GetMapping("/totalPorMes")
+	public @ResponseBody List<ComandaMes> listarTotalVendaPorMes(){
+		return comandas.totalPorMes(empresaSessao(null));
 	}
 	
 	public ModelAndView mvTabelaItensComanda(String uuid) {

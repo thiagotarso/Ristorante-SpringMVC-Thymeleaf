@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	
+	<named-native-query name="Comanda.totalPorMes" result-set-mapping="totalPorMesMapping">
+		<query>
+			SELECT TO_CHAR(iniciar_atendimento, 'YYYY/MM') mes, count(*) total
+              from comanda
+             where iniciar_atendimento > (NOW()- INTERVAL '6 MONTH')
+             and empresa = :emp
+             GROUP BY mes
+             ORDER BY mes desc
+	    </query>
+	</named-native-query>
+	
+		<sql-result-set-mapping name="totalPorMesMapping">
+		<constructor-result target-class="br.com.Tjsistemas.ristorante.dto.ComandaMes">
+			<column name="mes" class="java.lang.String"/>
+			<column name="total" class="java.lang.Integer"/>
+		</constructor-result>
+	</sql-result-set-mapping>
+	
+</entity-mappings>

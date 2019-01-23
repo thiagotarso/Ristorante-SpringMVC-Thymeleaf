@@ -87,7 +87,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
         authFilter.setAuthenticationManager(authenticationManager());
        
         authFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", "POST")); 
-        authFilter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/comanda/comanda"));
+        authFilter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/"));
        
         authFilter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
 		authFilter.setUsernameParameter("username");

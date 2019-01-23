@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 	
 <head>
 	<meta charset="UTF-8" />
@@ -27,14 +28,14 @@
       <input type="hidden" name="_crsf" th:value="${_csrf.token}"/>
       <input type="hidden" name="_crsf_header" th:value="${_csrf.headerName}"/>
   
-    <div class="wrapper">
-       <div th:replace="/layout/menu-superior/menu-superior"></div>
+    <div class="wrapper js-url-inicial" data:url-inicial=@{/}>
+       <div th:replace="/layout/menu-superior/menu-superior" ></div>
 	  
 <!--        <div th:replace="/layout/menu-lateral/menuLateral"></div> -->
       
       <div layout:fragment="conteudo"></div>
       
-  </div>
+      </div>
     
     <!-- Javascripts-->
     
