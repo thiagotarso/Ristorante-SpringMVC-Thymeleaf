@@ -1,6 +1,10 @@
 package br.com.Tjsistemas.ristorante.repository.helper.comanda;
 
+import java.math.BigDecimal;
+import java.time.MonthDay;
+import java.time.Year;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,24 +37,54 @@ public class ComandasImpl implements ComandasQueries {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public List<ItemComanda> BuscarItensComanda(Comanda comanda) {	
-		
-        Criteria criteria= manager.unwrap(Session.class).createCriteria(ItemComanda.class);
-        criteria.add(Restrictions.eq("comanda", comanda)); 
-        criteria.addOrder(Order.desc("id"));
-    		   
+	public List<ItemComanda> BuscarItensComanda(Comanda comanda) {
+
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(ItemComanda.class);
+		criteria.add(Restrictions.eq("comanda", comanda));
+		criteria.addOrder(Order.desc("id"));
+
 		return (List<ItemComanda>) criteria.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public List<MesaComanda> BuscarMesasComanda(Comanda comanda) {	
-		
-        Criteria criteria= manager.unwrap(Session.class).createCriteria(MesaComanda.class);
-        criteria.add(Restrictions.eq("comanda", comanda)); 
-        criteria.addOrder(Order.desc("id"));
-    		   
+	public List<MesaComanda> BuscarMesasComanda(Comanda comanda) {
+
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(MesaComanda.class);
+		criteria.add(Restrictions.eq("comanda", comanda));
+		criteria.addOrder(Order.desc("id"));
+
 		return (List<MesaComanda>) criteria.list();
 	}
+
+	@Override
+	public BigDecimal totalComandaAnual() {
+		Optional<BigDecimal> optional = Optional.ofNullable(
+				manager.createQuery("select sum(valorTotal) from Comanda where year(inicioAtendimento) =:ano ", BigDecimal.class)
+						.setParameter("ano", Year.now().getValue()).getSingleResult());
+
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal totalComandaMesal() {
+		Optional<BigDecimal> optional = Optional.ofNullable(
+				  manager.createQuery("select sum(valorTotal) from Comanda where month(inicioAtendimento) =:mes", BigDecimal.class)
+				      .setParameter("mes", MonthDay.now().getMonthValue())
+				      .getSingleResult());
+
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal valorTicketMedioAno() {
+		Optional<BigDecimal> optional = Optional.ofNullable(
+				manager.createQuery("select sum(valorTotal)/count(*) from Comanda where year(inicioAtendimento) =:ano ", BigDecimal.class)
+				.setParameter("ano", Year.now().getValue())
+                .getSingleResult());
+		
+		return optional.orElse(BigDecimal.ZERO);
+	}
+
 }

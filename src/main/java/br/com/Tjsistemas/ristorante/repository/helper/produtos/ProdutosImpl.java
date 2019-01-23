@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import br.com.Tjsistemas.ristorante.dto.ValorItensEstoque;
 import br.com.Tjsistemas.ristorante.model.Produto;
 import br.com.Tjsistemas.ristorante.repository.filter.ProdutoFilter;
 import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
@@ -109,5 +110,12 @@ public class ProdutosImpl implements ProdutosQueries {
 				criteria.add(Restrictions.eq("categoria", filtro.getCategoria()));
 			}
 		}
+	}
+	
+	@Override
+	public ValorItensEstoque valorItensEstoque() {
+		String query = "select new br.com.Tjsistemas.ristorante.dto.ValorItensEstoque(sum(precoCusto * estoqueAtual), sum(estoqueAtual)) from Produto"; 
+		
+		return manager.createQuery(query, ValorItensEstoque.class).getSingleResult() ;
 	}
 }
