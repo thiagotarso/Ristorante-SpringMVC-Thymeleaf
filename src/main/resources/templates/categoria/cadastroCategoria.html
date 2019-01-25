@@ -49,14 +49,17 @@
 					                  <input class="form-control" type="text" th:field="*{codigo}" readonly/>
                                  </div>
 
-									<div class="col-sm-6"  ristorante:classforerror="descricao">
+									<div class="col-sm-5"  ristorante:classforerror="descricao">
 										<label class="control-label" for="inputProduto">Descrição:</label>
 										<input class="form-control" type="text" th:field="*{descricao}">
 									</div>
 
-									<div class="col-sm-2">
-										<label class="control-label" for="inputCor">Cores:</label>
-										<input class="form-control" type="text" th:field="*{cores}">
+									<div class="col-sm-3">
+										<label class="control-label" for="select">Cores:</label>
+
+										<select class="form-control" id="select" th:field="*{cores}">
+											<option th:class="|produto ${cores}|" th:each="cores: ${categoriaCores}" th:value="${cores}" th:text="${cores.descricao}">Livre</option>
+										</select>
 									</div>
 									
 									<div class="col-sm-2">

@@ -90,10 +90,16 @@
 	background-color:rgb(3, 3, 3)}
 	
 .produto.pink{
-	background-color:rgb(204, 0, 194)}
+	background-color:#ff80ff}
 
-.produto.Grey{
+.produto.gray{
 	background-color:#575757}
+
+.produto.purple{
+	background-color:#800080}
+	
+.produto.fuschia{
+	background-color:#ff1696 }	
 
 
 .alert-mesa {

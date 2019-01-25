@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +41,9 @@ public class Comanda {
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 	
+	@Enumerated(EnumType.STRING)
+	private StatusComanda status;
+	
 	@NotNull(message="Seleceione Um Cliente!")
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
@@ -48,7 +53,7 @@ public class Comanda {
     @ManyToOne
     @JoinColumn(name="camareiro_id")
 	private Camareiro camareiro;
-
+	
     @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true) 
     private List<MesaComanda> mesasComanda = new ArrayList<>();
 	
@@ -98,6 +103,14 @@ public class Comanda {
 
 	public void setEmpresa(Long empresa) {
 		this.empresa = empresa;
+	}
+
+	public StatusComanda getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusComanda status) {
+		this.status = status;
 	}
 
 	public Cliente getCliente() {

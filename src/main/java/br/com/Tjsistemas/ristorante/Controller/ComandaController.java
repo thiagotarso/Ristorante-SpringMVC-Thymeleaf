@@ -30,6 +30,7 @@ import br.com.Tjsistemas.ristorante.model.Mesa;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
 import br.com.Tjsistemas.ristorante.model.Produto;
 import br.com.Tjsistemas.ristorante.model.SituacaoMesa;
+import br.com.Tjsistemas.ristorante.model.StatusComanda;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Camareiros;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
@@ -89,6 +90,7 @@ public class ComandaController {
 
 		mv.addObject("mesas", mesas.findBySituacaoMesaAndEmpresaOrderByNumeroMesaAsc(SituacaoMesa.LIVRE, empresaSessao(comanda))); 
 		
+		mv.addObject("statusComanda", StatusComanda.values()); 
 		mv.addObject("mesasSelecionada", comanda.getMesasComanda()); 
 		mv.addObject("itens", comanda.getItens());
 		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));

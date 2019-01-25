@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Categoria;
+import br.com.Tjsistemas.ristorante.model.CategoriaCores;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
 import br.com.Tjsistemas.ristorante.repository.filter.CategoriaFilter;
@@ -37,6 +38,7 @@ public class CategoriaController {
 	@GetMapping("/nova")
 	public ModelAndView novo(Categoria categoria){
 		ModelAndView mv = new ModelAndView("categoria/cadastroCategoria");
+		mv.addObject("categoriaCores", CategoriaCores.values());
 		return mv;
 	}
 

@@ -2,6 +2,8 @@ package br.com.Tjsistemas.ristorante.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,8 @@ public class Categoria {
 	
 	private String descricao;
 	
-	private String cores;
+	@Enumerated(EnumType.STRING)
+	private CategoriaCores cores;
 	
 	private Long empresa;
 
@@ -51,12 +54,11 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	public String getCores() {
+
+	public CategoriaCores getCores() {
 		return cores;
 	}
-
-	public void setCores(String cores) {
+	public void setCores(CategoriaCores cores) {
 		this.cores = cores;
 	}
 	public boolean isNova() {
