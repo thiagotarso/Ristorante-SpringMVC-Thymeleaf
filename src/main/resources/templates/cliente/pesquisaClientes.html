@@ -77,6 +77,7 @@
                     <th>Razon Social</th>
                     <th>doc.</th>
                     <th>E-mail</th>
+                     <th>Fornecedor</th>
                     <th class="text-center">telefone</th>
                     <th class="text-right">acoes</th>
                   </tr>
@@ -87,6 +88,14 @@
                     <td th:text="${cliente.nome}">Mark</td>
                     <td th:text="${cliente.numeroDocumento}">Otto</td>
                     <td th:text="${cliente.email}">Mark</td>
+                    <td> 
+                    <th:block th:if="${cliente.fornecerdor}">
+				        <span class="label label-success" >Si</span>
+				   </th:block>
+				   <th:block th:if="${not cliente.fornecerdor}">
+				         <span class="label label-primary" >No</span>
+				   </th:block>
+				   </td>
                     <td class="text-center" th:text="${cliente.telefone}">@mdo</td>
                     
                     	<td class="text-right" >

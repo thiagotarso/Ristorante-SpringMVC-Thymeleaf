@@ -23,8 +23,8 @@
 		          <div>
 		            <ul class="breadcrumb">
 		              <li><i class="fa fa-home fa-lg"></i></li>
-		              <li>Tables</li>
-		              <li class="active"><a href="#">Simple Tables</a></li>
+<!-- 		              <li><a href="@{/}">Simple Tables</a></li> -->
+		              <li class="active">Lista Usuarios</li>
 		            </ul>
 		          </div>
 		       </div>
@@ -81,7 +81,14 @@
                     <td th:text="${usuario.codigo}">1</td>
                     <td th:text="${usuario.nome}">Mark</td>
 		            <td th:text="${usuario.email}">Otto@hotmail.com</td>
-		            <td th:text="${usuario.ativo}">1</td>
+		            <td >
+		               <th:block th:if="${usuario.ativo}">
+				        <span class="label label-success" >Ativo</span>
+				       </th:block>
+				   <th:block th:if="${not usuario.ativo}">
+				         <span class="label label-danger" >Inativo</span>
+				   </th:block> 
+		            </td>
 		            
                     	<td class="text-right" >
 							<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/usuario/{id}(id=${usuario.id})}"> 
@@ -91,7 +98,7 @@
                   </tr>
                   
                   <tr th:if="${pagina.vazia}">
-					  <td colspan="7">Nenhum Cliente Cadastrado!</td>
+					  <td colspan="7">Nenhum Usuario Cadastrado!</td>
 					</tr>
                 </tbody>
               </table>
