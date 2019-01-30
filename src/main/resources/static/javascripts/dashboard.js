@@ -15,20 +15,22 @@ Ristorante.GraficoComandasPorMes = ( function(){
 		})
 	}
 	
-	function onDadosRecebidos(vendaMes){
+	function onDadosRecebidos(comandaMes){
 	       var meses = [];
 		   var valores = [];	
-		   vendaMes.forEach(function(obj){
+		   comandaMes.forEach(function(obj){
+			   console.log(obj.mes);
+			   
 			  meses.unshift(obj.mes);
 			  valores.unshift(obj.total);
 		   });
 		   
-			var graficoVendaPorMes = new Chart(this.ctx, {
+			var graficoComandaPorMes = new Chart(this.ctx, {
 			    type: 'line',
 			    data: {
 			    	labels: meses,
 			    	datasets:[{
-	                  label: 'Venda por Mês',
+	                  label: 'Comandas por Mês',
 	                  backgroundColor: 'rgba(26,179,148,0.5)',
 	                  pointBorderColor: 'rgba(26,179,148,1)',
 	                  pointBackgroundColor: '#fff',

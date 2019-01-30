@@ -6,6 +6,7 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -110,6 +111,6 @@ public class ComandasImpl implements ComandasQueries {
 			
 			hoje = hoje.minusMonths(1);
 		}
-		return comandaMes;
+		return comandaMes.stream().sorted((c1,c2) -> c2.getMes().compareTo(c1.getMes())).collect(Collectors.toList());
 	}
 }

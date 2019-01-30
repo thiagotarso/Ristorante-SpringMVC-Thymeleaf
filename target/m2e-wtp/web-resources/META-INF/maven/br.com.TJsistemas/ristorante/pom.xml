@@ -19,7 +19,7 @@
 		<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
 
 		<!-- Spring MVC -->
-		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+		<spring-framework.version>5.0.2.RELEASE</spring-framework.version>
 
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
@@ -34,7 +34,7 @@
 		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
-		<log4j.version>2.6</log4j.version>
+		<log4j.version>2.10.0</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 
 		<!--hibernate -->
@@ -47,7 +47,7 @@
 		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
 
 		<!-- Jackson - JSON -->
-		<jackson-core.version>2.7.5</jackson-core.version>
+		<jackson-core.version>2.9.2</jackson-core.version>
 
 		<!-- thumbnailator - Gerar Thumbnail redimenciona foto -->
 		<!-- https://github.com/coobird/thumbnailator -->

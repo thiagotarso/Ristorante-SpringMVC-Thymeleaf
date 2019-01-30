@@ -14,6 +14,6 @@ public enum StatusComanda {
    	}
    	
    	public String getDescricao() {
-   		return this.descricao ;
+   		return descricao ;
    	} 
 }
