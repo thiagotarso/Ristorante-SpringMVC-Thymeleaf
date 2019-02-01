@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,6 +42,8 @@ public class Comanda {
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 	
+	private BigDecimal desconto;
+	
 	@Enumerated(EnumType.STRING)
 	private StatusComanda status;
 	
@@ -72,6 +75,15 @@ public class Comanda {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
 
 	public String getObservacoes() {
 		return observacoes;
@@ -88,15 +100,15 @@ public class Comanda {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+
+	public BigDecimal getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(BigDecimal desconto) {
+		this.desconto = desconto;
+	}
 	
-	public Long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-
 	public Long getEmpresa() {
 		return empresa;
 	}
@@ -129,13 +141,6 @@ public class Comanda {
 		this.camareiro = camareiro;
 	}
     
-//	public List<Mesa> getMesa() {
-//		return mesa;
-//	}
-//
-//	public void setMesa(List<Mesa> mesa) {
-//		this.mesa = mesa;
-//	}
 
 	public String getUuid() {
 		return uuid;
@@ -165,11 +170,6 @@ public class Comanda {
 		return id == null;
 	}
 
-	public void adicionarItens(List<ItemComanda> itens) {
-		this.itens = itens;
-		this.itens.forEach(i -> i.setComanda(this));
-	}
-	
 	public void adicionarMesas(List<MesaComanda> mesa) {
 		this.mesasComanda = mesa;
 		this.mesasComanda.forEach(i -> i.setComanda(this));
@@ -182,13 +182,34 @@ public class Comanda {
 	public void setMesasComanda(List<MesaComanda> mesasComanda) {
 		this.mesasComanda = mesasComanda;
 	}
-
+	
 	public LocalTime getTempoEmAberto(){
 		Long totalMinutes = ChronoUnit.MINUTES.between(inicioAtendimento, LocalDateTime.now());
 		int horas = (int) (totalMinutes / 60L); 
 		int minutes = (int) (totalMinutes % 60);
 		
 		return	LocalTime.of(horas, minutes);
+	}
+	
+	public void adicionarItens(List<ItemComanda> itens) {
+		this.itens = itens;
+		this.itens.forEach(i -> i.setComanda(this));
+	}
+	
+	
+	public BigDecimal valorTotalItens() {
+		return this.getItens().stream()
+				.map(ItemComanda::getValorTotal)
+				.reduce(BigDecimal::add)
+				.orElse(BigDecimal.ZERO);
+	}
+	
+   public void calcularValorTotal() {
+	  this.valorTotal= calculaValorTotal(valorTotalItens(), this.desconto);
+   }
+	
+	public BigDecimal calculaValorTotal(BigDecimal itens, BigDecimal valorDesconto) {
+		return	 itens.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 	}
 	
 

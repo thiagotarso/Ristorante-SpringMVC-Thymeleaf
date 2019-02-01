@@ -91,29 +91,29 @@
 								<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">total itens</div>
 						</div>
 						<div class="tj-tabela-item__coluna col-sm-2">
-								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-quantidade-itens">7</div>
+								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-quantidade-itens">0</div>
 						</div>
 							
 						<div class="tj-tabela-item__coluna col-sm-4">
 								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">total</div>
 						</div>
 						<div class="tj-tabela-item__coluna col-sm-2">
-								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-itens">€9999,99</div>
+								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-itens">€00,00</div>
 						</div>
 		
-						<div class="tj-tabela-item__coluna col-sm-3 ">
-							<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">desconto</div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">(0.00) 0.00</div>
-						</div>
+<!-- 						<div class="tj-tabela-item__coluna col-sm-3 "> -->
+<!-- 							<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">desconto</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="tj-tabela-item__coluna col-sm-2"> -->
+<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">(0.00) 0.00</div> -->
+<!-- 						</div> -->
 						
-						<div class="tj-tabela-item__coluna col-sm-4">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">taxa</div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">€0.00</div>
-						</div>
+<!-- 						<div class="tj-tabela-item__coluna col-sm-4"> -->
+<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">taxa</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="tj-tabela-item__coluna col-sm-2"> -->
+<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">€0.00</div> -->
+<!-- 						</div> -->
 		     	</div> 
 
 				<div class="tj-tabela-item  alert-primary">
@@ -129,13 +129,16 @@
 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda "></div>
 						</div>
 						<div class="tj-tabela-item__coluna col-sm-2">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-itens">€0.00</div>
+							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-comanda">€0.00</div>
 						</div>
 				</div>
 					
 
 					<div class="form-group">
-						<label class="control-label">Observações:</label>
+						<label class="control-label">Observações:</label> 
+						<input id="inputDesconto" 
+						 type="text" maxlength="6" class="tj-tabela-produto-campo-quantidade js-decimal" data:valor="${valorDesconto}"
+						      style="width: 50px; height: 21px; margin-left: 60%" th:field="*{desconto}" />
 						<textarea class="form-control" rows="2" th:field="*{observacoes}"></textarea>
 					</div>
 

@@ -68,7 +68,9 @@
 .row .produto-selecao .col-md-3  {
     padding: 1%;
     }
-
+/*######################
+  ####Cores categorias##                 
+########################  **/	
 
 .produto.primary{
 	background-color:#0000FF}
@@ -93,6 +95,7 @@
 	background-color:#ff80ff}
 
 .produto.gray{
+	color: white;
 	background-color:#575757}
 
 .produto.purple{
@@ -100,6 +103,23 @@
 	
 .produto.fuschia{
 	background-color:#ff1696 }	
+
+.label-black{
+	background-color:rgb(3, 3, 3)}
+	
+.label-pink{
+	background-color:#ff80ff}
+
+.label-gray{
+	color: white;
+	background-color:#575757; }
+
+.label-purple{
+	background-color:#800080}
+	
+.label-fuschia{
+	background-color:#ff1696 }	
+
 
 
 .alert-mesa {

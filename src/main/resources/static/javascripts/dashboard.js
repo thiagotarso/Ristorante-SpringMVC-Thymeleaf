@@ -19,8 +19,6 @@ Ristorante.GraficoComandasPorMes = ( function(){
 	       var meses = [];
 		   var valores = [];	
 		   comandaMes.forEach(function(obj){
-			   console.log(obj.mes);
-			   
 			  meses.unshift(obj.mes);
 			  valores.unshift(obj.total);
 		   });

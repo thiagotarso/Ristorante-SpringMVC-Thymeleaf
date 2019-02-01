@@ -12,6 +12,7 @@ Ristorante.TabelaItens = (function(){
 	TabelaItens.prototype.iniciar = function(){
 		this.tabelaprodutos.on('item-selecionado', onItemSelecionado.bind(this));
 		
+		bindQuantidade.call(this);
 		bindTabelaItem.call(this);
 	}
 	
@@ -43,11 +44,8 @@ Ristorante.TabelaItens = (function(){
 	
 		function onItemAtualizadoNoServidor(html){
 			this.produtoContainer.html(html);
-			
-			var quantidadeInput = $('.js-tabela-comanda-quantidade-item');
-			quantidadeInput.on('change', onQuantidadeItemAlterado.bind(this));
-//			quantidadeInput.maskNumber({integer: true, thousands: ''});
-			quantidadeInput.mask('9#');
+ 
+			bindQuantidade.call(this); 
 			
 			var tabelaItem = bindTabelaItem.call(this);
 			
@@ -65,6 +63,7 @@ Ristorante.TabelaItens = (function(){
 			}
 				
 			var idProduto =  input.data('id-produto');
+			console.log(this.produtoContainer.data('url') + '/item/'+ idProduto);
 			
 			var resposta = $.ajax({
 				url: this.produtoContainer.data('url') + '/item/'+ idProduto,
@@ -89,6 +88,12 @@ Ristorante.TabelaItens = (function(){
 		
 		resposta.done(onItemAtualizadoNoServidor.bind(this));
 	 }
+	
+	function bindQuantidade(){
+		var quantidadeInput = $('.js-tabela-comanda-quantidade-item');
+		quantidadeInput.on('change', onQuantidadeItemAlterado.bind(this));
+		quantidadeInput.maskNumber({integer: true, thousands: ''});
+	}
 	
 	function bindTabelaItem(){
 		  var tabelaItens = $('.js-tabela-itens');

@@ -82,7 +82,7 @@ public class ComandaController {
 		return mv;
 	}
 	
-	@GetMapping("/comanda")
+	@GetMapping("/nova")
 	public ModelAndView nova(Comanda comanda){
 		ModelAndView mv = new ModelAndView("/comanda/comanda");
 
@@ -96,6 +96,7 @@ public class ComandaController {
 		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
 		mv.addObject("camareiros", camareiros.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
 		
+		mv.addObject("valorDesconto", comanda.getDesconto());
 		mv.addObject("valorTotalItens", tabelaItensSession.getValorTotal(comanda.getUuid()));
 		mv.addObject("totalItens", comanda.getItens().size());
 		mv.addObject("quantidadeProd", tabelaItensSession.getQuantidadeItens(comanda.getUuid()));
@@ -106,7 +107,7 @@ public class ComandaController {
 	@PostMapping(value ={"/novo", "{\\d+}"})
 	public ModelAndView salvar(@Valid Comanda comanda, BindingResult bindingResult,
 			                         Model model, RedirectAttributes attributes){
-          
+		
 		comanda.adicionarMesas(tabelaItensSession.getMesas(comanda.getUuid()));
 		comanda.adicionarItens(tabelaItensSession.getItens(comanda.getUuid()));
 		
@@ -116,7 +117,9 @@ public class ComandaController {
 		
 		try {
 			comanda.setEmpresa(empresaSessao(comanda));
+			comanda.calcularValorTotal();
 			comandaService.salvar(comanda);
+			
 			attributes.addFlashAttribute("mensagem", "venda Salva com Sucesso!");
 			
 		}catch (MesaOcupada  e) {
@@ -126,7 +129,7 @@ public class ComandaController {
 		}
 		
 		
-		return new ModelAndView("redirect:/comanda/comanda");
+		return new ModelAndView("redirect:/comanda/"+ comanda.getId());
 	}
 	
 	@GetMapping("/{id}")
