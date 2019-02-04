@@ -14,148 +14,170 @@
 	<div layout:fragment="conteudo">
 
 		<div th:replace="/layout/menu-lateral/menuLateral"></div>
-
-		<div class="content-wrapper">
-		
-			<div class="row  js-tabela-mesas-container">
-				    <th:block th:replace="comanda/tabelaMesas"/>
-		   </div> 
+        <div class="content-wrapper">
+	 		
 		
       <div class="row">
        <th:block th:include="fragments/MensagemSucesso"></th:block> 
+       
+           <div class="row  js-tabela-mesas-container">
+			  <th:block th:replace="comanda/tabelaMesas"/>
+		   </div> 
     
        <form method="POST" th:action="@{/comanda/comanda}" th:object="${comanda}">
 	     <th:block th:include="fragments/MensagensErrosValidacao"></th:block>
-	  <div class="col-sm-4">
+	  <div class="col-sm-4 ">
 		
 	     <input type="hidden" id="uuid" th:field="*{uuid}">
 		 <input type="hidden" th:field="*{id}">
 		
-		<div class="card">
-			<div class="card-body">
-				
-				  <div class="row">
-			       <div class="col-xs-6">
-	     
-			          <div class="form-group">  
-			           
-						  <select id="example-getting-started"  multiple="multiple">
-								<option th:each="mes : ${mesas}" th:value="${mes.id}" th:text="|mesa_${mes.numeroMesa}|" th:class="js-mesas">
-							    </option>
-						  </select>
-						    
-						</div> 	
-				   </div>	
-			       <div class="col-xs-6">   
-	                  <div class="form-group">   
-	     				 <select id="select-camareiro" class="input-sm btn btn-primary" th:field="*{camareiro}">
-					        <option value="">Camareiro</option>
-							<option th:each="camareiro : ${camareiros}"  th:value="${camareiro.id}" 
-							             th:text="${camareiro.nome}">Joao</option>
-						</select>
-					 </div>	
-	               </div>
-		          </div>		  
-				
-				 <div class="row">	
-				     <div class=" col-sm-12">
-		               <div class="form-group" >        
-						   <div class="input-group">
-						      <input id="nomeCliente" data:fornecedor="false" type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
-						        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
-		                        <span class="input-group-btn">
-		                           <button  class="btn btn-primary button-size-sm" type="button" 
-		                                         data-toggle="modal" data-target="#pesquisaRapidaCliente" ><span class="fa fa-search"></span></button>
-		                         </span>
-		                    </div>
-						</div>
-					 </div>
-			     </div>	
+<div class="card">
+	<div class="card-body">
+			
+		<div class="row">
+			<div class="form-group  col-lg-12">
+				<ul class="nav nav-tabs  js-abas-comanda">
+					<li role="presentation" style="width: 50%" class="active"><a href="#pedido">Produtos</a></li>
 
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12">
-							
-							  <div  class="tj-tabela-produto js-tabela-produtos-container" data:url="@{/comanda}" data:valor="${valorTotalItens}" data:total-itens="${totalItens}" data:qtd-Itens="${quantidadeProd}">
-						      	    
-						      	<th:block th:replace="comanda/tabelaItensComanda"/>
-					
-					          </div>
-							</div>
-						</div>
-					</div>
-
-                    <div class="tj-tabela-item  alert-info js-totais" >
-														
-						<div class="tj-tabela-item__coluna col-sm-3">
-								<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">total itens</div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-quantidade-itens">0</div>
-						</div>
-							
-						<div class="tj-tabela-item__coluna col-sm-4">
-								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">total</div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-								<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-itens">€00,00</div>
-						</div>
+					<li role="presentation" style="width: 50%"><a href="#infoAdicionais">Adicionais</a></li>
+				</ul>
+            </div>  
+         </div>
+	
+	<div class="tab-content">
+		<div class="tab-pane active" id="pedido">
+   		   <div class="row">
+	         <div class="col-xs-12">
+	           <div class="form-group">  
+				  <select id="example-getting-started"  multiple="multiple">
+						<option th:each="mes : ${mesas}" th:value="${mes.id}" th:text="|mesa_${mes.numeroMesa}|" th:class="js-mesas">
+					    </option>
+				  </select>
+			  </div> 	
+		     </div>	
+           </div>
+           
+         <div class="form-group">
+			<div class="row">
+				<div class="col-sm-12">
+				
+				  <div  class="tj-tabela-produto js-tabela-produtos-container" data:url="@{/comanda}" data:valor="${valorTotalItens}" data:total-itens="${totalItens}" data:qtd-Itens="${quantidadeProd}">
+			      	    
+			      	<th:block th:replace="comanda/tabelaItensComanda"/>
 		
-<!-- 						<div class="tj-tabela-item__coluna col-sm-3 "> -->
-<!-- 							<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">desconto</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="tj-tabela-item__coluna col-sm-2"> -->
-<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">(0.00) 0.00</div> -->
-<!-- 						</div> -->
-						
-<!-- 						<div class="tj-tabela-item__coluna col-sm-4"> -->
-<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">taxa</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="tj-tabela-item__coluna col-sm-2"> -->
-<!-- 							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores">€0.00</div> -->
-<!-- 						</div> -->
-		     	</div> 
-
-				<div class="tj-tabela-item  alert-primary">
-				
-				          <div class="tj-tabela-item__coluna col-sm-3 ">
-							<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">Total Comanda</div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores"> </div>
-						</div>
-						
-						<div class="tj-tabela-item__coluna col-sm-4">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda "></div>
-						</div>
-						<div class="tj-tabela-item__coluna col-sm-2">
-							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-comanda">€0.00</div>
-						</div>
+		          </div>
 				</div>
-					
-
-					<div class="form-group">
-						<label class="control-label">Observações:</label> 
-						<input id="inputDesconto" 
-						 type="text" maxlength="6" class="tj-tabela-produto-campo-quantidade js-decimal" data:valor="${valorDesconto}"
-						      style="width: 50px; height: 21px; margin-left: 60%" th:field="*{desconto}" />
-						<textarea class="form-control" rows="2" th:field="*{observacoes}"></textarea>
+			</div>
+		 </div> 	
+		 
+	            <div class="tj-tabela-item  alert-info js-totais" >
+					<div class="tj-tabela-item__coluna col-sm-3">
+							<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">total itens</div>
 					</div>
+					<div class="tj-tabela-item__coluna col-sm-2">
+							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-quantidade-itens">0</div>
+					</div>
+						
+					<div class="tj-tabela-item__coluna col-sm-4">
+							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda ">total</div>
+					</div>
+					<div class="tj-tabela-item__coluna col-sm-2">
+							<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-itens">€00,00</div>
+					</div>
+	     	   </div> 
+
+			   <div class="tj-tabela-item  alert-primary">
+			
+			          <div class="tj-tabela-item__coluna col-sm-3 ">
+						<div class="tj-tabela-item__total-comanda  tj-tabela-item__descricao-resumo-comanda">Total Comanda</div>
+					</div>
+					<div class="tj-tabela-item__coluna col-sm-2">
+						<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores"> </div>
+					</div>
+					
+					<div class="tj-tabela-item__coluna col-sm-4">
+						<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-comanda "></div>
+					</div>
+					<div class="tj-tabela-item__coluna col-sm-2">
+						<div class="tj-tabela-item__total-comanda tj-tabela-item__descricao-resumo-valores js-valor-total-comanda">€0.00</div>
+					</div>
+			   </div>	  
+		
+		</div>
+
+
+		<div class="tab-pane" id="infoAdicionais">
+	         <div class="row">	
+	            
+		          <div class="col-xs-12">   
+	                 <div class="form-group">   
+	    			   <select id="select-camareiro" class="form-control  btn btn-primary" th:field="*{camareiro}">
+				        <option value="">Camareiro</option>
+						<option th:each="camareiro : ${camareiros}"  th:value="${camareiro.id}" 
+						             th:text="${camareiro.nome}">Joao</option>
+					   </select>
+				     </div>	
+	               </div>
+	         
+			     <div class=" col-sm-12">
+	               <div class="form-group" >        
+					   <div class="input-group">
+					      <input id="nomeCliente" data:fornecedor="false" type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
+					        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
+	                        <span class="input-group-btn">
+	                           <button  class="btn btn-primary button-size-sm" type="button" 
+	                                         data-toggle="modal" data-target="#pesquisaRapidaCliente" ><span class="fa fa-search"></span></button>
+	                         </span>
+	                    </div>
+					</div>
+				 </div>
+		      </div>	
+		
+     	 
+             
+	          <div class="row">
+				<div class="form-group col-xs-6 col-md-3" >
+				  	<label class="control-label" for="inputDesconto">Desc.</label>
+					 <input id="inputDesconto" type="text" class="form-control input-sm js-decimal" maxlength="8" data:valor="${valorDesconto}"  th:field="*{desconto}"/>
+				</div>
+									
+	            <div class="form-group col-xs-6 col-md-3" >
+					 <label class="control-label" for="acrescimo">Acres.</label>
+					 <input type="text" class="form-control input-sm" id="acrescimo"/>
+				</div>
+	
+				<div class="form-group col-xs-6 col-md-3" >
+				  	 <label class="control-label" for="desconto">Desc.%</label>
+					 <input type="text" class="form-control input-sm" id="desconto"/>
+				</div>
+	                    
+	             <div class="form-group col-xs-6 col-md-3" >
+				 	<label class="control-label" for="acrescimoPercentual">Acres.%</label>
+				  	<input type="text" class="form-control input-sm" id="acrescimoPercentual"/>
+				</div>
+		   </div>
+             
+             <div class="form-group">
+				<textarea class="form-control" rows="2" th:field="*{observacoes}" placeholder="Observacoes da comanda."></textarea>
+			</div>
+		</div>
+		
+		</div>
 
 			</div>
 			<div class="card-footer">
 				<div class="row">
-					<div class="col-xs-3 col-md-4">
-						<button class="btn btn-primary icon-btn" type="submit">
-							<i class="fa fa-fw fa-lg fa-check-circle"></i>Register
-						</button>
-					</div>
-					<div class="col-xs-offset-2 col-md-offset-3 col-xs-3 col-md-4">
-
+				     <div class="col-md-6">
 						<select class="form-control" id="select" th:field="*{status}">
 							<option th:each="statusControler: ${statusComanda}" th:value="${statusControler}" 
 							                       th:text="${statusControler.descricao}">Livre</option>
 						</select>
+					 </div>
+				
+					<div class=" col-md-3" >
+						<button class="btn btn-primary icon-btn" type="submit">
+							<i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar
+						</button>
 					</div>
 				</div>
 			</div>
@@ -163,16 +185,19 @@
 	</div>
 	</form>
 		
-	<div class="col-sm-8" id="formProdutos" >
+	<div class="col-sm-8 " id="formProdutos" >
      <form class="form"  th:action="@{/produto}" >
 		<div class="card">
 
 			<div class="card-body">
-
 				 <div class="row produto-selecao">
 
-                 <div id="containerProdutoPesquisaRapida"></div>
-		
+                 <div id="containerProdutoPesquisaRapida">
+                      <div class="tj-tabela-produto__vazio" > 
+					    <i class="glyphicon  glyphicon-shopping-cart"></i>  
+		  		       <span>Selecione uma Categoria Para Carregar os Produtos.</span> 
+		             </div> 
+                 </div>
 			</div>
 
 			</div>
@@ -210,7 +235,8 @@
 				</div>
 			</div>
        </div>
-
+  
+ 
 		<div class="clearix"></div>
 	 </form>	 
 	</div>
@@ -236,12 +262,16 @@
 	 <script th:src="@{/javascripts/comanda.js}"></script> 
 	 
 	<script type="text/javascript">
+	$(function() {
+		$('.js-abas-comanda a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+         });
+        });
+	
       $(document).ready(function() {
         $('#example-getting-started').multiselect({
-//         	checkboxName: function(option) { //colocar propriedade name no input
-//                 return 'mesa';
-//             },
-        	
+//         	checkboxName: function(option) { return 'mesa'; }, //colocar propriedade name no input
 		    nonSelectedText: 'Mesas',
 			buttonClass: ' btn btn-primary input-sm',
 			

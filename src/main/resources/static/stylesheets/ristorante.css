@@ -34,6 +34,7 @@
  overflow: hidden;
 }
 
+
 .produto .descricao-produto   div{
     color: #ffffff;
 	transition:all 0.3s ease;
@@ -68,6 +69,8 @@
 .row .produto-selecao .col-md-3  {
     padding: 1%;
     }
+    
+    
 /*######################
   ####Cores categorias##                 
 ########################  **/	
@@ -273,13 +276,39 @@ botoes      #####
 padding: 5px 10px;
 }
 
+/*###################################################*\
+  Box - Para ser usado em indicadores (dahboard)
+\*###################################################*/
+.tj-box {
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: white;
+  border: 1px solid #eeeeee;
+  border-bottom: 3px solid #1e94d2; //#222d32(preto)
+}
+.tj-box__icon {
+  float: left;
+  color: #1e94d2;
+}
+.tj-box__value {
+  font-size: 1.69em;
+  font-weight: 300;
+  text-align: right;
+}
+.tj-box__title {
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: right;
+}
+
 /*
 #################
 tabela iten #####     
 #################
 **/
 
-/* Tabela produto página de Venda */
+/* Tabela produto pagina comanda */
 .tj-tabela-produto {
 	margin-bottom: 15px;
 }
@@ -296,7 +325,7 @@ tabela iten #####
 }
 
 .tj-tabela-item {
-	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
+	position: relative; 
 	
 	padding: 2px 0;
 	
@@ -320,10 +349,11 @@ tabela iten #####
 	padding: 0 1px;
 }
 
-.tj-tabela-item__coluna--valores {
+.tj-tabela-item__coluna--valor-unitario{
 	padding-right: 0px;
 }
-.tj-tabela-item__coluna--valor-unitario{
+
+.tj-tabela-item__coluna--valores {
 	padding-right: 0px;
 }
 
@@ -383,7 +413,6 @@ tabela iten #####
 .tj-tabela-item__coluna--acoes  a{
    margin-left:80%;
 }
-
 /*
 ##########################
 tabela total comanda #####     
@@ -405,7 +434,7 @@ tabela total comanda #####
 	text-align: right;
  }
 
-@media (min-width: 768px) { /* screen-sm-min */
+@media (min-width: 768px) { 
 	.tj-tabela-item__coluna {
 		float: left;
 		margin-left: 3px;
@@ -430,29 +459,56 @@ tabela total comanda #####
 	}
 }
 
-/*------------------------------------------*\
-  Box
-  - Para ser usado em indicadores (dahboard)
-\*------------------------------------------*/
-.aw-box {
-  padding: 20px;
-  margin-bottom: 15px;
-  background-color: white;
-  border: 1px solid #eeeeee;
-  border-bottom: 3px solid #1e94d2; //#222d32(preto)
+@media (max-width: 992px) { 
+   
+ .tj-tabela-produto-valor-unitario{
+    display: none;
 }
-.aw-box__icon {
-  float: left;
-  color: #1e94d2;
+  
+  .tj-tabela-item__coluna--quantidade{
+	margin-left: 40px;
 }
-.aw-box__value {
-  font-size: 1.69em;
-  font-weight: 300;
-  text-align: right;
+   
+	.tj-tabela-item__coluna {
+		float: left;
+		margin-left: 0px;
+	}
+	
+	.tj-tabela-item__coluna--detalhes {
+		width: calc(70% - 30px);
+	}
+	
+	.tj-tabela-item__coluna--valores {
+		width: calc(30% - 30px);
+
+		text-align: right;
+	}
 }
-.aw-box__title {
-  display: block;
-  font-size: 1em;
-  font-weight: 600;
-  text-align: right;
+
+/* Small devices (tablets, 768px and up) 
+@media (min-width: @screen-sm-min) { ... } */
+
+@media (max-width: 992px) { /* screen-sm-min */
+   
+ .produto {  
+    font-size: 80%;
+    border-radius: 4px;
+    min-width: 50%;
+    width: 95%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    height: 0;
+    padding-bottom: 10%;
+    position: relative;
+}
+ 
+ 
+ .produto .descricao-produto {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2%;
+    overflow: hidden;
+  }
+ }
+    
 }
