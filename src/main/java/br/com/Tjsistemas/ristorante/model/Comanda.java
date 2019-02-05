@@ -39,6 +39,9 @@ public class Comanda {
 	@Column(name="iniciar_atendimento")
 	public LocalDateTime inicioAtendimento;
 	
+	@Column(name="fim_atendimento")
+	public LocalDateTime fimAtendimento;
+	
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 	
@@ -140,7 +143,6 @@ public class Comanda {
 	public void setCamareiro(Camareiro camareiro) {
 		this.camareiro = camareiro;
 	}
-    
 
 	public String getUuid() {
 		return uuid;
@@ -152,6 +154,14 @@ public class Comanda {
 
 	public LocalDateTime getInicioAtendimento() {
 		return inicioAtendimento;
+	}
+
+	public LocalDateTime getFimAtendimento() {
+		return fimAtendimento;
+	}
+
+	public void setFimAtendimento(LocalDateTime fimAtendimento) {
+		this.fimAtendimento = fimAtendimento;
 	}
 
 	public void setInicioAtendimento(LocalDateTime inicioAtendimento) {

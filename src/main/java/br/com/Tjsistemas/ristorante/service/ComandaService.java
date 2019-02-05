@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.Tjsistemas.ristorante.model.Comanda;
+import br.com.Tjsistemas.ristorante.model.StatusComanda;
 import br.com.Tjsistemas.ristorante.repository.Comandas;
 
 @Service
@@ -27,8 +28,12 @@ public class ComandaService {
 			Comanda comandaExistente = comandas.findOne(comanda.getId());
 			comanda.setInicioAtendimento(comandaExistente.getInicioAtendimento());
 		}
+	     
+	     if (comanda.getStatus().equals(StatusComanda.ENCERRADA) || comanda.getStatus().equals(StatusComanda.CANCELADA)) {
+			comanda.setFimAtendimento(LocalDateTime.now());
+		 }
     		
-	    comandas.saveAndFlush(comanda);
+	    comandas.save(comanda);
 //    			publisher.publishEvent(new MesaEvent(comanda.getMesa)); ex. Evento
 	}
 }

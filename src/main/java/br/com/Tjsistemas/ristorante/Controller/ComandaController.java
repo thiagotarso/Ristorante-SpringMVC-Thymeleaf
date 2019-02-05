@@ -71,7 +71,7 @@ public class ComandaController {
 	public ModelAndView VisaoComandas(Comanda comanda, @AuthenticationPrincipal Usuario userAltenticado){
 		ModelAndView mv = new ModelAndView("/comanda/visaoComandas");
 
-		List<Comanda> listaComandas = comandas.findByEmpresaOrderByIdAsc(userAltenticado.getEmpresa());
+		List<Comanda> listaComandas = comandas.findByStatusAndEmpresaOrderByIdAsc(StatusComanda.EMITIDA ,userAltenticado.getEmpresa());
 		
 		for (Comanda comandaMesas : listaComandas) {
 			comandaMesas.setMesasComanda(comandas.BuscarMesasComanda(comandaMesas));
@@ -93,6 +93,7 @@ public class ComandaController {
 		mv.addObject("statusComanda", StatusComanda.values()); 
 		mv.addObject("mesasSelecionada", comanda.getMesasComanda()); 
 		mv.addObject("itens", comanda.getItens());
+		
 		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
 		mv.addObject("camareiros", camareiros.findByEmpresaOrderByCodigoAsc(empresaSessao(comanda)));
 		
