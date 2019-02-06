@@ -6,17 +6,33 @@ Ristorante.CarregaMesas = (function(){
 	} 
 	
 	CarregaMesas.prototype.iniciar = function(){
-		onSituacaoMesas();
 		tempoComandas();
 		
-		setInterval(tempoComandas, 1000); // atualiza de 1 em 10 segundos
+		setInterval(tempoComandas, 1000); 
 	}
 	
-	function onSituacaoMesas(){
-		$('.mesas-small').each(function(){
-			this.SituacaoMesas =  $(this).children('div.js-situacao-mesas');
-			$(this).addClass(this.SituacaoMesas.text());
-		})
+	function onSituacaoMesas(event, hours, minutes){
+		console.log(event);
+		if (hours == 0) {
+			
+			if (minutes <= 15) {
+				event.parent().addClass("success");}
+		   else {
+			   event.parent().addClass("primary");}
+		 }
+		   
+		else{
+			if (hours => 2) {
+				event.parent().addClass("danger");}
+			 
+			else if (hours >= 1 && minutes >= 31 ) {
+				event.parent().addClass("danger");
+				}
+				
+			else if (hours == 1 && minutes <= 30) {
+				event.parent().addClass("warning");
+			  }
+		 }
 		
 	}
 	
@@ -53,6 +69,8 @@ Ristorante.CarregaMesas = (function(){
 			var seconds = Math.floor(interval / 1000 );
 //			console.log(days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds.");
 			this.tempoCalculado.text(hours+ "H :" + minutes + "M :" + seconds +"S" );
+			
+			onSituacaoMesas($(this) ,hours, minutes);
 		})
 	}
 	

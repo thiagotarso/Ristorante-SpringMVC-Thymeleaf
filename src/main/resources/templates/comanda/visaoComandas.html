@@ -39,15 +39,10 @@
 		         <div class="col-md-3" >
 				    
 		         <div class="mesas-small">
-
-                     <div class="hidden js-situacao-mesas" th:each="mesa : ${comanda.mesasComanda}" 
-		                 th:text="${mesa.mesa.situacaoMesa.toString() == 'LIVRE'}? 'success ' : (${mesa.mesa.situacaoMesa.toString() == 'OCUPADA'}? 'danger ' : 'warning ') ">
-		              </div>
 				    
 		              <div class="tempo-comandas">
 		                 <div class="hidden tempo-static"  th:text="${comanda.inicioAtendimento}"></div> 
 		                 <div class ="tempo tempo-calculado" th:text="${comanda.inicioAtendimento}">T:00h 00m</div>  
-		                
 		              </div> 
 		           
 		              <div class="card-title-w-btn">
