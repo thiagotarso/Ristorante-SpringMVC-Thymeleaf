@@ -63,7 +63,6 @@ Ristorante.TabelaItens = (function(){
 			}
 				
 			var idProduto =  input.data('id-produto');
-			console.log(this.produtoContainer.data('url') + '/item/'+ idProduto);
 			
 			var resposta = $.ajax({
 				url: this.produtoContainer.data('url') + '/item/'+ idProduto,

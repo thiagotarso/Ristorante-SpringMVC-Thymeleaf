@@ -30,7 +30,7 @@ Ristorante.CadastroRapidoObservacoesProdutos = (function(){
 		 this.idProduto = modal.data('id-Produto');
 	
 		 $.ajax({
-			 url: this.url + "/obs",
+			 url: this.url + "/buscarObservacoes",
 			 method: "GET",
 			 data: {
 				 uuid: this.uuid,

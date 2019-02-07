@@ -160,7 +160,7 @@ public class ComandaController {
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long idProduto, String uuid){
 		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
-		tabelaItensSession.adicionaItem(uuid ,produto, 1, "");
+		tabelaItensSession.adicionaItem(uuid ,produto, 1, null);
         return mvTabelaItensComanda(uuid);
 	}
 	
@@ -208,7 +208,7 @@ public class ComandaController {
 		return ResponseEntity.ok("Observação salva Com sucesso!");
 	}
 	
-	@GetMapping("/obs")
+	@GetMapping("/buscarObservacoes")
 	public @ResponseBody ResponseEntity<?> buscarObservacoes(String uuid, Long idProduto){
 
 	 Produto produto = produtos.findOne(idProduto);

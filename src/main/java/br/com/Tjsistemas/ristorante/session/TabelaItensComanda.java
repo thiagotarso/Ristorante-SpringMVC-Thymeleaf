@@ -82,7 +82,10 @@ class TabelaItensComanda {
 	    if(itemComandaOptional.isPresent()) {
 			itemComanda = itemComandaOptional.get();
 			itemComanda.setQuantidade(itemComanda.getQuantidade() + quantidade);
-			itemComanda.setObservacoes(obs);
+			
+			if(obs != null) {
+			      itemComanda.setObservacoes(obs);
+			   }
 			
 		}else{
 		
@@ -120,7 +123,7 @@ class TabelaItensComanda {
 	}
 	
 	public List<ItemComanda> getItens(){
-		return itens;
+		return itens; 
 	}
 	
 
