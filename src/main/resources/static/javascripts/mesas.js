@@ -22,10 +22,10 @@ Ristorante.CarregaMesas = (function(){
 		 }
 		   
 		else{
-			if (hours => 2) {
+			if (hours >= 2) {
 				event.parent().addClass("danger");}
 			 
-			else if (hours >= 1 && minutes >= 31 ) {
+			else if (hours == 1 && minutes >= 31 ) {
 				event.parent().addClass("danger");
 				}
 				

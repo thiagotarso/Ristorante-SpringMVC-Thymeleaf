@@ -44,7 +44,7 @@ public class ComandasImpl implements ComandasQueries {
 
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(ItemComanda.class);
 		criteria.add(Restrictions.eq("comanda", comanda));
-		criteria.addOrder(Order.desc("id"));
+		criteria.addOrder(Order.asc("id"));
 
 		return (List<ItemComanda>) criteria.list();
 	}

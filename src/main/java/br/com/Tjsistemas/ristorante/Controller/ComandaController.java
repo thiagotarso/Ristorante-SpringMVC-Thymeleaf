@@ -3,8 +3,6 @@ package br.com.Tjsistemas.ristorante.Controller;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.Tjsistemas.ristorante.Controller.validator.ComandaValidator;
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
@@ -53,6 +54,9 @@ public class ComandaController {
 	private Comandas comandas;
 	
 	@Autowired
+	private ComandaValidator comandaValidator;
+	
+	@Autowired
 	private Produtos produtos;
 	
 	@Autowired
@@ -66,6 +70,11 @@ public class ComandaController {
 	
 	@Autowired
 	private TabelaItensSession tabelaItensSession;
+	
+	@InitBinder("comanda")
+	public void inicicalizarValidador(WebDataBinder dataBinder) {
+		dataBinder.addValidators(comandaValidator);
+	}
 	
 	@GetMapping("/visao")
 	public ModelAndView VisaoComandas(Comanda comanda, @AuthenticationPrincipal Usuario userAltenticado){
@@ -104,13 +113,12 @@ public class ComandaController {
 		
 		return mv;
 	}
+
 	
 	@PostMapping(value ={"/novo", "{\\d+}"})
-	public ModelAndView salvar(@Valid Comanda comanda, BindingResult bindingResult,
-			                         Model model, RedirectAttributes attributes){
+	public ModelAndView salvar(Comanda comanda, BindingResult bindingResult, Model model, RedirectAttributes attributes){
 		
-		comanda.adicionarMesas(tabelaItensSession.getMesas(comanda.getUuid()));
-		comanda.adicionarItens(tabelaItensSession.getItens(comanda.getUuid()));
+		validaComanda(comanda, bindingResult);
 		
 		if (bindingResult.hasErrors()) {
 			return nova(comanda);
@@ -118,7 +126,6 @@ public class ComandaController {
 		
 		try {
 			comanda.setEmpresa(empresaSessao(comanda));
-			comanda.calcularValorTotal();
 			comandaService.salvar(comanda);
 			
 			attributes.addFlashAttribute("mensagem", "venda Salva com Sucesso!");
@@ -132,7 +139,8 @@ public class ComandaController {
 		
 		return new ModelAndView("redirect:/comanda/"+ comanda.getId());
 	}
-	
+
+
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id){
 		Comanda comanda = comandas.findByIdAndEmpresa(id, empresaSessao(null)) ;
@@ -237,6 +245,16 @@ public class ComandaController {
 		if(StringUtils.isEmpty(comanda.getUuid())){
 			comanda.setUuid(UUID.randomUUID().toString());
 		}
+	}
+	
+	public void validaComanda(Comanda comanda, BindingResult bindingResult) {
+		comanda.adicionarMesas(tabelaItensSession.getMesas(comanda.getUuid()));
+		comanda.adicionarItens(tabelaItensSession.getItens(comanda.getUuid()));
+		comanda.calcularValorTotal();
+		
+		System.out.println(" metodos "+comanda.getValorTotal());
+		
+		comandaValidator.validate(comanda, bindingResult);
 	}
 	
 	private Long empresaSessao(Comanda comanda) {
