@@ -67,8 +67,7 @@ Ristorante.CadastroRapidoObservacoesProdutos = (function(){
 			     error: onErrorSalvandoObs.bind(this),
 			     success: onObsSalvo.bind(this)
 		   });
-		   
-	      }     
+		  }     
   
     function onErrorSalvandoObs(obj){
     	console.log("Error!");
@@ -86,8 +85,6 @@ Ristorante.CadastroRapidoObservacoesProdutos = (function(){
 		else{
 			classeDescricaoProduto.addClass('tj-produtos-observacoes');
 		}
-		
-	
 		
 		this.modal.modal('hide');
 		}

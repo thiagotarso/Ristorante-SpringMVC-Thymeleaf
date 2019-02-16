@@ -25,7 +25,7 @@
 
 					<div class="tj-tabela-item__coluna  tj-tabela-item__coluna--detalhes">
 						   <a href="#"  data-toggle="modal" data-target="#cadastroRapidoObservacoes" data:id-Produto="${item.produto.id}">
-						      <span   th:class="|tj-tabela-produto-nome label label-${item.produto.categoria.cores} js-produto-${item.produto.id}|"  th:classappend="${item.observacoes} != '' ? tj-produtos-observacoes : ''">
+						      <span   th:class="|tj-tabela-produto-nome label label-${item.produto.categoria.cores} js-produto-${item.produto.id}|"  th:classappend="${item.observacoes} == '' ? '' :(${item.observacoes} == null ? '':tj-produtos-observacoes)">
 						       
 						        <span class="control-label js-descricao-tabela-itens" th:text="|${item.produto.id}- ${item.produto.descricao}|" >max 22 caracteres</span>
 						     </span>
@@ -40,7 +40,7 @@
 						<div class="tj-tabela-produto-quantidade">
 							<input type="text" maxlength="4"
 								class="tj-tabela-produto-campo-quantidade  js-tabela-comanda-quantidade-item"
-								data:id-produto="${item.produto.id}" th:value="${item.quantidade}"/>
+								data:id-produto="${item.produto.id}" th:value="${item.quantidade}" th:disabled="${comanda.salvarProibido}"/>
 						</div>
 					</div>
 		
@@ -48,7 +48,7 @@
 							<div class="tj-tabela-produto-valor-grande">R$[[${{item.valorTotal}}]]</div>
 					</div>
 		
-					<div class="tj-tabela-item__coluna  tj-tabela-item__coluna--acoes">
+					<div class="tj-tabela-item__coluna  tj-tabela-item__coluna--acoes" th:if="${comanda.salvarPermitido}">
 						<a title="Excluir" href="#" class="js-remover-item-comanda-btn"> <i class="fa fa-remove"
 						          data:id-produto="${item.produto.id}"></i>
 						</a>

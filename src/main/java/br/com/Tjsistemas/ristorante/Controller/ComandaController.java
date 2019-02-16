@@ -222,6 +222,7 @@ public class ComandaController {
 	 Produto produto = produtos.findOne(idProduto);
 		
 	  ItemComanda item =  tabelaItensSession.buscarObservacoesItens(uuid, produto);
+	  
 	  return  ResponseEntity.ok(item.getObservacoes());
 	}
 	

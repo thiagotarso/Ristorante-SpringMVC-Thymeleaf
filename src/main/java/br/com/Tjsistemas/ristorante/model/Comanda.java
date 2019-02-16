@@ -48,7 +48,7 @@ public class Comanda {
 	private BigDecimal desconto;
 	
 	@Enumerated(EnumType.STRING)
-	private StatusComanda status;
+	private StatusComanda status = StatusComanda.EMITIDA;
 	
 	@NotNull(message="Seleceione Um Cliente!")
 	@ManyToOne
@@ -205,8 +205,7 @@ public class Comanda {
 		this.itens = itens;
 		this.itens.forEach(i -> i.setComanda(this));
 	}
-	
-	
+		
 	public BigDecimal valorTotalItens() {
 		return this.getItens().stream()
 				.map(ItemComanda::getValorTotal)
@@ -214,15 +213,30 @@ public class Comanda {
 				.orElse(BigDecimal.ZERO);
 	}
 	
-   public void calcularValorTotal() {
+    public void calcularValorTotal() {
 	  this.valorTotal= calculaValorTotal(valorTotalItens(), this.desconto);
-   }
+    }
 	
 	public BigDecimal calculaValorTotal(BigDecimal itens, BigDecimal valorDesconto) {
 		return	 itens.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 	}
+	 
+    public boolean isSalvarPermitido(){
+    	boolean salvar = true;
+    	if (status.equals(StatusComanda.ENCERRADA) ) {
+    		salvar = false;
+		 }
+    	else if (status.equals(StatusComanda.CANCELADA)) {
+    		salvar = false;
+    	} 
+    	
+		return  salvar;
+	}
 	
-
+    public boolean isSalvarProibido() {
+		return !isSalvarPermitido();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

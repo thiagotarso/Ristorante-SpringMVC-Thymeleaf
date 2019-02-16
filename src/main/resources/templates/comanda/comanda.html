@@ -113,7 +113,7 @@
 	    			   <select id="select-camareiro" class="form-control  btn btn-primary" th:field="*{camareiro}">
 				        <option value="">Camareiro</option>
 						<option th:each="camareiro : ${camareiros}"  th:value="${camareiro.id}" 
-						             th:text="${camareiro.nome}">Joao</option>
+						             th:text="${camareiro.nome}" >Joao</option>
 					   </select>
 	               </div>
 	           </div>    
@@ -122,43 +122,47 @@
 			     <div class=" col-sm-12">
 	               <div class="form-group" >        
 					   <div class="input-group">
-					      <input id="nomeCliente" data:fornecedor="false" type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
+					      <input id="nomeCliente" th:disabled="${comanda.salvarProibido}" data:fornecedor="false" 
+					                      type="text" class="form-control input-sm" th:field="*{cliente.nome}" placeholder="pesquise um cliente">
+					      
 					        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
 	                        <span class="input-group-btn">
-	                           <button  class="btn btn-primary button-size-sm" type="button" 
+	                           <button  class="btn btn-primary button-size-sm" type="button" th:disabled="${comanda.salvarProibido}"
 	                                         data-toggle="modal" data-target="#pesquisaRapidaCliente" ><span class="fa fa-search"></span></button>
 	                         </span>
 	                    </div>
 					</div>
 				 </div>
 		      </div>	
-		
      	 
              
 	          <div class="row">
 				<div class="form-group col-xs-6 col-md-3" >
 				  	<label class="control-label" for="inputDesconto">Desc.</label>
-					 <input id="inputDesconto" type="text" class="form-control input-sm js-decimal" maxlength="8" data:valor="${valorDesconto}"  th:field="*{desconto}"/>
+					 <input id="inputDesconto" type="text" class="form-control input-sm js-decimal" 
+					  th:disabled="${comanda.salvarProibido}" data:valor="${valorDesconto}"  th:field="*{desconto}"/>
 				</div>
 									
 	            <div class="form-group col-xs-6 col-md-3" >
 					 <label class="control-label" for="acrescimo">Acres.</label>
-					 <input type="text" class="form-control input-sm" id="acrescimo"/>
+					 <input id="acrescimo" type="text" class="form-control input-sm"   th:disabled="${comanda.salvarProibido}"/>
 				</div>
 	
 				<div class="form-group col-xs-6 col-md-3" >
 				  	 <label class="control-label" for="desconto">Desc.%</label>
-					 <input type="text" class="form-control input-sm" id="desconto"/>
+					 <input  id="desconto"  type="text" class="form-control input-sm" th:disabled="${comanda.salvarProibido}"/>
 				</div>
 	                    
 	             <div class="form-group col-xs-6 col-md-3" >
 				 	<label class="control-label" for="acrescimoPercentual">Acres.%</label>
-				  	<input type="text" class="form-control input-sm" id="acrescimoPercentual"/>
+				  	<input id="acrescimoPercentual" type="text"
+				  	 class="form-control input-sm"  th:disabled="${comanda.salvarProibido}"/>
 				</div>
 		   </div>
              
              <div class="form-group">
-				<textarea class="form-control" rows="2" th:field="*{observacoes}" placeholder="Observacoes da comanda."></textarea>
+				<textarea class="form-control" rows="2" th:field="*{observacoes}" th:disabled="${comanda.salvarProibido}" 
+				placeholder="Observacoes da comanda."></textarea>
 			</div>
 		</div>
 		
@@ -167,14 +171,14 @@
 			</div>
 			<div class="card-footer">
 				<div class="row">
-				     <div class="col-md-6">
-						<select class="form-control" id="select" th:field="*{status}">
+				     <div class="col-md-6" >
+						<select class="form-control" id="select" th:field="*{status}" th:disabled="${comanda.salvarProibido}">
 							<option th:each="statusControler: ${statusComanda}" th:value="${statusControler}" 
 							                       th:text="${statusControler.descricao}">Livre</option>
 						</select>
 					 </div>
 				
-					<div class=" col-md-3" >
+					<div class=" col-md-3"  th:if="${comanda.salvarPermitido}">
 						<button class="btn btn-primary icon-btn" type="submit">
 							<i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar
 						</button>
@@ -201,12 +205,12 @@
 			</div>
 
 			</div>
-			<div class="card-footer">
+			<div class="card-footer" >
 				<div class="row">
-					<div class="col-sm-offset-7 col-sm-5">
+					<div class="col-sm-offset-7 col-sm-5" th:if="${comanda.salvarPermitido}">
 						<label>pesquise um produto:</label>
 
-						<div class="input-group">
+						<div class="input-group"  >
 							<input type="text" class="form-control input-sm js-descricao"> <span
 								class="input-group-btn">
 								<button class="btn btn-default button-size-sm js-buscar-por-descricao" type="button">
@@ -219,7 +223,7 @@
 			</div>
 		</div>
 
-		<div class="card">
+		<div class="card"  th:if="${comanda.salvarPermitido}">
 			<div class="card-body">
 
 				<div class="row">
