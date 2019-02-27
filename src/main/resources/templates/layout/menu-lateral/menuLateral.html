@@ -44,6 +44,7 @@
             
             <li class="treeview"><a href="#"><i class="fa fa-cart-plus"></i><span>Comanda</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
+                <li ristorante:menu="@{/comanda}"><a th:href="@{/comanda}"><i class="fa fa-circle-o"></i>Lista de Comandas</a></li>
                 <li ristorante:menu="@{/comanda/visao}"><a th:href="@{/comanda/visao}"><i class="fa fa-circle-o"></i>Visão Comandas</a></li>
                 <li ristorante:menu="@{/comanda/comanda}"><a th:href="@{/comanda/nova}"><i class="fa fa-circle-o"></i>Cad. Comanda</a></li>
               </ul>

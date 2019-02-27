@@ -116,9 +116,10 @@
                 <thead>
                   <tr>
                     <th>
-                       <ristorante:order page="${pagina}" field="codigo" text="COD."/>        
+                       <ristorante:order page="${pagina}" field="id" text="ID"/>        
                     </th>
-                    <th><ristorante:order page="${pagina}" field="cliente" text="Cliente."/></th>
+                    <th><ristorante:order page="${pagina}" field="cliente" text="Cliente"/></th>
+                    <th>Data</th>
                     <th>Status</th>
                     <th class="text-center">valortotal</th>
                     <th class="text-right">acoes</th>
@@ -126,8 +127,9 @@
                 </thead>
                 <tbody>
                   <tr th:each="comanda : ${pagina.conteudo}">
-                    <td th:text="${comanda.codigo}">1</td>
-                    <td th:text="${comanda.cliente.nome}">Otto</td>
+                    <td th:text="${comanda.id}">1</td>
+                    <td th:text="${comanda.cliente.nome}">cliente</td>
+                    <td th:text="${{comanda.inicioAtendimento}}">data</td>
                     <td th:text="${comanda.status.descricao}">Mark</td>
                     <td class="text-center"  th:text="|€ ${{comanda.valorTotal}}|">Mark</td>
                     

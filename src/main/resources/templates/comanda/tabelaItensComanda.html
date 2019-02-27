@@ -40,7 +40,7 @@
 						<div class="tj-tabela-produto-quantidade">
 							<input type="text" maxlength="4"
 								class="tj-tabela-produto-campo-quantidade  js-tabela-comanda-quantidade-item"
-								data:id-produto="${item.produto.id}" th:value="${item.quantidade}" th:disabled="${comanda.salvarProibido}"/>
+								data:id-produto="${item.produto.id}" th:value="${item.quantidade}" th:disabled="${comanda != null ? comanda.salvarProibido : false}"/>
 						</div>
 					</div>
 		
@@ -48,7 +48,7 @@
 							<div class="tj-tabela-produto-valor-grande">R$[[${{item.valorTotal}}]]</div>
 					</div>
 		
-					<div class="tj-tabela-item__coluna  tj-tabela-item__coluna--acoes" th:if="${comanda.salvarPermitido}">
+					<div class="tj-tabela-item__coluna  tj-tabela-item__coluna--acoes" th:if="${comanda != null ? comanda.salvarPermitido : false }">
 						<a title="Excluir" href="#" class="js-remover-item-comanda-btn"> <i class="fa fa-remove"
 						          data:id-produto="${item.produto.id}"></i>
 						</a>

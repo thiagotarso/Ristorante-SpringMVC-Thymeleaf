@@ -136,6 +136,8 @@ public class ComandasImpl implements ComandasQueries {
         paginacaoUtil.preparar(criteria, pageable);		
 		adicionarFiltro(filtro, criteria);
 		
+		criteria.addOrder(Order.desc("id"));
+		
 		Sort sort = pageable.getSort();
 		if (sort != null) {
 			Sort.Order order = sort.iterator().next();

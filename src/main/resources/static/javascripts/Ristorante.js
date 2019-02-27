@@ -32,6 +32,24 @@ Ristorante.recuperaValor = function(valorFormatado){
 	return numeral().unformat(valorFormatado);
 }
 
+//Ristorante.MaskDate = (function(){
+//	   
+//	   function MaskDate(){
+//		   this.inputDate = $('.js-date');
+//	   }
+//	   
+//	   MaskDate.prototype.enable = function(){
+//      	this.inputDate.mask('00/00/0000');	
+//      	this.inputDate.datepicker({
+//      		orientation: 'button',
+//      		language: 'pt-BR',
+//      		autoclose: 'true'
+//      	})
+//	   }
+//	   return MaskDate;
+//	   
+//})();
+
 Ristorante.Security = (function(){
 	
 	function Security(){
@@ -40,7 +58,6 @@ Ristorante.Security = (function(){
 	} 
 	
 	Security.prototype.enable = function(){
-//		 toda vez que o ajax for chamado ele inseri o token crsf
        $(document).ajaxSend(function(event, jqxhr, settings){
     	   jqxhr.setRequestHeader(this.header, this.token);
     	   
@@ -53,6 +70,9 @@ Ristorante.Security = (function(){
 $(function(){ 
 	 var maskMoney = new  Ristorante.maskMoney();
 	 maskMoney.enable();
+	 
+//	 var maskDate =  new Ristorante.MaskDate();
+//	 maskDate.enable();
 	 
 	 var security = new Ristorante.Security();
 	 security.enable();
