@@ -14,18 +14,30 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
+import br.com.Tjsistemas.ristorante.repository.filter.ComandaFilter;
+import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
 
 public class ComandasImpl implements ComandasQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 
 	@SuppressWarnings(value = { "static-access", "unchecked" })
 	@Transactional(readOnly = true)
@@ -112,5 +124,67 @@ public class ComandasImpl implements ComandasQueries {
 			hoje = hoje.minusMonths(1);
 		}
 		return comandaMes.stream().sorted((c1,c2) -> c2.getMes().compareTo(c1.getMes())).collect(Collectors.toList());
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	@Override
+	public Page<Comanda> filtrar(ComandaFilter filtro, Pageable pageable) {
+		Criteria criteria =  manager.unwrap(Session.class).createCriteria(Comanda.class);
+		
+        paginacaoUtil.preparar(criteria, pageable);		
+		adicionarFiltro(filtro, criteria);
+		
+		Sort sort = pageable.getSort();
+		if (sort != null) {
+			Sort.Order order = sort.iterator().next();
+			String property = order.getProperty();
+			criteria.addOrder(order.isAscending()? Order.asc(property) : Order.desc(property));
+		}
+		
+		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+	}
+	
+	private Long total(ComandaFilter filtro) {
+		   Criteria criteria =  manager.unwrap(Session.class).createCriteria(Comanda.class);
+		   adicionarFiltro(filtro, criteria);
+		   criteria.setProjection(Projections.rowCount());
+			return (Long) criteria.uniqueResult();
+		}
+	
+	private void adicionarFiltro(ComandaFilter filtro, Criteria criteria) {
+		//filtros vindo da tela 
+		if (filtro.getEmpresa() != null) {
+			criteria.add(Restrictions.eq("empresa", filtro.getEmpresa()));
+			
+			if (!StringUtils.isEmpty(filtro.getCodigo())) {
+				criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
+			}
+			if (filtro.getDesconto() != null) {
+				criteria.add(Restrictions.eq("desconto", filtro.getDesconto()));
+			}
+			if (!StringUtils.isEmpty(filtro.getStatus())) {
+				criteria.add(Restrictions.eq("status", filtro.getStatus()));
+			}
+			if (filtro.getValorMinimo() != null) {
+				criteria.add(Restrictions.ge("valorTotal", filtro.getValorMinimo()));
+			}
+			if (filtro.getValorMaximo() != null) {
+				criteria.add(Restrictions.le("valorTotal", filtro.getValorMaximo()));
+			}
+			if (filtro.getMesa() != null) {
+				criteria.add(Restrictions.eq("mesasComanda", filtro.getMesa()));
+			}
+			if (filtro.getCamareiro() != null) {
+				criteria.add(Restrictions.eq("camareiro", filtro.getCamareiro()));
+			}
+			if (filtro.getCliente() != null) {
+				criteria.add(Restrictions.eq("cliente", filtro.getCliente()));
+			}
+			if (filtro.getProduto() != null) {
+				criteria.add(Restrictions.eq("itens.produto", filtro.getProduto()));
+			}
+		}
 	}
 }

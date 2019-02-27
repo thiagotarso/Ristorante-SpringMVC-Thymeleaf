@@ -14,5 +14,4 @@ public interface Comandas extends JpaRepository<Comanda, Long>, ComandasQueries 
 
 	public List<Comanda> findByStatusAndEmpresaOrderByIdAsc(StatusComanda statusComanda, Long CodigoEmpresa);
 	public Comanda findByIdAndEmpresa(Long id, Long empresaSessao);
-
 }

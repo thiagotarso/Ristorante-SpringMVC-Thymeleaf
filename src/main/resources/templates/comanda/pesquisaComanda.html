@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
+
+<head>
+<title>Comanda</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+     <div class="content-wrapper">
+        <div class="page-title">
+          <div>
+            <h1><i class="fa fa-th-list"></i> Tabela Comandas</h1>
+          </div>
+          <div>
+            <ul class="breadcrumb">
+              <li><i class="fa fa-home fa-lg"></i></li>
+              <li ><a th:href="@{/Comanda/nova}">Cadastro Comanda</a></li>
+              <li class="active">Lista Comandas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+        
+   <div class="col-md-12">
+     <div class="card">
+          
+        <form class="form-horizontal" method="GET" th:object=${comandaFilter}>
+          <div class="row"> 
+            
+            <div class="col-sm-2">
+              <label class="control-label" >COD.</label>
+                          <input class="form-control" type="text" th:field="*{codigo}">
+              </div> 
+
+             <div class="col-sm-2">
+              <label class="control-label" >Descricao</label>
+                          <input class="form-control"  type="text" th:field="*{desconto}">
+            </div> 
+         
+            <div class="col-sm-3">
+             <label class="control-label" >Status</label>
+	         <select class="form-control" id="select" th:field="*{status}">
+	         <option value="" >Status</option>
+				<option th:each="status: ${status}" th:value="${status}" 
+					 th:text="${status.descricao}">EMITIDA
+			    </option>
+				</select>
+			</div>
+			
+		  <div class=" col-sm-5 ">	
+             <label for="precoDe">Preço unitário</label>
+             <div class="form-inline">	  
+                       <input class="form-control js-decimal"  type="text" th:field="*{valorMinimo}" id="precoDe">
+                       <label class="control-label" >Ate</label>
+                       <input class="form-control js-decimal"  type="text" th:field="*{valorMaximo}">
+            </div> 
+          </div> 
+		  </div>
+         
+         <div class="row">   
+         
+           	<div class="col-sm-3">
+					<label class="control-label" for="mesa">Mesa</label> 
+					<select id="mesa" class="form-control" th:field="*{mesa}" disabled="disabled">
+	                    <option value="">Mesas</option>
+	                    <option th:each="mesa : ${mesa}" th:value="${mesa.id}" th:text="${mesa.numeroMesa}" ></option>
+	                </select>
+		    </div>
+		    
+		    <div class="col-sm-3">
+					<label class="control-label" for="camarero">Camarero</label> 
+					<select id="camarero" class="form-control" th:field="*{camareiro}">
+	                    <option value="">Camareros</option>
+	                    <option th:each="camareiro : ${camareiro}" th:value="${camareiro.id}" th:text="${camareiro.nome}"></option>
+	                </select>
+		     </div>
+		     
+		     <div class="col-sm-3">
+					<label class="control-label" for="cliente">Cliente</label> 
+					<select id="cliente" class="form-control" th:field="*{cliente}">
+	                    <option value="">Clientes</option>
+	                    <option th:each="cliente : ${cliente}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+	                </select>
+		    </div>
+		    
+		    <div class="col-sm-3">
+					<label class="control-label" for="produto">Produto</label> 
+					<select id="produto" class="form-control" th:field="*{produto}" disabled="disabled">
+	                    <option value="">Produtos</option>
+	                    <option th:each="produto : ${produtos}" th:value="${produto.id}" th:text="${produto.descricao}"></option>
+	                </select>
+		     </div>
+        
+          
+            <div class="col-sm-2 " >		  
+              <button class="btn btn-primary " style="margin-top:3rem" type="submit">Submit</button>
+           </div> 
+          </div>       
+         
+       </form>
+      </div>
+   </div>
+          
+          <div class="col-md-12">
+            <div class="card">
+             <!-- <h3 class="card-title">Tabela Cliente</h3> -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                       <ristorante:order page="${pagina}" field="codigo" text="COD."/>        
+                    </th>
+                    <th><ristorante:order page="${pagina}" field="cliente" text="Cliente."/></th>
+                    <th>Status</th>
+                    <th class="text-center">valortotal</th>
+                    <th class="text-right">acoes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="comanda : ${pagina.conteudo}">
+                    <td th:text="${comanda.codigo}">1</td>
+                    <td th:text="${comanda.cliente.nome}">Otto</td>
+                    <td th:text="${comanda.status.descricao}">Mark</td>
+                    <td class="text-center"  th:text="|€ ${{comanda.valorTotal}}|">Mark</td>
+                    
+                    	<td class="text-right" >
+							  <form method="POST" th:action="@{/relatorios/cupom/{id}(id=${comanda.id})}" target="_blank">
+							     <a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/comanda/{id}(id=${comanda.id})}" > 
+								   <i class="fa fa-pencil"></i>
+							     </a>
+							  
+                                  <button type="submit" class="btn btn-primary btn-xs"> <i class="fa fa-file-pdf-o"></i></button>
+                              </form> 
+						</td>
+                  </tr>
+                  
+                  <tr th:if="${pagina.vazia}">
+					  <td colspan="7">Nenhum Comanda Cadastrado!</td>
+					</tr>
+                </tbody>
+              </table>
+            </div>
+               <ristorante:pagination page="${pagina}"/>
+            
+          </div>
+        </div>
+       </div>
+
+	</div>
+</body>
+</html>

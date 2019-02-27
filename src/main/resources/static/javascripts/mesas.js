@@ -12,7 +12,6 @@ Ristorante.CarregaMesas = (function(){
 	}
 	
 	function onSituacaoMesas(event, hours, minutes){
-		console.log(event);
 		if (hours == 0) {
 			
 			if (minutes <= 15) {

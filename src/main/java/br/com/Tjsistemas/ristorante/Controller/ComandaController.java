@@ -1,9 +1,14 @@
 package br.com.Tjsistemas.ristorante.Controller;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.Controller.validator.ComandaValidator;
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
 import br.com.Tjsistemas.ristorante.model.Comanda;
@@ -35,13 +41,16 @@ import br.com.Tjsistemas.ristorante.model.StatusComanda;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Camareiros;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
+import br.com.Tjsistemas.ristorante.repository.Clientes;
 import br.com.Tjsistemas.ristorante.repository.Comandas;
 import br.com.Tjsistemas.ristorante.repository.Mesas;
 import br.com.Tjsistemas.ristorante.repository.Produtos;
+import br.com.Tjsistemas.ristorante.repository.filter.ComandaFilter;
 import br.com.Tjsistemas.ristorante.service.ComandaService;
 import br.com.Tjsistemas.ristorante.service.Exception.MesaOcupada;
 import br.com.Tjsistemas.ristorante.service.Exception.MesaReservada;
 import br.com.Tjsistemas.ristorante.session.TabelaItensSession;
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping("/comanda")
@@ -60,6 +69,9 @@ public class ComandaController {
 	private Produtos produtos;
 	
 	@Autowired
+	private Clientes clientes;
+	
+	@Autowired
 	private Categorias categorias;
 
 	@Autowired
@@ -72,7 +84,7 @@ public class ComandaController {
 	private TabelaItensSession tabelaItensSession;
 	
 	@InitBinder("comanda")
-	public void inicicalizarValidador(WebDataBinder dataBinder) {
+	public void inicicalizarValidador(WebDataBinder dataBinder) throws SQLException, JRException {
 		dataBinder.addValidators(comandaValidator);
 	}
 	
@@ -138,6 +150,24 @@ public class ComandaController {
 		
 		
 		return new ModelAndView("redirect:/comanda/"+ comanda.getId());
+	}
+	
+	@GetMapping
+	 public ModelAndView pesquisar(ComandaFilter comandaFilter, BindingResult result,
+			                          @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
+		  ModelAndView mv = new ModelAndView("/comanda/pesquisaComanda");
+		  
+		  mv.addObject("mesa", mesas.findByEmpresaOrderByNumeroMesaAsc(empresaSessao(null)));
+		  mv.addObject("camareiro", camareiros.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
+		  mv.addObject("cliente", clientes.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
+		  mv.addObject("produtos", produtos.findByEmpresaOrderByCodigoAsc(empresaSessao(null)));
+		  mv.addObject("status", StatusComanda.values());
+		  
+		  comandaFilter.setEmpresa(empresaSessao(null));
+		  PageWrapper<Comanda> paginasWrapper = new PageWrapper<>(comandas.filtrar(comandaFilter, pageable), httpServletRequest);
+		  mv.addObject("pagina", paginasWrapper);
+		  
+		  return mv;
 	}
 
 

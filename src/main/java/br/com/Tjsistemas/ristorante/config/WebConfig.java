@@ -59,6 +59,7 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer{
 		this.applicationContext = applicationContext;
 	}
 	
+	
 	 @Bean
 		public ViewResolver viewResolver() {
 			ThymeleafViewResolver resolver = new ThymeleafViewResolver();
