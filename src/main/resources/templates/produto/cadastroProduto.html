@@ -65,24 +65,33 @@
 			   
 			    <div class="row">
 			   
-			      <div class="col-sm-4" ristorante:classforerror="abreviacao">
+			      <div class="col-sm-3" ristorante:classforerror="abreviacao">
 				     <label class="control-label" for="inputAbraviacao">ABRAVIAÇÃO</label>
                      <input class="form-control"  type="text" th:field="*{abreviacao}">
                   </div> 
 				 
-				  <div class="col-sm-4" ristorante:classforerror="EAN">
+				  <div class="col-sm-3" ristorante:classforerror="EAN">
 				       <label class="control-label" for="inputEan">EAN</label>
                         <input class="form-control"  type="text" th:field="*{EAN}">
                   </div> 
                   
-                 <div class="col-sm-4" ristorante:classforerror="categoria">
+                  <div class="col-md-3">
+                      <label class="control-label" for="selectSetor">Setor Prep.</label>
+						<select class="form-control" id="selectSetor" th:field="*{setorPreparo}" >
+							<option value="">Selecione um setor</option>
+							<option th:each="status : ${setorPreparo}" th:value="${status}" 
+							        th:text="${status.descricao}">Bar</option>
+						</select>
+					 </div>
+                  
+                 <div class="col-sm-3" ristorante:classforerror="categoria">
 					<label class="control-label" for="selectCategoria">Categoria:</label>
 
-						<select class="form-control" id="selectCategoria" th:field="*{categoria}">
-							<option value="">Selecione uma mesa</option>
-							<option th:each="categoria : ${categorias}" th:value="${categoria.id}" 
-							   th:text="${categoria.descricao}">mesa 1</option>
-						</select>
+					<select class="form-control" id="selectCategoria" th:field="*{categoria}">
+						<option value="">Selecione uma mesa</option>
+						<option th:each="categoria : ${categorias}" th:value="${categoria.id}" 
+						   th:text="${categoria.descricao}">mesa 1</option>
+					</select>
              	</div>
 			   </div>			   
 
@@ -135,7 +144,7 @@
 			      <div class="col-sm-8" ristorante:classforerror="cliente">
 			      <label class="control-label">FORNECEDOR:</label>
 			      
-			        <div class="input-group">
+			         <div class="input-group">
 				        <input id="nomeCliente" data:fornecedor="true" type="text" class="form-control " th:field="*{cliente.nome}" disabled="disabled" placeholder="pesquise um Fornecedor.">
 				        <input id="idCliente" type="hidden" th:field="*{cliente}"/>	
                         <span class="input-group-btn">

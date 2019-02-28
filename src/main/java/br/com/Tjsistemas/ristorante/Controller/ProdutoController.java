@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.model.Categoria;
 import br.com.Tjsistemas.ristorante.model.Produto;
+import br.com.Tjsistemas.ristorante.model.SetorPreparo;
 import br.com.Tjsistemas.ristorante.model.Usuario;
 import br.com.Tjsistemas.ristorante.repository.Categorias;
 import br.com.Tjsistemas.ristorante.repository.Clientes;
@@ -52,6 +53,7 @@ public class ProdutoController {
 	public ModelAndView novo(Produto produto){
 		ModelAndView mv = new ModelAndView("/produto/cadastroProduto");
 		mv.addObject("categorias", categorias.findByEmpresaOrderByCodigoAsc(empresaSessao(produto)));
+		mv.addObject("setorPreparo", SetorPreparo.values());
 		
 		return mv;
 	}

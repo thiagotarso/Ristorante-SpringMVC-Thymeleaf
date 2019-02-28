@@ -1,6 +1,7 @@
 package br.com.Tjsistemas.ristorante.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,12 @@ public class ItemComanda {
 	
 	private String observacoes;
 	
+	@Column(name="quantidade_adicionada")
+	private Integer quantidadeAdicionada;
+
+	@Column(name="controle_atendimento")
+	private LocalDateTime controleAtendimento; 
+
 	@Column(name="valor_unitario")
 	private BigDecimal valorUnitario;
 	
@@ -38,53 +45,56 @@ public class ItemComanda {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public Integer getQuantidade() {
 		return quantidade;
 	}
-
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-
 	public String getObservacoes() {
 		return observacoes;
 	}
-
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
-
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-
 	public Comanda getComanda() {
 		return comanda;
 	}
-
 	public void setComanda(Comanda comanda) {
 		this.comanda = comanda;
 	}
-
 	public Produto getProduto() {
 		return produto;
 	}
-
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
 	public BigDecimal getValorTotal(){
 		return valorUnitario.multiply(new BigDecimal(quantidade));
+	}
+	public Integer getQuantidadeAdicionada() {
+		return quantidadeAdicionada;
+	}
+
+	public void setQuantidadeAdicionada(Integer quantidadeAdicionada) {
+		this.quantidadeAdicionada = quantidadeAdicionada;
+	}
+
+	public LocalDateTime getControleAtendimento() {
+		return controleAtendimento;
+	}
+
+	public void setControleAtendimento(LocalDateTime controleAtendimento) {
+		this.controleAtendimento = controleAtendimento;
 	}
 
 	@Override

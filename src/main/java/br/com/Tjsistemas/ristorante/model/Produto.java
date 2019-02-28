@@ -32,7 +32,10 @@ public class Produto {
     
     @Column(name="preco_custo")
     public BigDecimal precoCusto ;
-   
+    
+    @Column(name="setor_preparo")
+    public SetorPreparo setorPreparo;
+    
     @Column(name="margem_de_lucro")
     public Double margemDelucro;
     
@@ -79,14 +82,12 @@ public class Produto {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	
 	public Categoria getCategoria() {
 		return categoria;
 	}
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -153,6 +154,12 @@ public class Produto {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	public SetorPreparo getSetorPreparo() {
+		return setorPreparo;
+	}
+	public void setSetorPreparo(SetorPreparo setorPreparo) {
+		this.setorPreparo = setorPreparo;
 	}
 	public boolean isControleEstoque() {
 		return controleEstoque;
