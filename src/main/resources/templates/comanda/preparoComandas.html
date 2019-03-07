@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layoutPadrao"
+	xmlns:ristorante="http://TJsistemas.ristorante.com">
+
+<head>
+<title>Comanda</title>
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+		<div th:replace="/layout/menu-lateral/menuLateral"></div>
+
+     <div class="content-wrapper">
+        <div class="page-title">
+          <div>
+            <h1><i class="fa fa-th-list"></i> Tabela Comandas</h1>
+          </div>
+          
+<!--            <form class="form-horizontal" method="GET" th:object=${comandaFilter}> -->
+<!--                 <div > -->
+<!-- 					<select class="form-control" id="selectSetor" th:field="*{codigo}" > -->
+<!-- 						<option value="">Selecione um setor</option> -->
+<!-- 						<option th:each="setor : ${setorPreparo}" th:value="${setor}"  -->
+<!-- 						        th:text="${setor.descricao}">Bar</option> -->
+<!-- 					</select> -->
+<!-- 				 </div> -->
+              
+<!--            </form> -->
+          
+          <div>
+            <ul class="breadcrumb">
+              <li><i class="fa fa-home fa-lg"></i></li>
+              <li ><a th:href="@{/Comanda/nova}">Cadastro Comanda</a></li>
+              <li class="active">Lista Comandas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+        
+   <div class="col-md-12">
+     <div class="card">
+      </div>
+   </div>
+          
+          <div class="col-md-12">
+            <div class="card">
+            
+             <form class="form-horizontal" method="GET" th:object=${comandaFilter}>
+             <div class="col-sm-offset-4 col-sm-2" >
+                 <select class="form-control" id="selectSetor" th:field="*{setorPreparo}" > 
+					<option value="">Selecione um setor</option> 
+					<option th:each="setor : ${setorPreparo}" th:value="${setor}"  
+					        th:text="${setor.descricao}">Bar</option> 
+			     </select>
+			  </div>
+ 					
+ 	          <div class="col-sm-2 " >		   
+                 <button class="btn btn-primary "  type="submit">Submit</button>
+              </div> 
+           </form>
+ 					
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                       <ristorante:order page="${pagina}" field="id" text="ID"/>        
+                    </th>
+                    <th><ristorante:order page="${pagina}" field="Camareriro" text="Camareriro"/></th>
+                    <th>Data</th>
+                    <th class="text-right">acoes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="comanda : ${pagina.conteudo}">
+                    <td th:text="${comanda.id}">1</td>
+                    <td th:text="${comanda.cliente.nome}">cliente</td>
+                    <td th:text="${{comanda.inicioAtendimento}}">data</td>
+                    
+                    	<td class="text-right" >
+							  <form method="POST" th:action="@{/relatorios/cupom/{id}(id=${comanda.id})}" target="_blank">
+                                 <button type="submit" class="btn btn-primary btn-xs"> <i class="fa fa-file-pdf-o"></i></button>
+
+							     <a class="btn  btn-link  btn-xs" title="visualizar"> 
+								   <i class="fa fa-pencil"></i>
+							     </a>
+
+                                 <a class="btn  btn-link  btn-xs" title="Encerramento"> 
+								   <i class="fa fa-pencil"></i>
+							     </a>							  
+                              </form> 
+						</td>
+                  </tr>
+                  
+                  <tr th:if="${pagina.vazia}">
+					  <td colspan="7">Nenhum Comanda Cadastrado!</td>
+					</tr>
+                </tbody>
+              </table>
+            </div>
+               <ristorante:pagination page="${pagina}"/>
+            
+          </div>
+        </div>
+       </div>
+
+	</div>
+</body>
+</html>

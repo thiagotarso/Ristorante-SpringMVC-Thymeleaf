@@ -28,14 +28,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lowagie.text.pdf.AcroFields.Item;
+
 import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.Controller.validator.ComandaValidator;
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
+import br.com.Tjsistemas.ristorante.dto.PreparoDTO;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.Mesa;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
 import br.com.Tjsistemas.ristorante.model.Produto;
+import br.com.Tjsistemas.ristorante.model.SetorPreparo;
 import br.com.Tjsistemas.ristorante.model.SituacaoMesa;
 import br.com.Tjsistemas.ristorante.model.StatusComanda;
 import br.com.Tjsistemas.ristorante.model.Usuario;
@@ -170,6 +174,25 @@ public class ComandaController {
 		  return mv;
 	}
 	
+	@GetMapping("/preparo")
+	 public ModelAndView listaPreparo(ComandaFilter comandaFilter, BindingResult result,
+			                          @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
+		  ModelAndView mv = new ModelAndView("/comanda/preparoComandas");
+		  
+		  mv.addObject("preparo", SetorPreparo .values()); 
+		  
+		  comandaFilter.setEmpresa(empresaSessao(null));
+		  
+//		  List<Comanda> itensComadna = comandas.filtrarPreparo();
+//		  itensComadna.forEach(n ->  System.out.print(n));
+		  
+		  List<PreparoDTO> preparo = comandas.filtrarPreparo(); 
+		  
+//		  PageWrapper<Comanda> paginasWrapper = new PageWrapper<>(comandas.filtrarPreparo(pageable), httpServletRequest);
+		  mv.addObject("pagina", preparo);
+		  
+		  return mv;
+	}
 
 
 	@GetMapping("/{id}")

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
+import br.com.Tjsistemas.ristorante.dto.PreparoDTO;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
@@ -23,5 +24,7 @@ public interface ComandasQueries {
 	public BigDecimal totalComandaMes(Long empresa);
 	public BigDecimal valorTicketMedioAno(Long empresa);
 	
-	public List<ComandaMes> totalPorMes(Long empresa); 
+	public List<ComandaMes> totalPorMes(Long empresa);
+	
+	public List<PreparoDTO> filtrarPreparo(); 
 }

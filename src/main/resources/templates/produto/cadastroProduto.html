@@ -79,8 +79,8 @@
                       <label class="control-label" for="selectSetor">Setor Prep.</label>
 						<select class="form-control" id="selectSetor" th:field="*{setorPreparo}" >
 							<option value="">Selecione um setor</option>
-							<option th:each="status : ${setorPreparo}" th:value="${status}" 
-							        th:text="${status.descricao}">Bar</option>
+							<option th:each="setor : ${setorPreparo}" th:value="${setor}" 
+							        th:text="${setor.descricao}">Bar</option>
 						</select>
 					 </div>
                   

@@ -6,6 +6,7 @@ import br.com.Tjsistemas.ristorante.model.Camareiro;
 import br.com.Tjsistemas.ristorante.model.Cliente;
 import br.com.Tjsistemas.ristorante.model.Mesa;
 import br.com.Tjsistemas.ristorante.model.Produto;
+import br.com.Tjsistemas.ristorante.model.SetorPreparo;
 import br.com.Tjsistemas.ristorante.model.StatusComanda;
 
 public class ComandaFilter {
@@ -15,6 +16,7 @@ public class ComandaFilter {
     public BigDecimal valorMinimo;
     public BigDecimal valorMaximo;
 	public StatusComanda status;
+	public SetorPreparo setorPreparo;
     public Mesa mesa;
     public Camareiro camareiro;
     public Cliente cliente;
@@ -44,6 +46,12 @@ public class ComandaFilter {
 	}
 	public void setStatus(StatusComanda status) {
 		this.status = status;
+	}
+	public SetorPreparo getSetorPreparo() {
+		return setorPreparo;
+	}
+	public void setSetorPreparo(SetorPreparo setorPreparo) {
+		this.setorPreparo = setorPreparo;
 	}
 	public Mesa getMesa() {
 		return mesa;

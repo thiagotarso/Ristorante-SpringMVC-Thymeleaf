@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,9 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
+import br.com.Tjsistemas.ristorante.dto.PreparoDTO;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
+import br.com.Tjsistemas.ristorante.model.StatusComanda;
 import br.com.Tjsistemas.ristorante.repository.filter.ComandaFilter;
 import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
 
@@ -189,4 +192,51 @@ public class ComandasImpl implements ComandasQueries {
 			}
 		}
 	}
+	
+	
+//	@SuppressWarnings("unchecked")
+//	@Transactional(readOnly = true)
+//	@Override
+//	private Page<Comanda> filtrarPreparos(Pageable pageable) {
+//		Criteria criteria =  manager.unwrap(Session.class).createCriteria(ItemComanda.class);
+//		criteria.createAlias("comanda", "c", JoinType.LEFT_OUTER_JOIN);
+//		
+//        paginacaoUtil.preparar(criteria, pageable);		
+//        
+//		criteria.add(Restrictions.gt("quantidadeAdicionada", 0));
+//	    criteria.add(Restrictions.eq("c.status", StatusComanda.EMITIDA));
+////	    criteria.	Projections.min("controleAtendimento")
+//		criteria.setProjection(Projections.projectionList()
+//				.add(Projections.groupProperty("comanda")));
+//		
+//		return new PageImpl<>(criteria.list(), pageable, preparoTotal());
+//	}
+	
+	@Override
+	public List<PreparoDTO> filtrarPreparo() {
+
+		@SuppressWarnings("unchecked")
+		List<PreparoDTO> comandasPreparo = manager.createNamedQuery("Comanda.preparoComandas")
+				.getResultList();
+		
+	
+		return comandasPreparo;
+	}
+	
+	private Long preparoTotal() {
+		   Criteria criteria =  manager.unwrap(Session.class).createCriteria(ItemComanda.class);
+		   criteria.createAlias("comanda", "c", JoinType.LEFT_OUTER_JOIN);
+		   criteria.add(Restrictions.eq("c.status", StatusComanda.EMITIDA));
+		   
+		   criteria.add(Restrictions.gt("quantidadeAdicionada", 0));
+		   criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("comanda")));
+		   criteria.setProjection(Projections.rowCount());
+			return (Long) criteria.uniqueResult();
+		}
+	
+//	private void preparoFiltro(ComandaFilter filtro, Criteria criteria) {
+//			if (!StringUtils.isEmpty(filtro.getSetorPreparo())) {
+//				criteria.add(Restrictions.eq("setorPreparo", filtro.getSetorPreparo()));
+//			}
+//	}
 }
