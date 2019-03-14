@@ -3,6 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout/layoutPadrao"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:ristorante="http://TJsistemas.ristorante.com">
 
 <head>
@@ -66,47 +67,57 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>
-                       <ristorante:order page="${pagina}" field="id" text="ID"/>        
-                    </th>
-                    <th><ristorante:order page="${pagina}" field="Camareriro" text="Camareriro"/></th>
-                    <th>Data</th>
+                    <th>Id</th>
+                    <th>Codigo</th>
+                    <th>Camareiro</th>
+                    <th>Status</th>
+                    <th>Mesa</th>
+                    <th>Tempo</th>
                     <th class="text-right">acoes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="comanda : ${pagina.conteudo}">
-                    <td th:text="${comanda.id}">1</td>
-                    <td th:text="${comanda.cliente.nome}">cliente</td>
-                    <td th:text="${{comanda.inicioAtendimento}}">data</td>
+                  <tr th:each="Preparo : ${comandasPreparo}">
+                    <td th:text="${Preparo.idComanda}">1</td>
+                    <td th:text="${Preparo.codigo}">codigo</td>
+                    <td th:text="${Preparo.nomeCamareiro}">camareiro</td>
+                    <td th:text="${Preparo.status}">status</td>
+                    <td th:text="${Preparo.numeroMesa}">mesa</td>
+                    <td th:text="${{Preparo.dataAlteracao}}">data</td>
                     
                     	<td class="text-right" >
-							  <form method="POST" th:action="@{/relatorios/cupom/{id}(id=${comanda.id})}" target="_blank">
-                                 <button type="submit" class="btn btn-primary btn-xs"> <i class="fa fa-file-pdf-o"></i></button>
+							  <form method="POST" th:action="@{/relatorios/cupom/{id}(id=${Preparo.idComanda})}" target="_blank">
+                                 <button type="submit" class="btn btn-primary btn-xs"> <i class="fa fa-file-pdf-o" title="impressao"></i></button>
 
-							     <a class="btn  btn-link  btn-xs" title="visualizar"> 
-								   <i class="fa fa-pencil"></i>
+							     <a class="btn  btn-danger  btn-xs js-encerrar-preparo-btn" data:codigo="${Preparo.codigo}"  data:url="@{/comanda/encerramentoComanda}" 
+							         data:id-comanda="${Preparo.idComanda}" data:camareiro="${Preparo.nomeCamareiro}"   title="Encerramento"> 
+								   <i class="fa fa-window-close"></i>
 							     </a>
 
-                                 <a class="btn  btn-link  btn-xs" title="Encerramento"> 
-								   <i class="fa fa-pencil"></i>
+                                 <a class="btn  btn-link  btn-xs " title="visualizar"> 
+								   <i class="fa fa-window-maximize"></i>
 							     </a>							  
                               </form> 
 						</td>
                   </tr>
                   
-                  <tr th:if="${pagina.vazia}">
-					  <td colspan="7">Nenhum Comanda Cadastrado!</td>
-					</tr>
+<!--                   <tr th:if="${Preparo.empty}"> -->
+<!-- 					  <td colspan="7">Nenhum Comanda Cadastrado!</td> -->
+<!-- 				  </tr> -->
                 </tbody>
               </table>
             </div>
-               <ristorante:pagination page="${pagina}"/>
+<!--                <ristorante:pagination page="${pagina}"/> -->
             
           </div>
         </div>
        </div>
 
 	</div>
+	
+<th:block layout:fragment="javascript-extra"> 
+	 <script th:src="@{/javascripts/vendors/sweetalert.min.js}"></script>
+	 <script th:src="@{/javascripts/comandas.preparo.js}"></script>
+ </th:block>
 </body>
 </html>

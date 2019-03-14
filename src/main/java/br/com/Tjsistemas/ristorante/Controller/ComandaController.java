@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.lowagie.text.pdf.AcroFields.Item;
-
 import br.com.Tjsistemas.ristorante.Controller.page.PageWrapper;
 import br.com.Tjsistemas.ristorante.Controller.validator.ComandaValidator;
 import br.com.Tjsistemas.ristorante.dto.ComandaMes;
@@ -173,27 +171,6 @@ public class ComandaController {
 		  
 		  return mv;
 	}
-	
-	@GetMapping("/preparo")
-	 public ModelAndView listaPreparo(ComandaFilter comandaFilter, BindingResult result,
-			                          @PageableDefault(size=5) Pageable pageable, HttpServletRequest httpServletRequest ) {
-		  ModelAndView mv = new ModelAndView("/comanda/preparoComandas");
-		  
-		  mv.addObject("preparo", SetorPreparo .values()); 
-		  
-		  comandaFilter.setEmpresa(empresaSessao(null));
-		  
-//		  List<Comanda> itensComadna = comandas.filtrarPreparo();
-//		  itensComadna.forEach(n ->  System.out.print(n));
-		  
-		  List<PreparoDTO> preparo = comandas.filtrarPreparo(); 
-		  
-//		  PageWrapper<Comanda> paginasWrapper = new PageWrapper<>(comandas.filtrarPreparo(pageable), httpServletRequest);
-		  mv.addObject("pagina", preparo);
-		  
-		  return mv;
-	}
-
 
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id){
@@ -256,6 +233,30 @@ public class ComandaController {
 		return mvTabelaMesasComanda(uuid);
 	}
 	
+	@GetMapping("/preparo")
+	 public ModelAndView listaPreparo(ComandaFilter comandaFilter, BindingResult result) {
+		  ModelAndView mv = new ModelAndView("/comanda/comandasPreparo");
+		  
+		  mv.addObject("setorPreparo", SetorPreparo.values()); 
+		  comandaFilter.setEmpresa(empresaSessao(null));
+		  
+		  List<PreparoDTO> preparo = comandas.filtrarPreparo(empresaSessao(null)); 
+		  mv.addObject("comandasPreparo", preparo);
+		  return mv;
+	}
+	
+	@PutMapping("/encerramentoComanda")
+	 public @ResponseBody ResponseEntity<?> encerramentoPreparo(Long idComanda) {
+	      Comanda comanda = comandas.findByIdAndEmpresa(idComanda, empresaSessao(null)) ;
+		  comanda.setItens(comandas.BuscarItensComanda(comanda));
+		  for (ItemComanda item : comanda.getItens()) {
+			    item.setQuantidadeAdicionada(0);
+		      }
+		  
+		  comandaService.salvar(comanda);
+		  return ResponseEntity.ok().build();
+	}
+	
 	public ModelAndView mvTabelaMesasComanda(String uuid) {
 		ModelAndView mv = new ModelAndView("comanda/tabelaMesas");
 		mv.addObject("mesasSelecionada", tabelaItensSession.getMesas(uuid)); 
@@ -306,8 +307,6 @@ public class ComandaController {
 		comanda.adicionarMesas(tabelaItensSession.getMesas(comanda.getUuid()));
 		comanda.adicionarItens(tabelaItensSession.getItens(comanda.getUuid()));
 		comanda.calcularValorTotal();
-		
-		System.out.println(" metodos "+comanda.getValorTotal());
 		
 		comandaValidator.validate(comanda, bindingResult);
 	}

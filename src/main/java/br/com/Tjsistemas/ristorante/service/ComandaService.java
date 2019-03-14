@@ -34,6 +34,5 @@ public class ComandaService {
 		 }
     		
 	    comandas.save(comanda);
-//    			publisher.publishEvent(new MesaEvent(comanda.getMesa)); ex. Evento
 	}
 }

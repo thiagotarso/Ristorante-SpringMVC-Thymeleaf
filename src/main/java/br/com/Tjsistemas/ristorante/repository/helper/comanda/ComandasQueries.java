@@ -26,5 +26,5 @@ public interface ComandasQueries {
 	
 	public List<ComandaMes> totalPorMes(Long empresa);
 	
-	public List<PreparoDTO> filtrarPreparo(); 
+	public List<PreparoDTO> filtrarPreparo(Long empresa);
 }

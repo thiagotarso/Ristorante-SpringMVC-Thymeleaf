@@ -28,10 +28,10 @@
 		  and mc.mesa_id = m.mesa_id
 		  and i.comanda_id = i.comanda_id) AS numeroMesa,
 		       ca.nome camareiro,
-		 min(i.controle_atendimento) AS controleAtendimento
+		 TO_CHAR(min(i.controle_atendimento) , 'DD/MM HH24:MI:SS')AS controleAtendimento
 		from item_comanda i INNER JOIN comanda c ON i.comanda_id = c.comanda_id
 		                    INNER JOIN camareiro ca ON ca.camareiro_id = c.camareiro_id  
-		where c.empresa =  1
+		where c.empresa =  :empresa
 		  and i.quantidade_adicionada > 0 
 		  and c.status = 'EMITIDA'
 		group by i.comanda_id, c.codigo, c.status, ca.nome
