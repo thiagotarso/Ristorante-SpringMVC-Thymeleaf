@@ -240,17 +240,19 @@ public class ComandaController {
 		  mv.addObject("setorPreparo", SetorPreparo.values()); 
 		  comandaFilter.setEmpresa(empresaSessao(null));
 		  
-		  List<PreparoDTO> preparo = comandas.filtrarPreparo(empresaSessao(null)); 
+		  List<PreparoDTO> preparo = comandas.filtrarPreparo(empresaSessao(null), comandaFilter.getSetorPreparo()); 
 		  mv.addObject("comandasPreparo", preparo);
 		  return mv;
 	}
 	
 	@PutMapping("/encerramentoComanda")
-	 public @ResponseBody ResponseEntity<?> encerramentoPreparo(Long idComanda) {
+	 public @ResponseBody ResponseEntity<?> encerramentoPreparo(Long idComanda,String localPreparo) {
 	      Comanda comanda = comandas.findByIdAndEmpresa(idComanda, empresaSessao(null)) ;
 		  comanda.setItens(comandas.BuscarItensComanda(comanda));
 		  for (ItemComanda item : comanda.getItens()) {
-			    item.setQuantidadeAdicionada(0);
+			    if (item.getSetorPreparo().toString().equals(localPreparo)) {
+			    	item.setQuantidadeAdicionada(0);
+				}
 		      }
 		  
 		  comandaService.salvar(comanda);

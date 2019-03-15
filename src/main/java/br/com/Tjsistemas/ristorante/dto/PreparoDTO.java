@@ -4,15 +4,15 @@ public class PreparoDTO {
 
 	public Long idComanda;
 	public Long codigo;
-	public String status;
+	public String setorPreparo;
 	public Long numeroMesa;
 	public String nomeCamareiro;
 	public String dataAlteracao;
 	
-	public PreparoDTO(Long idComanda, Long codigo, String status, Long numeroMesa, String nomeCamareiro, String dataAlteracao) {
+	public PreparoDTO(Long idComanda, Long codigo, String setorPreparo, Long numeroMesa, String nomeCamareiro, String dataAlteracao) {
 		this.idComanda = idComanda;
 		this.codigo = codigo;
-		this.status = status;
+		this.setorPreparo = setorPreparo;
 		this.numeroMesa = numeroMesa;
 		this.nomeCamareiro = nomeCamareiro;
 		this.dataAlteracao = dataAlteracao;
@@ -29,11 +29,11 @@ public class PreparoDTO {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	public String getStatus() {
-		return status;
+	public String getSetorPreparo() {
+		return setorPreparo;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSetorPreparo(String setorPreparo) {
+		this.setorPreparo = setorPreparo;
 	}
 	public Long getNumeroMesa() {
 		return numeroMesa;

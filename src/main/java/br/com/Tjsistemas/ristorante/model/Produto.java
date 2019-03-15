@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +36,7 @@ public class Produto {
     public BigDecimal precoCusto ;
     
     @Column(name="setor_preparo")
+    @Enumerated(EnumType.STRING)
     public SetorPreparo setorPreparo;
     
     @Column(name="margem_de_lucro")

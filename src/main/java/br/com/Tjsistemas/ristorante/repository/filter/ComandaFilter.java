@@ -16,7 +16,7 @@ public class ComandaFilter {
     public BigDecimal valorMinimo;
     public BigDecimal valorMaximo;
 	public StatusComanda status;
-	public SetorPreparo setorPreparo;
+	public SetorPreparo setorPreparo = SetorPreparo.BAR;
     public Mesa mesa;
     public Camareiro camareiro;
     public Cliente cliente;

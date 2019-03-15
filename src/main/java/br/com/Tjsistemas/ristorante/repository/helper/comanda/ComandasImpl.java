@@ -29,6 +29,7 @@ import br.com.Tjsistemas.ristorante.dto.PreparoDTO;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
+import br.com.Tjsistemas.ristorante.model.SetorPreparo;
 import br.com.Tjsistemas.ristorante.repository.filter.ComandaFilter;
 import br.com.Tjsistemas.ristorante.repository.paginacao.PaginacaoUtil;
 
@@ -191,11 +192,12 @@ public class ComandasImpl implements ComandasQueries {
 	}
 	
 	@Override
-	public List<PreparoDTO> filtrarPreparo(Long empresa) {
+	public List<PreparoDTO> filtrarPreparo(Long empresa, SetorPreparo setorPreparo) {
 
 		@SuppressWarnings("unchecked")
 		List<PreparoDTO> comandasPreparo = manager.createNamedQuery("Comanda.preparoComandas")
 		.setParameter("empresa", empresa)
+		.setParameter("setorPreparo", setorPreparo.toString())
 				.getResultList();
 	
 		return comandasPreparo;

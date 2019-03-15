@@ -11,6 +11,7 @@ import br.com.Tjsistemas.ristorante.dto.PreparoDTO;
 import br.com.Tjsistemas.ristorante.model.Comanda;
 import br.com.Tjsistemas.ristorante.model.ItemComanda;
 import br.com.Tjsistemas.ristorante.model.MesaComanda;
+import br.com.Tjsistemas.ristorante.model.SetorPreparo;
 import br.com.Tjsistemas.ristorante.repository.filter.ComandaFilter;
 
 public interface ComandasQueries {
@@ -26,5 +27,5 @@ public interface ComandasQueries {
 	
 	public List<ComandaMes> totalPorMes(Long empresa);
 	
-	public List<PreparoDTO> filtrarPreparo(Long empresa);
+	public List<PreparoDTO> filtrarPreparo(Long empresa, SetorPreparo setorPreparo);
 }

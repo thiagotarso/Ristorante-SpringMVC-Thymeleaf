@@ -27,15 +27,16 @@ Ristorante.comandasPreparos = (function(){
 			confirmButtonColor: '#DD6B55',
 			confirmButtonText: 'Sim, Encerre agora!',
 			closeOnConfirm: false
-		}, onEncerramentoConfirmado.bind(this, url,botaoClicado.data('idComanda')));
+		}, onEncerramentoConfirmado.bind(this, url,botaoClicado.data('idComanda'),botaoClicado.data('preparo')));
 	}
 		
-    function onEncerramentoConfirmado(url,id){
+    function onEncerramentoConfirmado(url,id, preparo){
 		$.ajax({
 			url: url,
 			method: 'PUT',
 			data:{
-				idComanda:id
+				idComanda:id,
+				localPreparo: preparo
 			},
 		  success: onEncerramentoRealizado.bind(this),
 		  error:  onErrorEnceramento.bind(this)

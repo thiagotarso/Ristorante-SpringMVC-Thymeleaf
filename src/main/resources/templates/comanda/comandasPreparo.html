@@ -42,10 +42,10 @@
         </div>
         <div class="row">
         
-   <div class="col-md-12">
-     <div class="card">
-      </div>
-   </div>
+<!--    <div class="col-md-12"> -->
+<!--      <div class="card"> -->
+<!--       </div> -->
+<!--    </div> -->
           
           <div class="col-md-12">
             <div class="card">
@@ -53,7 +53,6 @@
              <form class="form-horizontal" method="GET" th:object=${comandaFilter}>
              <div class="col-sm-offset-4 col-sm-2" >
                  <select class="form-control" id="selectSetor" th:field="*{setorPreparo}" > 
-					<option value="">Selecione um setor</option> 
 					<option th:each="setor : ${setorPreparo}" th:value="${setor}"  
 					        th:text="${setor.descricao}">Bar</option> 
 			     </select>
@@ -70,7 +69,7 @@
                     <th>Id</th>
                     <th>Codigo</th>
                     <th>Camareiro</th>
-                    <th>Status</th>
+                    <th>Set. Preparo</th>
                     <th>Mesa</th>
                     <th>Tempo</th>
                     <th class="text-right">acoes</th>
@@ -81,7 +80,7 @@
                     <td th:text="${Preparo.idComanda}">1</td>
                     <td th:text="${Preparo.codigo}">codigo</td>
                     <td th:text="${Preparo.nomeCamareiro}">camareiro</td>
-                    <td th:text="${Preparo.status}">status</td>
+                    <td th:text="${Preparo.setorPreparo}">status</td>
                     <td th:text="${Preparo.numeroMesa}">mesa</td>
                     <td th:text="${{Preparo.dataAlteracao}}">data</td>
                     
@@ -90,13 +89,13 @@
                                  <button type="submit" class="btn btn-primary btn-xs"> <i class="fa fa-file-pdf-o" title="impressao"></i></button>
 
 							     <a class="btn  btn-danger  btn-xs js-encerrar-preparo-btn" data:codigo="${Preparo.codigo}"  data:url="@{/comanda/encerramentoComanda}" 
-							         data:id-comanda="${Preparo.idComanda}" data:camareiro="${Preparo.nomeCamareiro}"   title="Encerramento"> 
+							         data:id-comanda="${Preparo.idComanda}" data:preparo="${Preparo.setorPreparo}" data:camareiro="${Preparo.nomeCamareiro}"   title="Encerramento"> 
 								   <i class="fa fa-window-close"></i>
 							     </a>
 
-                                 <a class="btn  btn-link  btn-xs " title="visualizar"> 
-								   <i class="fa fa-window-maximize"></i>
-							     </a>							  
+<!--                                  <a class="btn  btn-link  btn-xs " title="visualizar">  -->
+<!-- 								   <i class="fa fa-window-maximize"></i> -->
+<!-- 							     </a>							   -->
                               </form> 
 						</td>
                   </tr>

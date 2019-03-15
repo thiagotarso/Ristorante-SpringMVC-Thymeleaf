@@ -91,6 +91,7 @@ class TabelaItensComanda {
 		
 		itemComanda = new ItemComanda();
 		itemComanda.setProduto(produto);
+		itemComanda.setSetorPreparo(produto.getSetorPreparo());
         itemComanda.setQuantidade(quantidade);
         itemComanda.setValorUnitario(produto.getValor());
         
