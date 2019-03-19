@@ -1,6 +1,7 @@
 package br.com.Tjsistemas.ristorante.session;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +75,7 @@ class TabelaItensComanda {
 				  .orElse(0);
 	}
 	
-	public void adicionaItem(Produto produto, Integer quantidade, String obs) {
+	public void adicionaItem(Produto produto, Integer quantidade,  Integer quantidadeAdicionada, LocalDateTime controleAtendimento, String obs) {
 		
 	 Optional<ItemComanda> itemComandaOptional = buscarItemPorProduto(produto);
 	 
@@ -82,6 +83,7 @@ class TabelaItensComanda {
 	    if(itemComandaOptional.isPresent()) {
 			itemComanda = itemComandaOptional.get();
 			itemComanda.setQuantidade(itemComanda.getQuantidade() + quantidade);
+            itemComanda.setQuantidadeAdicionada(quantidadeAdicionada);
 			
 			if(obs != null) {
 			      itemComanda.setObservacoes(obs);
@@ -94,6 +96,7 @@ class TabelaItensComanda {
 		itemComanda.setSetorPreparo(produto.getSetorPreparo());
         itemComanda.setQuantidade(quantidade);
         itemComanda.setValorUnitario(produto.getValor());
+        itemComanda.setQuantidadeAdicionada(quantidadeAdicionada);
         
         itemComanda.setObservacoes(obs);
         
@@ -103,7 +106,18 @@ class TabelaItensComanda {
 	
 	public void alterarQuantidadeItens(Produto produto, Integer quantidade){
 		ItemComanda itemComanda = buscarItemPorProduto(produto).get();
-        itemComanda.setQuantidade(quantidade);
+		Integer quantidadeAlterada = quantidade - itemComanda.getQuantidade() ;
+
+	    if(quantidadeAlterada >= 0 ){
+	    	itemComanda.setQuantidadeAdicionada(itemComanda.getQuantidadeAdicionada() + quantidadeAlterada);
+	      }
+	    
+	    else if (quantidadeAlterada < 0 ){
+	    	Integer novaQtd = itemComanda.getQuantidade() - quantidade;
+	    	itemComanda.setQuantidadeAdicionada(itemComanda.getQuantidadeAdicionada() - novaQtd);
+	      }
+	      
+	      itemComanda.setQuantidade(quantidade);
 	}
 	
 	public ItemComanda buscarObservacoesItens(Produto produto){

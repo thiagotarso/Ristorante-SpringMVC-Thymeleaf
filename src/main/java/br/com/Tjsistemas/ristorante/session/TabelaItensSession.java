@@ -1,5 +1,6 @@
 package br.com.Tjsistemas.ristorante.session;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,10 +32,10 @@ public class TabelaItensSession {
 	}
 	
 
-	public void adicionaItem(String uuid, Produto produto, Integer quantidade, String obs) {
+	public void adicionaItem(String uuid, Produto produto, Integer quantidade, Integer quantidadeAdicionada, LocalDateTime controleAtendimento, String obs) {
 		TabelaItensComanda tabela = buscarTabelaPorUuid(uuid);
 		
-		tabela.adicionaItem(produto, quantidade, obs);
+		tabela.adicionaItem(produto, quantidade, quantidadeAdicionada, controleAtendimento, obs);
 		tabelas.add(tabela);
 		
 	}

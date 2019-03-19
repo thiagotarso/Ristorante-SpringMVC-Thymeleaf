@@ -1,6 +1,7 @@
 package br.com.Tjsistemas.ristorante.Controller;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -183,7 +184,8 @@ public class ComandaController {
 		
 //	    adicionando Itens
 	    for (ItemComanda item : comanda.getItens()) {
-			tabelaItensSession.adicionaItem(comanda.getUuid(), item.getProduto(), item.getQuantidade(), item.getObservacoes());
+			tabelaItensSession.adicionaItem(comanda.getUuid(), item.getProduto(), item.getQuantidade(),
+					                         item.getQuantidadeAdicionada(), item.getControleAtendimento(), item.getObservacoes());
 		}
 	    
 //	    adicionando mesas
@@ -199,7 +201,7 @@ public class ComandaController {
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long idProduto, String uuid){
 		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
-		tabelaItensSession.adicionaItem(uuid ,produto, 1, null);
+		tabelaItensSession.adicionaItem(uuid ,produto, 1, 1, LocalDateTime.now(), null);
         return mvTabelaItensComanda(uuid);
 	}
 	
@@ -208,6 +210,12 @@ public class ComandaController {
 		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
 		tabelaItensSession.alterarQuantidadeItens(uuid ,produto, quantidade);
 	
+		List<ItemComanda> lista = tabelaItensSession.getItens(uuid);
+		
+		for (ItemComanda item : lista) {
+		    System.out.println(item.getProduto().getDescricao()+" "+ item.getQuantidade() +" "+item.getQuantidadeAdicionada());	
+		}
+		
 		return mvTabelaItensComanda(uuid);
 	}
 	
@@ -268,7 +276,7 @@ public class ComandaController {
 	@PostMapping("/observacoes")
 	public @ResponseBody ResponseEntity<?> adicionarObservacoes(String uuid, Long idProduto, String obsProduto){
 		Produto produto = produtos.findOne(idProduto);
-		tabelaItensSession.adicionaItem(uuid, produto, 0, obsProduto); 
+		tabelaItensSession.adicionaItem(uuid, produto, 0, 0, null, obsProduto); 
 		
 		return ResponseEntity.ok("Observação salva Com sucesso!");
 	}
