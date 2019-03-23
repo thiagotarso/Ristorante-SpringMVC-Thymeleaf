@@ -141,6 +141,8 @@ public class ComandaController {
 		
 		try {
 			comanda.setEmpresa(empresaSessao(comanda));
+			
+			tabelaItensSession.setControleAtendimento(comanda.getUuid());
 			comandaService.salvar(comanda);
 			
 			attributes.addFlashAttribute("mensagem", "venda Salva com Sucesso!");
@@ -184,6 +186,7 @@ public class ComandaController {
 		
 //	    adicionando Itens
 	    for (ItemComanda item : comanda.getItens()) {
+	    
 			tabelaItensSession.adicionaItem(comanda.getUuid(), item.getProduto(), item.getQuantidade(),
 					                         item.getQuantidadeAdicionada(), item.getControleAtendimento(), item.getObservacoes());
 		}
@@ -210,12 +213,6 @@ public class ComandaController {
 		Produto produto = produtos.findByIdAndEmpresa(idProduto, empresaSessao(null));
 		tabelaItensSession.alterarQuantidadeItens(uuid ,produto, quantidade);
 	
-		List<ItemComanda> lista = tabelaItensSession.getItens(uuid);
-		
-		for (ItemComanda item : lista) {
-		    System.out.println(item.getProduto().getDescricao()+" "+ item.getQuantidade() +" "+item.getQuantidadeAdicionada());	
-		}
-		
 		return mvTabelaItensComanda(uuid);
 	}
 	
@@ -225,7 +222,6 @@ public class ComandaController {
 		tabelaItensSession.removerItemComanda(uuid ,produto);
 		return mvTabelaItensComanda(uuid);
 	}
-
 	
 	@PostMapping("/mesa")
 	public ModelAndView adicionarMesa(Long idMesa, String uuid){
@@ -260,6 +256,7 @@ public class ComandaController {
 		  for (ItemComanda item : comanda.getItens()) {
 			    if (item.getSetorPreparo().toString().equals(localPreparo)) {
 			    	item.setQuantidadeAdicionada(0);
+			    	item.setControleAtendimento(null);
 				}
 		      }
 		  

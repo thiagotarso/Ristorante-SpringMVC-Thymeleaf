@@ -34,7 +34,6 @@ public class TabelaItensSession {
 
 	public void adicionaItem(String uuid, Produto produto, Integer quantidade, Integer quantidadeAdicionada, LocalDateTime controleAtendimento, String obs) {
 		TabelaItensComanda tabela = buscarTabelaPorUuid(uuid);
-		
 		tabela.adicionaItem(produto, quantidade, quantidadeAdicionada, controleAtendimento, obs);
 		tabelas.add(tabela);
 		
@@ -58,6 +57,10 @@ public class TabelaItensSession {
 
 	public List<ItemComanda> getItens(String uuid) {
 		return buscarTabelaPorUuid(uuid).getItens();
+	}
+	
+	public List<ItemComanda> setControleAtendimento(String uuid) {
+		return buscarTabelaPorUuid(uuid).setControleAtendimento();
 	}
 	
 	public List<MesaComanda> getMesas(String uuid) {

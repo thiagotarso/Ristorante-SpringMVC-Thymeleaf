@@ -83,9 +83,9 @@ class TabelaItensComanda {
 	    if(itemComandaOptional.isPresent()) {
 			itemComanda = itemComandaOptional.get();
 			itemComanda.setQuantidade(itemComanda.getQuantidade() + quantidade);
-            itemComanda.setQuantidadeAdicionada(quantidadeAdicionada);
+            itemComanda.setQuantidadeAdicionada(itemComanda.getQuantidadeAdicionada() + quantidadeAdicionada);
 			
-			if(obs != null) {
+			if(obs != null ) {
 			      itemComanda.setObservacoes(obs);
 			   }
 			
@@ -97,6 +97,7 @@ class TabelaItensComanda {
         itemComanda.setQuantidade(quantidade);
         itemComanda.setValorUnitario(produto.getValor());
         itemComanda.setQuantidadeAdicionada(quantidadeAdicionada);
+        itemComanda.setControleAtendimento(controleAtendimento);
         
         itemComanda.setObservacoes(obs);
         
@@ -140,8 +141,19 @@ class TabelaItensComanda {
 	public List<ItemComanda> getItens(){
 		return itens; 
 	}
-	
 
+	public List<ItemComanda> setControleAtendimento(){
+	   List<ItemComanda> itens = null ;
+		 
+		for (ItemComanda itemComanda : getItens()) {
+			 
+			if (itemComanda.getQuantidadeAdicionada() > 0 && itemComanda.getControleAtendimento() == null) {
+					itemComanda.setControleAtendimento(LocalDateTime.now());
+		      }
+			}
+		return itens;
+	}
+	
 	private Optional<ItemComanda> buscarItemPorProduto(Produto produto) {
 	 return	 itens.stream()
 			.filter(i -> i.getProduto().equals(produto))
